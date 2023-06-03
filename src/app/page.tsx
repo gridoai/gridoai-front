@@ -71,6 +71,8 @@ const Chat: React.FC = () => {
   }
 
   const handleSendMessage = () => {
+    if (!input) return;
+
     setLoading(true);
     addMessage({
       id: messages.length,
@@ -90,7 +92,6 @@ const Chat: React.FC = () => {
     });
 
 
-    if (!input) return;
     setInput('');
   };
 
