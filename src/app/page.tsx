@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { promptApi } from "../services/api";
 
-interface Message {
+export interface Message {
   id: number;
   content: string;
   sender: string;
@@ -77,18 +77,19 @@ const Chat: React.FC = () => {
     if (!input) return;
 
     setLoading(true);
-    addMessage({
+    const newMsg = {
       id: messages.length,
       content: input,
       sender: "user",
       timestamp: new Date(),
-    });
-    promptApi(input)
+    };
+    addMessage(newMsg);
+    promptApi(input, [...messages, newMsg])
       .then(({ message }) => {
         addMessage({
           id: messages.length,
           content: message,
-          sender: "bot",
+          sender: "robot",
           timestamp: new Date(),
         });
       })

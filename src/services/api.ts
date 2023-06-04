@@ -1,3 +1,4 @@
+import { Message } from "@/app/page";
 import axios from "axios";
 
 export const api = axios.create({
@@ -12,9 +13,9 @@ type PromptResponse = {
   message: string;
 };
 
-export const promptApi = async (prompt: string) =>
+export const promptApi = async (prompt: string, pastMessages: Message[]) =>
   (
-    await localApi.get<PromptResponse>("/prompt", {
+    await localApi.post<PromptResponse>("/prompt", pastMessages, {
       headers: {
         "Content-Type": "application/json",
       },
