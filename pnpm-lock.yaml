@@ -16,6 +16,9 @@ dependencies:
   axios:
     specifier: ^1.4.0
     version: 1.4.0
+  cohere-ai:
+    specifier: ^6.2.1
+    version: 6.2.1
   eslint:
     specifier: 8.42.0
     version: 8.42.0
@@ -642,6 +645,10 @@ packages:
 
   /client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
+    dev: false
+
+  /cohere-ai@6.2.1:
+    resolution: {integrity: sha512-um6QaNPrsTZWIf7SIefr3C1Ed2M7HubkcaRZERBLsrvawN1O+ClrGcoEcvdYVBwxQcKwoPr+D3PrDXCfoFQNjQ==}
     dev: false
 
   /color-convert@2.0.1:

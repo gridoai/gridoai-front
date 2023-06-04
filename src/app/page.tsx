@@ -1,6 +1,6 @@
-'use client'
-import React, { useEffect, useRef, useState } from 'react';
-import { promptApi } from '../services/api';
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import { promptApi } from "../services/api";
 
 interface Message {
   id: number;
@@ -16,40 +16,47 @@ interface MessageProps {
 }
 
 const ChatMessage: React.FC<MessageProps> = ({ message, isSender }) => {
-
   const messageBubbleClass = isSender
-    ? 'relative  text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl'
-    : 'relative  text-sm bg-white py-2 px-4 shadow rounded-xl';
+    ? "relative  text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl"
+    : "relative  text-sm bg-white py-2 px-4 shadow rounded-xl";
 
   return (
-    <div className={isSender
-      ? 'col-start-6 col-end-13 p-3 rounded-lg'
-      : 'col-start-1 col-end-8 p-3 rounded-lg'}>
-      <div className={`flex items-center justify-start  ${isSender ? "flex-row-reverse" : "flex-row"}`}>
+    <div
+      className={
+        isSender
+          ? "col-start-6 col-end-13 p-3 rounded-lg"
+          : "col-start-1 col-end-8 p-3 rounded-lg"
+      }
+    >
+      <div
+        className={`flex items-center justify-start  ${
+          isSender ? "flex-row-reverse" : "flex-row"
+        }`}
+      >
         {/* <div
           className="flex items-center justify-center h-10 w-10 rounded-full text-white bg-indigo-500 flex-shrink-0"
         >
           {message.sender}
         </div> */}
         <div className={`${messageBubbleClass} max-w-full`}>
-          <div>{message.content}</div>
-
+          <div>
+            {message.content.split("\n").map((line) => (
+              <div key={line}>{line}</div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-
 const Chat: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>(
-    []
-  );
-  const [input, setInput] = useState('');
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'instant' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "instant" });
   };
 
   const [loading, setLoading] = useState(false);
@@ -62,13 +69,9 @@ const Chat: React.FC = () => {
 
   const addMessage = (message: Message) => {
     console.log("adding msg", message.sender);
-    setMessages((messages) => [
-      message,
-      ...messages,
-    ]);
+    setMessages((messages) => [message, ...messages]);
     setTimeout(scrollToBottom, 10);
-
-  }
+  };
 
   const handleSendMessage = () => {
     if (!input) return;
@@ -77,22 +80,23 @@ const Chat: React.FC = () => {
     addMessage({
       id: messages.length,
       content: input,
-      sender: 'user',
+      sender: "user",
       timestamp: new Date(),
     });
-    promptApi(input).then(({ message }) => {
-      addMessage({
-        id: messages.length,
-        content: message,
-        sender: 'bot',
-        timestamp: new Date(),
+    promptApi(input)
+      .then(({ message }) => {
+        addMessage({
+          id: messages.length,
+          content: message,
+          sender: "bot",
+          timestamp: new Date(),
+        });
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    }).finally(() => {
-      setLoading(false);
-    });
 
-
-    setInput('');
+    setInput("");
   };
 
   return (
@@ -101,26 +105,32 @@ const Chat: React.FC = () => {
         <div className="flex flex-col-reverse grid-cols-12 gap-y-2">
           <div ref={messagesEndRef} />
           {messages.map((message, i) => (
-            <ChatMessage  key={message.timestamp.getTime()} message={message} isSender={message.sender === 'user'} />
-            ))}
+            <ChatMessage
+              key={message.timestamp.getTime()}
+              message={message}
+              isSender={message.sender === "user"}
+            />
+          ))}
         </div>
       </div>
       <div className="flex flex-row items-center">
         <input
-        placeholder='Send a message...'
+          placeholder="Send a message..."
           className="w-full p-2 border-2 border-gray-300 rounded-md"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <button disabled={loading} className="ml-2 p-2 bg-indigo-500 disabled:bg-indigo-400 text-white rounded-md" onClick={handleSendMessage}>
+        <button
+          disabled={loading}
+          className="ml-2 p-2 bg-indigo-500 disabled:bg-indigo-400 text-white rounded-md"
+          onClick={handleSendMessage}
+        >
           Send
         </button>
       </div>
     </div>
   );
 };
-
-
 
 export default function Home() {
   return (
