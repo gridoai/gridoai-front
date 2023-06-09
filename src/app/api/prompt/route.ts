@@ -3,7 +3,9 @@ import { NextResponse } from "next/server";
 
 import { Message } from "@/app/page";
 import cohere from "cohere-ai";
+
 console.log(process.env.COHERE_API_KEY);
+
 process.env.COHERE_API_KEY
   ? cohere.init(process.env.COHERE_API_KEY)
   : console.error("No COHERE_API_KEY found in environment variables");
@@ -25,9 +27,11 @@ export const POST = async (req: Request) => {
   return NextResponse.json({
     message: response.body.generations
       .reduce((acc, current) => `${current.text}\n${acc}`, "")
-      .replace("bot: ", ""),
+      .replace("bot: ", "")
+      .replace("robot: ", ""),
   });
 };
+
 async function askAI(
   pastMessages: Message[],
   initialPrompt: string,
@@ -69,12 +73,21 @@ async function buildPrompt(pastMessages: Message[], initialPrompt: string) {
     : [];
 
   const historyContext = pastMessages.length
-    ? `This is the chat history, you are tagged as "robot":\n ${pastMessagesString}`
+    ? `History section, you are tagged as "robot":\n ${pastMessagesString}`
     : undefined;
 
   const docsContext =
     docs?.length > 0
-      ? `This is some knowledge base: ${docs.join("\n ")}}`
+      ? `Context section: ${docs.reduce(
+          (acc, current) =>
+            acc +
+            `
+    file name: ${current.url}
+    content: ${current.content}
+    uid: ${current.uid}
+    `,
+          ""
+        )}}`
       : undefined;
 
   const prompt = [
