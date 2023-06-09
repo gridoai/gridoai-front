@@ -1,5 +1,6 @@
 "use client";
 import { Textarea } from "@/components/textarea";
+import { useToast } from "@/components/use-toast";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { promptApi, uploadFile } from "../services/api";
 
@@ -55,6 +56,7 @@ const Chat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "instant" });
@@ -90,7 +92,15 @@ const Chat: React.FC = () => {
     uploadFile(file)
       .then((data) => console.log(data))
       .then(() => setFile(undefined))
-      .catch((err) => console.error(err))
+      .then(() => toast({ title: "File uploaded successfully" }))
+      .catch((err) => {
+        console.error(err);
+        toast({
+          title: `Error uploading file: ${err.message}`,
+          type: "error",
+          description: "Please try again later",
+        });
+      })
       .finally(() => {
         setLoading(false);
       });
