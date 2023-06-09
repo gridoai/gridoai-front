@@ -1,6 +1,7 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { promptApi } from "../services/api";
+import { Textarea } from "@/components/textarea";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import { promptApi, uploadFile } from "../services/api";
 
 export interface Message {
   id: number;
@@ -72,8 +73,34 @@ const Chat: React.FC = () => {
     setMessages((messages) => [message, ...messages]);
     setTimeout(scrollToBottom, 10);
   };
+  const [file, setFile] = useState<File>();
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleUploadClick = () => {
+    if (!file) {
+      return;
+    }
+    setLoading(true);
+    console.log("uploading file", file);
+    uploadFile(file)
+      .then((data) => console.log(data))
+      .then(() => setFile(undefined))
+      .catch((err) => console.error(err))
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   const handleSendMessage = () => {
+    if (file) {
+      handleUploadClick();
+      return;
+    }
     if (!input) return;
 
     setLoading(true);
@@ -114,20 +141,32 @@ const Chat: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="flex flex-row items-center">
+      <div className="flex flex-col gap-2">
         <input
-          placeholder="Send a message..."
-          className="w-full p-2 border-2 border-gray-300 rounded-md"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
+          type="file"
+          className="block w-full text-sm text-slate-500
+        file:mr-4 file:py-2 file:px-4
+        file:rounded-full file:border-0
+        file:text-sm file:font-semibold
+        file:bg-indigo-50 file:text-indigo-700
+        hover:file:bg-indigo-100
+            "
+          onChange={handleFileChange}
         />
-        <button
-          disabled={loading}
-          className="ml-2 p-2 bg-indigo-500 disabled:bg-indigo-400 text-white rounded-md"
-          onClick={handleSendMessage}
-        >
-          Send
-        </button>
+        <div className="flex flex-row items-center">
+          <Textarea
+            placeholder="Send a message..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <button
+            disabled={loading}
+            className="ml-2 p-2  disabled:text-indigo-400 text-indigo-500 font-bold rounded-md"
+            onClick={handleSendMessage}
+          >
+            {loading ? "Loading..." : `Send`}
+          </button>
+        </div>
       </div>
     </div>
   );
