@@ -25,10 +25,24 @@ export const promptApi = async (prompt: string, pastMessages: Message[]) =>
     })
   ).data;
 
+export const uploadFile = async (file: File) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  return (
+    await api.post<string>(`/upload/${file.name}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+  ).data;
+};
+
 export const searchDocs = async (query: string) =>
   (
     await api
-      .get<string[]>("/search", {
+      .get<
+        { url: string; numberOfWords: number; content: string; uid: string }[]
+      >("/search", {
         headers: {
           "Content-Type": "application/json",
         },
