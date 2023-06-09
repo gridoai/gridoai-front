@@ -1,6 +1,7 @@
 "use client";
 import { Textarea } from "@/components/textarea";
 import { useToast } from "@/components/use-toast";
+import { Toast } from "@radix-ui/react-toast";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { promptApi, uploadFile } from "../services/api";
 
@@ -84,6 +85,7 @@ const Chat: React.FC = () => {
   };
 
   const handleUploadClick = () => {
+    toast({ title: "File uploaded successfully" });
     if (!file) {
       return;
     }
@@ -139,6 +141,7 @@ const Chat: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full w-full p-6">
+      <Toast />
       <div className="flex flex-col h-full overflow-x-auto mb-4">
         <div className="flex flex-col-reverse grid-cols-12 gap-y-2">
           <div ref={messagesEndRef} />
