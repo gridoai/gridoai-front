@@ -1,4 +1,4 @@
-import { Message } from "@/app/page";
+import { Message } from "@/types/Message";
 import axios from "axios";
 
 export const api = axios.create({
@@ -11,6 +11,7 @@ export const localApi = axios.create({
 
 type PromptResponse = {
   message: string;
+  error: never;
 };
 
 export const promptApi = async (prompt: string, pastMessages: Message[]) =>

@@ -1,7 +1,7 @@
 import { searchDocs } from "@/services/api";
 import { NextResponse } from "next/server";
 
-import { Message } from "@/app/page";
+import { Message } from "@/types/Message";
 import cohere from "cohere-ai";
 
 console.log(process.env.COHERE_API_KEY);
@@ -25,10 +25,10 @@ export const POST = async (req: Request) => {
   }
   console.log(response.body);
   return NextResponse.json({
-    message: response.body.generations
-      .reduce((acc, current) => `${current.text}\n${acc}`, "")
-      .replace("bot: ", "")
-      .replace("robot: ", ""),
+    message: response.body.generations.reduce(
+      (acc, current) => `${current.text}\n${acc}`,
+      ""
+    ),
   });
 };
 
@@ -64,7 +64,7 @@ async function buildPrompt(pastMessages: Message[], initialPrompt: string) {
         new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
     )
     .reduce(
-      (acc, current) => `${current.sender}: ${current.content}\n${acc}`,
+      (acc, current) => `${current.type}: ${current.message}\n${acc}`,
       ""
     );
 
@@ -73,7 +73,7 @@ async function buildPrompt(pastMessages: Message[], initialPrompt: string) {
     : [];
 
   const historyContext = pastMessages.length
-    ? `History section, you are tagged as "robot":\n ${pastMessagesString}`
+    ? `History section :\n ${pastMessagesString}`
     : undefined;
 
   const docsContext =
