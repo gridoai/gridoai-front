@@ -2,7 +2,6 @@
 import { promptApi, uploadFile } from "@/services/api";
 import { Message } from "@/types/Message";
 import { PaperPlaneRight, Polygon, Spinner, User } from "@phosphor-icons/react";
-import Head from "next/head";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { useToast } from "../use-toast";
@@ -163,16 +162,14 @@ export default function Chat() {
   };
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <div className={styles.topnav}>
         <div className={styles.navlogo}>
           <a href="/">GridoAI</a>
         </div>
       </div>
-      <main className={styles.main}>
+      <main
+        className={`${styles.main} mb-10 max-w-7xl xl:w-[80rem] xl:mx-auto `}
+      >
         <div className={styles.cloud}>
           <div ref={messageListRef} className={styles.messagelist}>
             {messages.map((message, index) => {
@@ -209,12 +206,10 @@ export default function Chat() {
             })}
           </div>
         </div>
-        <div className={styles.center}>
-          <div className={styles.cloudform}>
-            <div className="flex items-center justify-between mb-4 pr-4">
-              <input
-                type="file"
-                className=" text-sm text-white
+        <div className="flex items-center flex-wrap justify-between  gap-2 pr-4">
+          <input
+            type="file"
+            className=" text-sm text-white
                       file:mr-4 file:py-2 file:px-4
                       file:rounded-full file:border-0
                       file:text-sm file:font-semibold
@@ -222,21 +217,23 @@ export default function Chat() {
                        file:bg-neutral-900
                       hover:file:bg-neutral-800  transition-all
               "
-                onChange={handleFileChange}
-              />
-              {loadingFile ? (
-                <Spinner className="animate-spin" size={28} />
-              ) : (
-                <button
-                  onClick={handleUploadClick}
-                  className="text-white font-medium"
-                >
-                  Upload
-                </button>
-              )}
-            </div>
+            onChange={handleFileChange}
+          />
+          {loadingFile ? (
+            <Spinner className="animate-spin" size={28} />
+          ) : (
+            <button
+              onClick={handleUploadClick}
+              className="text-white font-medium"
+            >
+              Upload
+            </button>
+          )}
+        </div>
+        <div className={styles.center}>
+          <div className={styles.cloudform}>
             <form onSubmit={handleSubmit}>
-              <div className="p-4 flex gap-4 items-center flex-1 w-[75vw] border rounded-lg border-solid border-neutral-700 pr-2">
+              <div className="p-4 flex gap-4 items-center flex-1 w-full border rounded-lg border-solid border-neutral-700 pr-2">
                 <textarea
                   disabled={loading}
                   onKeyDown={handleEnter}
