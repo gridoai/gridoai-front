@@ -27,8 +27,8 @@ export const POST = async (req: Request) => {
   return NextResponse.json({
     message: response.body.generations
       .reduce((acc, current) => `${current.text}\n${acc}`, "")
-      .replace("bot: ", "")
-      .replace("robot: ", ""),
+      .replace("robot:", "")
+      .replace("bot:", ""),
   });
 };
 
@@ -91,7 +91,8 @@ async function buildPrompt(pastMessages: Message[], initialPrompt: string) {
       : undefined;
 
   const prompt = [
-    `Provide a natural and intelligent response to "${initialPrompt}".`,
+    `You are GridoAI, an intelligent chatbot for knowledge retrieval.
+    Provide a natural and intelligent response to "${initialPrompt}".`,
     historyContext,
     docsContext,
   ]
