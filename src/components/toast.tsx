@@ -5,7 +5,6 @@ import * as React from "react";
 import { twMerge } from "tailwind-merge";
 
 const cn = twMerge;
-
 const ToastProvider = ToastPrimitives.Provider;
 
 const ToastViewport = React.forwardRef<
@@ -28,7 +27,8 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-background border",
+        default:
+          "bg-neutral-950 rounded-lg border border-neutral-800 transition-all",
         destructive:
           "group destructive border-destructive bg-destructive text-destructive-foreground",
       },
