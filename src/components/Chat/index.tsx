@@ -17,7 +17,7 @@ export default function Chat() {
   const [messages, setMessages] = useState<Message[]>([
     {
       message: "Hi there! How can I help?",
-      type: "apiMessage",
+      type: "robot",
       timestamp: new Date(),
     },
   ]);
@@ -45,7 +45,7 @@ export default function Chat() {
       ...prevMessages,
       {
         message: "Oops! There seems to be an error. Please try again.",
-        type: "apiMessage",
+        type: "robot",
         timestamp: new Date(),
       },
     ]);
@@ -101,7 +101,7 @@ export default function Chat() {
       ...prevMessages,
       {
         message: data.message,
-        type: "apiMessage",
+        type: "robot",
         timestamp: new Date(),
       },
     ]);
@@ -185,14 +185,14 @@ export default function Chat() {
                     loading &&
                     index === messages.length - 1
                       ? styles.usermessagewaiting
-                      : message.type === "apiMessage"
+                      : message.type === "robot"
                       ? styles.apimessage
                       : styles.usermessage
                   }
                 >
                   {/* Display the correct icon depending on the message type */}
                   <div className="mr-2">
-                    {message.type === "apiMessage" ? (
+                    {message.type === "robot" ? (
                       <Polygon size={30} color="white" />
                     ) : (
                       <User size={30} color="white" />
