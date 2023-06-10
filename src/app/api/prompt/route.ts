@@ -25,10 +25,10 @@ export const POST = async (req: Request) => {
   }
   console.log(response.body);
   return NextResponse.json({
-    message: response.body.generations.reduce(
-      (acc, current) => `${current.text}\n${acc}`,
-      ""
-    ),
+    message: response.body.generations
+      .reduce((acc, current) => `${current.text}\n${acc}`, "")
+      .replace("bot: ", "")
+      .replace("robot: ", ""),
   });
 };
 
