@@ -36,8 +36,8 @@ const LandingPage = () => (
           Get Started
         </button> */}
     </nav>
-    <header className="px-8 h-screen items-center justify-center flex flex-col py-20 text-center">
-      <h1 className="text-9xl/tight font-bold mb-4">
+    <header className="px-8 sm:h-screen items-center justify-center flex flex-col py-20 text-center">
+      <h1 className="xl:text-8xl/tight sm:text-6xl text-5xl/tight font-bold mb-4">
         {landingPageContent.headerTitle}
       </h1>
       <p className="text-xl leading-relaxed mx-auto max-w-3xl">
@@ -55,7 +55,7 @@ const LandingPage = () => (
           management process:
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
         {landingPageContent.features.map((feature, index) => (
           <div
             key={index}
