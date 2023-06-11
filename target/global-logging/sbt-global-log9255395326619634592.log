@@ -1,0 +1,19 @@
+[debug] > Exec(sbtStashOnFailure, None, None)
+[debug] > Exec(sbtMapExec 6 __8e3858a3-7d62-4037-9a86-a6e938474836, None, None)
+[debug] > Exec(bspScalaMainClasses file:/Users/davi/gits/gridoai-front/#gridoai-front-build file:/Users/davi/gits/gridoai-front/#gridoai-front/Test file:/Users/davi/gits/gridoai-front/#gridoai-front/Compile, Some(__8e3858a3-7d62-4037-9a86-a6e938474836), Some(CommandSource(network-1)))
+[debug] jsonRpcNotify: JsonRpcNotificationMessage(2.0, build/logMessage, {"type":4,"message":"Processing buildTarget/scalaMainClasses"})
+[debug] Evaluating tasks: bspScalaMainClasses
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[warn] buildTarget/scalaMainClasses is a no-op for build.sbt targets: [BuildTargetIdentifier(file:/Users/davi/gits/gridoai-front/#gridoai-front-build)]
+[debug] jsonRpcNotify: JsonRpcNotificationMessage(2.0, build/taskStart, {"taskId":{"id":"5","parents":[]},"eventTime":1686412442470,"message":"Compiling gridoai-front","dataKind":"compile-task","data":{"target":{"uri":"file:/Users/davi/gits/gridoai-front/#gridoai-front/Compile"}}})
+[debug] jsonRpcNotify: JsonRpcNotificationMessage(2.0, build/taskFinish, {"taskId":{"id":"5","parents":[]},"eventTime":1686412442473,"message":"Compiled gridoai-front","status":1,"dataKind":"compile-report","data":{"target":{"uri":"file:/Users/davi/gits/gridoai-front/#gridoai-front/Compile"},"errors":0,"warnings":0,"time":3}})
+[debug] jsonRpcNotify: JsonRpcNotificationMessage(2.0, build/taskStart, {"taskId":{"id":"6","parents":[]},"eventTime":1686412442474,"message":"Compiling gridoai-front-test","dataKind":"compile-task","data":{"target":{"uri":"file:/Users/davi/gits/gridoai-front/#gridoai-front/Test"}}})
+[debug] jsonRpcNotify: JsonRpcNotificationMessage(2.0, build/taskFinish, {"taskId":{"id":"6","parents":[]},"eventTime":1686412442476,"message":"Compiled gridoai-front-test","status":1,"dataKind":"compile-report","data":{"target":{"uri":"file:/Users/davi/gits/gridoai-front/#gridoai-front/Test"},"errors":0,"warnings":0,"time":2}})
+[success] Total time: 0 s, completed Jun 10, 2023, 12:54:02 PM
+[debug] > Exec(sbtCompleteExec 6, None, None)
+[debug] > Exec(resumeFromFailure, None, None)
+[debug] > Exec(sbtPopOnFailure, None, None)
+[debug] > Exec(sbtReportResult 6, Some(6), Some(CommandSource(network-1)))
+[debug] unmatched Processing event for requestId Some(6): None
+[debug] unmatched json response for requestId Some(6): {"status":"Done","channelName":"network-1","execId":"6","commandQueue":["shell"],"exitCode":0}
+[debug] > Exec(shell, None, None)

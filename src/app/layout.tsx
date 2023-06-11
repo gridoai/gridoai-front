@@ -16,6 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="robots" content="noindex" />
+      </head>
       <body className={inter.className}>
         {children}
         <Toaster />
