@@ -106,6 +106,7 @@ export default function Chat() {
         message: data.message,
         type: "robot",
         timestamp: new Date(),
+        // @ts-ignore
         sources: data.sources,
       },
     ]);
