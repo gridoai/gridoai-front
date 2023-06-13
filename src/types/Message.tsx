@@ -5,4 +5,5 @@ export interface Message {
   message: string;
   type: string;
   timestamp: Date;
+  sources?: Source[];
 }
