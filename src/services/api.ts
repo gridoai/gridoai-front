@@ -12,6 +12,7 @@ export const localApi = axios.create({
 type PromptResponse = {
   message: string;
   error: never;
+  sources?: Source[];
 };
 
 export const promptApi = async (prompt: string, pastMessages: Message[]) =>
@@ -52,4 +53,8 @@ export const searchDocs = async (query: string) =>
         },
       })
       .catch(console.warn)
+      .then((res) => {
+        console.log("got docs: ", res);
+        return res;
+      })
   )?.data;

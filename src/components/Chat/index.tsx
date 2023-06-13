@@ -17,7 +17,7 @@ export default function Chat() {
     {
       message: "Hi there! How can I help?",
       type: "robot",
-      timestamp: new Date(),
+      timestamp: new Date(0),
     },
   ]);
 
@@ -72,8 +72,12 @@ export default function Chat() {
       type: "userMessage",
       timestamp: new Date(),
     };
+    const messagesWithoutFirst = messages.slice(1);
     // Send user question and history to API
-    const data = await promptApi(userInput, [...messages, newMsg]).catch(
+    const data = await promptApi(userInput, [
+      ...messagesWithoutFirst,
+      newMsg,
+    ]).catch(
       (e) =>
         ({
           error: e.message,
@@ -102,6 +106,7 @@ export default function Chat() {
         message: data.message,
         type: "robot",
         timestamp: new Date(),
+        sources: data.sources,
       },
     ]);
     setLoading(false);
@@ -198,7 +203,15 @@ export default function Chat() {
                   <div className={styles.markdownanswer}>
                     {/* Messages are being rendered in Markdown format */}
                     <ReactMarkdown linkTarget={"_blank"}>
-                      {message.message}
+                      {message.message.concat(
+                        message.sources
+                          ? `
+                        \n\n\ ${message.sources
+                          .map((source) => `[${source.title}](${source.url})`)
+                          .join(", ")}
+                        `
+                          : ""
+                      )}
                     </ReactMarkdown>
                   </div>
                 </div>

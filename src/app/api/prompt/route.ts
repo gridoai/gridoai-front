@@ -1,6 +1,7 @@
 import { searchDocs } from "@/services/api";
 import { NextResponse } from "next/server";
 
+import { generateResponseVertex } from "@/services/vertex-ai";
 import { Message } from "@/types/Message";
 import cohere from "cohere-ai";
 
@@ -17,18 +18,16 @@ export const POST = async (req: Request) => {
   if (!initialPrompt) {
     return;
   }
-  const response = await askAI(pastMessages, initialPrompt);
-  if (!response?.body.generations[0].text) {
+  const response = await askAI(pastMessages, initialPrompt).catch((e) => e);
+  if (!response || typeof response !== "string") {
+    console.error("res", response);
     return NextResponse.json({
       message: "Sorry, we couldn't process your request. Please try again.",
     });
   }
-  console.log(response.body);
+  console.log(response);
   return NextResponse.json({
-    message: response.body.generations
-      .reduce((acc, current) => `${current.text}\n${acc}`, "")
-      .replace("robot:", "")
-      .replace("bot:", ""),
+    message: response.replace("robot:", "").replace("bot:", ""),
   });
 };
 
@@ -37,24 +36,35 @@ async function askAI(
   initialPrompt: string,
   retriesLeft = 2
 ) {
-  const prompt = await buildPrompt(pastMessages, initialPrompt);
-
-  console.log("prompt: ", prompt);
-  const response = await cohere
-    .generate({
-      model: "command",
-      prompt,
-      max_tokens: 500,
-      temperature: 0.9,
-      k: 0,
-      stop_sequences: [],
-      return_likelihoods: "NONE",
-    })
-    .catch(console.warn);
-  if (!response?.body.generations[0].text && retriesLeft > 0) {
-    return askAI(pastMessages.slice(-5), initialPrompt, retriesLeft - 1);
+  const messages = pastMessages.sort(
+    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+  );
+  const response = await generateResponseVertex(
+    messages,
+    (await makeDocsCtx(initialPrompt)) || ""
+  );
+  if (!response && retriesLeft > 0) {
+    return generateResponseCohere(
+      await buildPrompt(pastMessages, initialPrompt)
+    );
   }
   return response;
+}
+
+async function generateResponseCohere(prompt: string) {
+  return (
+    await cohere
+      .generate({
+        model: "command",
+        prompt,
+        max_tokens: 500,
+        temperature: 0.9,
+        k: 0,
+        stop_sequences: [],
+        return_likelihoods: "NONE",
+      })
+      .catch(console.warn)
+  )?.body.generations[0].text;
 }
 
 async function buildPrompt(pastMessages: Message[], initialPrompt: string) {
@@ -68,35 +78,44 @@ async function buildPrompt(pastMessages: Message[], initialPrompt: string) {
       ""
     );
 
-  const docs = initialPrompt
-    ? (await searchDocs(initialPrompt).catch((_) => [])) || []
-    : [];
-
   const historyContext = pastMessages.length
     ? `History section :\n ${pastMessagesString}`
     : undefined;
 
+  const docsContext = await makeDocsCtx(initialPrompt);
+
+  const prompt = [
+    docsContext,
+    `You are GridoAI, an intelligent chatbot for knowledge retrieval.
+    Continue the following conversation in a natural and intelligent way:`,
+    historyContext,
+  ]
+    .filter((x) => !!x && x.length > 2)
+    .join("\n");
+  return prompt;
+}
+
+async function makeDocsCtx(initialPrompt: string) {
+  const docs = initialPrompt
+    ? (await searchDocs(initialPrompt).catch((_) => [])) || []
+    : [];
+
   const docsContext =
     docs?.length > 0
-      ? `Context section: ${docs.reduce(
-          (acc, current) =>
-            acc +
-            `
+      ? `
+=====================
+      Context section: ${docs.reduce(
+        (acc, current) =>
+          acc +
+          `
     file name: ${current.url}
     content: ${current.content}
     uid: ${current.uid}
     `,
-          ""
-        )}}`
+        ""
+      )}}
+=====================
+        `
       : undefined;
-
-  const prompt = [
-    `You are GridoAI, an intelligent chatbot for knowledge retrieval.
-    Provide a natural and intelligent response to "${initialPrompt}".`,
-    historyContext,
-    docsContext,
-  ]
-    .filter((x) => !!x && x.length > 2)
-    .join("\nand\n");
-  return prompt;
+  return docsContext;
 }
