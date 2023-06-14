@@ -3,6 +3,7 @@ const PROJECT_ID = "lucid-arch-387422";
 const MODEL_ID = "chat-bison@001";
 import { Message } from "@/types/Message";
 import { GoogleAuth } from "google-auth-library";
+import { logger } from "./logger";
 
 const url = `https://${API_ENDPOINT}/v1/projects/${PROJECT_ID}/locations/us-central1/publishers/google/models/${MODEL_ID}:predict`;
 let accessToken = ""; // Store the access token
@@ -62,7 +63,6 @@ export const generateResponseVertex = async (
       topK: 10,
     },
   };
-  console.log(JSON.stringify(data, null, 2));
   const headers = {
     Authorization: `Bearer ${await getAccessToken()}`,
     "Content-Type": "application/json",
@@ -74,12 +74,21 @@ export const generateResponseVertex = async (
   })
     .then((response) => response.json())
     .then((result) => {
+      const answer = result.predictions[0]?.candidates[0]?.content;
       // Handle the response data
-      console.log(JSON.stringify(result, null, 2));
-      return result.predictions[0]?.candidates[0]?.content;
+      logger.info("Vertex API", {
+        prompt: messages[messages.length - 1].message,
+        answer: answer,
+        context: extraContext,
+      });
+
+      return answer;
     })
     .catch((error) => {
-      // Handle any errors
-      console.error(error);
+      logger.error("Vertex API", {
+        prompt: messages[messages.length - 1].message,
+        error: error,
+        context: extraContext,
+      });
     });
 };

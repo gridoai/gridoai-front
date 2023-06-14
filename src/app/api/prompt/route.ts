@@ -25,7 +25,6 @@ export const POST = async (req: Request) => {
       message: "Sorry, we couldn't process your request. Please try again.",
     });
   }
-  console.log(response);
   return NextResponse.json({
     message: response.replace("robot:", "").replace("bot:", ""),
   });

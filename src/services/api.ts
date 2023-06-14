@@ -1,5 +1,6 @@
 import { Message } from "@/types/Message";
 import axios from "axios";
+import { logger } from "./logger";
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "/api",
@@ -52,9 +53,20 @@ export const searchDocs = async (query: string) =>
           query,
         },
       })
-      .catch(console.warn)
       .then((res) => {
-        console.log("got docs: ", res);
+        try {
+          logger.info("Got docs: ", { docs: res.data, query });
+        } catch (e) {
+          console.log(e);
+        }
         return res;
+      })
+      .catch((e) => {
+        console.error(
+          "Failed to search docs:",
+          JSON.parse(JSON.stringify(e)),
+          e
+        );
+        logger.error("Failed to search docs:", JSON.parse(JSON.stringify(e)));
       })
   )?.data;

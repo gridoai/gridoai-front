@@ -1,5 +1,6 @@
 "use client";
 import { promptApi, uploadFile } from "@/services/api";
+import { logger } from "@/services/logger";
 import { Message } from "@/types/Message";
 import { PaperPlaneRight, Polygon, Spinner, User } from "@phosphor-icons/react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
@@ -145,13 +146,12 @@ export default function Chat() {
       return;
     }
     setLoadingFile(true);
-    console.log("uploading file", file);
+    logger.info("uploading file", file);
     uploadFile(file)
-      .then((data) => console.log(data))
-      .then(() => setFile(undefined))
+      .then((data) => logger.info("file uploaded: ", { name: file.name }))
       .then(() => toast({ title: "File uploaded successfully" }))
       .catch((err) => {
-        console.error(err);
+        logger.error("failed to upload file", err);
         toast({
           title: `Error uploading file: ${err.message}`,
           description: "Please try again later",
