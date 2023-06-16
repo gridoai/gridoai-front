@@ -212,7 +212,7 @@ export default function Chat() {
                       {message.message.concat(
                         message.sources
                           ? `
-                        \n\n\ ${message.sources
+                        \n\n\n\n ${message.sources
                           .map((source) =>
                             source.url
                               ? `[${source.name}](${source.url})`
