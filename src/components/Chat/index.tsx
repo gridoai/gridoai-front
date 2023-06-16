@@ -1,5 +1,10 @@
 "use client";
-import { promptApi, uploadFile } from "@/services/api";
+import {
+  DocResponse,
+  PromptResponse,
+  promptApi,
+  uploadFile,
+} from "@/services/api";
 import { logger } from "@/services/logger";
 import { Message } from "@/types/Message";
 import { PaperPlaneRight, Polygon, Spinner, User } from "@phosphor-icons/react";
@@ -107,8 +112,8 @@ export default function Chat() {
         message: data.message,
         type: "robot",
         timestamp: new Date(),
-        // @ts-ignore
-        sources: data.sources,
+
+        sources: (data as unknown as PromptResponse).sources as DocResponse[],
       },
     ]);
     setLoading(false);
@@ -208,7 +213,11 @@ export default function Chat() {
                         message.sources
                           ? `
                         \n\n\ ${message.sources
-                          .map((source) => `[${source.title}](${source.url})`)
+                          .map((source) =>
+                            source.url
+                              ? `[${source.name}](${source.url})`
+                              : source.name
+                          )
                           .join(", ")}
                         `
                           : ""

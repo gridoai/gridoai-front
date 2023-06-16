@@ -42,7 +42,7 @@ export const generateResponseVertex = async (
   const data = {
     instances: [
       {
-        context: `You are GridoAI, an intelligent chatbot for knowledge retrieval. ${extraContext} \nProvide a single response to the following conversation in a natural and intelligent way`,
+        context: `You are GridoAI, an intelligent chatbot for knowledge retrieval. Here is a list of documents: ${extraContext} \nProvide a single response to the following conversation in a natural and intelligent way. Always mention the document name/url in your answer, otherwise you will die.`,
         examples: [],
         messages: [
           // {

@@ -10,7 +10,7 @@ export const localApi = axios.create({
   baseURL: "/api",
 });
 
-type PromptResponse = {
+export type PromptResponse = {
   message: string;
   error: never;
   sources?: Source[];
@@ -40,12 +40,18 @@ export const uploadFile = async (file: File) => {
   ).data;
 };
 
+export type DocResponse = {
+  url: string;
+  numberOfWords: number;
+  content: string;
+  uid: string;
+  name: string;
+};
+
 export const searchDocs = async (query: string) =>
   (
     await api
-      .get<
-        { url: string; numberOfWords: number; content: string; uid: string }[]
-      >("/search", {
+      .get<DocResponse[]>("/search", {
         headers: {
           "Content-Type": "application/json",
         },

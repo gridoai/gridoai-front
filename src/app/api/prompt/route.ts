@@ -1,4 +1,4 @@
-import { searchDocs } from "@/services/api";
+import { DocResponse, searchDocs } from "@/services/api";
 import { NextResponse } from "next/server";
 
 import { generateResponseVertex } from "@/services/vertex-ai";
@@ -18,7 +18,11 @@ export const POST = async (req: Request) => {
   if (!initialPrompt) {
     return;
   }
-  const response = await askAI(pastMessages, initialPrompt).catch((e) => e);
+  const [response, sources]: [string, DocResponse[]] = await askAI(
+    pastMessages,
+    initialPrompt
+  ).catch((e) => e);
+
   if (!response || typeof response !== "string") {
     console.error("res", response);
     return NextResponse.json({
@@ -27,6 +31,7 @@ export const POST = async (req: Request) => {
   }
   return NextResponse.json({
     message: response.replace("robot:", "").replace("bot:", ""),
+    sources: sources,
   });
 };
 
@@ -38,16 +43,14 @@ async function askAI(
   const messages = pastMessages.sort(
     (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
   );
-  const response = await generateResponseVertex(
-    messages,
-    (await makeDocsCtx(initialPrompt)) || ""
-  );
+  const [docsCtx, docs] = await makeDocsCtx(initialPrompt);
+  const response = await generateResponseVertex(messages, docsCtx || "");
   if (!response && retriesLeft > 0) {
     return generateResponseCohere(
       await buildPrompt(pastMessages, initialPrompt)
     );
   }
-  return response;
+  return [response, docs] as const;
 }
 
 async function generateResponseCohere(prompt: string) {
@@ -116,5 +119,5 @@ async function makeDocsCtx(initialPrompt: string) {
 =====================
         `
       : undefined;
-  return docsContext;
+  return [docsContext, docs] as const;
 }
