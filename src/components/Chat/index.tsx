@@ -187,18 +187,8 @@ export default function Chat() {
               // colorBackground: "transparent",
               colorBackground: "rgba(100,100,100,0.1)",
             },
-            elements: {
-              userButtonPopoverCard:
-                "backdrop-blur-lg bg-opacity-20 drop-shadow-lg",
-              userButtonPopoverActionButtonIcon: "text-neutral-200",
-              userButtonPopoverActionButton:
-                "hover:bg-neutral-700 bg-opacity-0",
-              card: {
-                backgroundColor: "rgba(100,100,100,0.1) !important",
-              },
-              userButtonPopoverFooter: "hidden",
-            },
           }}
+          afterSignOutUrl="/sign-in"
         />
       </div>
       <main

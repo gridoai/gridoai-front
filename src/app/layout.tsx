@@ -20,8 +20,24 @@ export default function RootLayout({
       appearance={{
         variables: {
           colorText: "white",
-          colorBackground: "rgba(100,100,100,0.1)",
-          colorPrimary: "white",
+          colorBackground: "#141619",
+          colorPrimary: "#7857FF",
+        },
+        elements: {
+          socialButtonsIconButton: {
+            borderColor: "#30373d",
+            backgroundColor: "#141619",
+            borderRadius: "0.5rem",
+            color: "white",
+          },
+          userButtonPopoverCard:
+            "backdrop-blur-lg bg-opacity-20 drop-shadow-lg",
+          userButtonPopoverActionButtonIcon: "text-neutral-200",
+          userButtonPopoverActionButton: "hover:bg-neutral-700 bg-opacity-0",
+          card: {
+            backgroundColor: "rgba(100,100,100,0.1) !important",
+          },
+          userButtonPopoverFooter: "hidden",
         },
       }}
     >
