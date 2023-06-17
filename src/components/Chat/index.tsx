@@ -209,9 +209,11 @@ export default function Chat() {
                   <div className={styles.markdownanswer}>
                     {/* Messages are being rendered in Markdown format */}
                     <ReactMarkdown linkTarget={"_blank"}>
-                      {message.message.concat(
-                        message.sources
-                          ? `
+                      {message.message}
+                    </ReactMarkdown>
+                    <p className="text-neutral-400">
+                      {message.sources
+                        ? `
                         \n\n\n\n ${message.sources
                           .map((source) =>
                             source.url
@@ -220,9 +222,8 @@ export default function Chat() {
                           )
                           .join(", ")}
                         `
-                          : ""
-                      )}
-                    </ReactMarkdown>
+                        : ""}
+                    </p>
                   </div>
                 </div>
               );
