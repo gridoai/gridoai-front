@@ -1,11 +1,13 @@
-"use client";
 import Chat from "@/components/Chat";
-import { ToastProvider } from "@/components/toast";
+import { auth } from "@clerk/nextjs";
+import { ClientProviders } from "../client-providers";
 
 export default function Home() {
+  const u = auth();
+  console.log(u);
   return (
-    <ToastProvider>
+    <ClientProviders>
       <Chat />
-    </ToastProvider>
+    </ClientProviders>
   );
 }

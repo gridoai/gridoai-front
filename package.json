@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.21.3",
     "@phosphor-icons/react": "^2.0.9",
     "@radix-ui/react-toast": "^1.1.4",
     "@types/node": "20.2.5",

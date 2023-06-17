@@ -7,6 +7,7 @@ import {
 } from "@/services/api";
 import { logger } from "@/services/logger";
 import { Message } from "@/types/Message";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { PaperPlaneRight, Polygon, Spinner, User } from "@phosphor-icons/react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -29,7 +30,8 @@ export default function Chat() {
 
   const messageListRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-
+  const user = useUser();
+  console.log(user);
   // Auto scroll chat to bottom
   useEffect(() => {
     const messageList = messageListRef.current;
@@ -80,6 +82,7 @@ export default function Chat() {
     };
     const messagesWithoutFirst = messages.slice(1);
     // Send user question and history to API
+
     const data = await promptApi(userInput, [
       ...messagesWithoutFirst,
       newMsg,
@@ -177,6 +180,26 @@ export default function Chat() {
         <div className={styles.navlogo}>
           <a href="/">GridoAI</a>
         </div>
+        <UserButton
+          appearance={{
+            variables: {
+              colorText: "white",
+              // colorBackground: "transparent",
+              colorBackground: "rgba(100,100,100,0.1)",
+            },
+            elements: {
+              userButtonPopoverCard:
+                "backdrop-blur-lg bg-opacity-20 drop-shadow-lg",
+              userButtonPopoverActionButtonIcon: "text-neutral-200",
+              userButtonPopoverActionButton:
+                "hover:bg-neutral-700 bg-opacity-0",
+              card: {
+                backgroundColor: "rgba(100,100,100,0.1) !important",
+              },
+              userButtonPopoverFooter: "hidden",
+            },
+          }}
+        />
       </div>
       <main
         className={`${styles.main} mb-10 max-w-7xl xl:w-[80rem] xl:mx-auto `}

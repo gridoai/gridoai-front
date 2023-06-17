@@ -45,3 +45,6 @@ a:hover {
   background: #1e1e24;
   border-radius: 0.5rem;
 }
+.cl-card > [class^='cl-internal'] {
+   opacity: 0.01;
+}
