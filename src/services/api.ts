@@ -10,6 +10,7 @@ export const localApi = axios.create({
   baseURL: "/api",
 });
 
+console.log(process.env.NEXT_PUBLIC_API_URL);
 export type PromptResponse = {
   message: string;
   error: never;
@@ -28,11 +29,15 @@ export const promptApi = async (prompt: string, pastMessages: Message[]) =>
     })
   ).data;
 
-export const uploadFile = async (file: File) => {
+export const uploadFiles = async (files: FileList) => {
   const formData = new FormData();
-  formData.append("file", file);
+  Array.from(files).forEach((file, index) => {
+    // formData.append(`files[${index}]`, file);
+    formData.append(`files`, file);
+  });
+
   return (
-    await api.post<string>(`/upload/${file.name}`, formData, {
+    await api.post<string>(`/upload/`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -61,7 +66,7 @@ export const searchDocs = async (query: string) =>
       })
       .then((res) => {
         try {
-          logger.info("Got docs: ", { docs: res.data, query });
+          // logger.info("Got docs: ", { docs: res.data, query });
         } catch (e) {
           console.log(e);
         }

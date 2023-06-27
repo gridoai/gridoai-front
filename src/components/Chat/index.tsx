@@ -3,11 +3,16 @@ import {
   DocResponse,
   PromptResponse,
   promptApi,
-  uploadFile,
+  uploadFiles,
 } from "@/services/api";
 import { logger } from "@/services/logger";
 import { Message } from "@/types/Message";
-import { UserButton, useUser } from "@clerk/nextjs";
+import {
+  OrganizationSwitcher,
+  UserButton,
+  useAuth,
+  useUser,
+} from "@clerk/nextjs";
 import { PaperPlaneRight, Polygon, Spinner, User } from "@phosphor-icons/react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -19,7 +24,7 @@ export default function Chat() {
   const [history, setHistory] = useState<[string, string][]>([]);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  const [file, setFile] = useState<File | undefined>();
+  const [file, setFile] = useState<FileList | undefined>();
   const [messages, setMessages] = useState<Message[]>([
     {
       message: "Hi there! How can I help?",
@@ -155,8 +160,8 @@ export default function Chat() {
     }
     setLoadingFile(true);
     logger.info("uploading file", file);
-    uploadFile(file)
-      .then((data) => logger.info("file uploaded: ", { name: file.name }))
+    uploadFiles(file)
+      .then((data) => logger.info("file uploaded: ", file))
       .then(() => toast({ title: "File uploaded successfully" }))
       .catch((err) => {
         logger.error("failed to upload file", err);
@@ -171,15 +176,34 @@ export default function Chat() {
   };
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setFile(e.target.files[0]);
+      setFile(e.target.files);
     }
   };
+
+  const url = "/ai/generate";
+  const options: RequestInit = {
+    headers: {
+      // Add your headers here, as in your fetch example
+    },
+    referrer: "https://sdk.vercel.ai/?s=1",
+    referrerPolicy: "strict-origin-when-cross-origin",
+    body: JSON.stringify({
+      // Add your body data here, as in your fetch example
+    }),
+    method: "POST",
+    mode: "cors",
+    credentials: "include",
+  };
+
+  // const { data, error, cancel } = useStreamFetch(url, options);
+
+  // if (error) {
+  //   return <div>Error: {error.message}</div>;
+  // }
+  // console.log("completion", data);
   return (
     <>
       <div className={styles.topnav}>
-        <div className={styles.navlogo}>
-          <a href="/">GridoAI</a>
-        </div>
         <UserButton
           appearance={{
             variables: {
@@ -246,6 +270,7 @@ export default function Chat() {
         <div className="flex items-center flex-wrap justify-between  gap-2 pr-4">
           <input
             type="file"
+            multiple
             className=" text-sm text-white
                       file:mr-4 file:py-2 file:px-4
                       file:rounded-full file:border-0

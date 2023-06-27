@@ -38,6 +38,11 @@ export default function RootLayout({
             backgroundColor: "rgba(100,100,100,0.1) !important",
           },
           userButtonPopoverFooter: "hidden",
+          modalContent: "backdrop-blur-lg bg-opacity-20 drop-shadow-lg",
+          organizationSwitcherPopoverCard:
+            "backdrop-blur-lg bg-opacity-20 [&>*]:text-white",
+          organizationSwitcherPopoverActionButtonIcon: "text-neutral-200",
+          organizationSwitcherPopoverFooter: "hidden",
         },
       }}
     >
