@@ -1,13 +1,9 @@
-import { Message } from "@/types/Message";
+import { Message, APIMessage } from "@/types/Message";
 import axios from "axios";
 import { logger } from "./logger";
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "/api",
-});
-
-export const localApi = axios.create({
-  baseURL: "/api",
 });
 
 console.log(process.env.NEXT_PUBLIC_API_URL);
@@ -17,17 +13,23 @@ export type PromptResponse = {
   sources?: Source[];
 };
 
-export const promptApi = async (prompt: string, pastMessages: Message[]) =>
-  (
-    await localApi.post<PromptResponse>("/prompt", pastMessages, {
+export const promptApi = async (prompt: string, pastMessages: Message[]) => {
+  const messages: APIMessage[] = pastMessages.map((m) => ({
+    message: m.message,
+    from: m.type === "userMessage" ? { User: {} } : { Bot: {} },
+  }));
+
+  return (
+    await api.post<string>("/ask", messages, {
       headers: {
         "Content-Type": "application/json",
       },
       params: {
-        prompt,
+        text: prompt,
       },
     })
   ).data;
+};
 
 export const uploadFiles = async (files: FileList) => {
   const formData = new FormData();

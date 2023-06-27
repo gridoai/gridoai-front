@@ -9,3 +9,15 @@ export interface Message {
   timestamp: Date;
   sources?: DocResponse[];
 }
+
+type MessageFrom =
+  | {
+      User: {};
+    }
+  | {
+      Bot: {};
+    };
+export interface APIMessage {
+  message: string;
+  from: MessageFrom;
+}

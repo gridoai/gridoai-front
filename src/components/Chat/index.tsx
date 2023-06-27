@@ -117,7 +117,7 @@ export default function Chat() {
     setMessages((prevMessages) => [
       ...prevMessages,
       {
-        message: data.message,
+        message: data,
         type: "robot",
         timestamp: new Date(),
 
