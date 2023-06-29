@@ -2,10 +2,19 @@ import { Message, APIMessage } from "@/types/Message";
 import axios from "axios";
 import { logger } from "./logger";
 
+const authInterceptor = async (config: any) => {
+  const token = await window.Clerk.session.getToken().catch(console.error);
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+};
+
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "/api",
 });
 
+api.interceptors.request.use(authInterceptor, console.error);
 console.log(process.env.NEXT_PUBLIC_API_URL);
 export type PromptResponse = {
   message: string;

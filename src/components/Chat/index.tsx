@@ -214,6 +214,7 @@ export default function Chat() {
           }}
           afterSignOutUrl="/sign-in"
         />
+        <OrganizationSwitcher />
       </div>
       <main
         className={`${styles.main} mb-10 max-w-7xl xl:w-[80rem] xl:mx-auto `}
