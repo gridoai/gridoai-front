@@ -11,3 +11,4 @@ export default function Home() {
     </ClientProviders>
   );
 }
+export const runtime = "edge";

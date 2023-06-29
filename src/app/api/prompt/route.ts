@@ -121,3 +121,4 @@ async function makeDocsCtx(initialPrompt: string) {
       : undefined;
   return [docsContext, docs] as const;
 }
+export const runtime = "edge";

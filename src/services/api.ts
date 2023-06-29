@@ -33,9 +33,6 @@ export const promptApi = async (prompt: string, pastMessages: Message[]) => {
       headers: {
         "Content-Type": "application/json",
       },
-      params: {
-        text: prompt,
-      },
     })
   ).data;
 };
