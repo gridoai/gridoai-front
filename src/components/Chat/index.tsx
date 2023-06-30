@@ -7,6 +7,8 @@ import {
 } from "@/services/api";
 import { logger } from "@/services/logger";
 import { Message } from "@/types/Message";
+import rehypeRaw from "rehype-raw";
+
 import {
   OrganizationSwitcher,
   UserButton,
@@ -246,7 +248,10 @@ export default function Chat() {
                   </div>
                   <div className={styles.markdownanswer}>
                     {/* Messages are being rendered in Markdown format */}
-                    <ReactMarkdown linkTarget={"_blank"}>
+                    <ReactMarkdown
+                      rehypePlugins={[rehypeRaw]}
+                      linkTarget={"_blank"}
+                    >
                       {message.message}
                     </ReactMarkdown>
                     <p className="text-neutral-400">
