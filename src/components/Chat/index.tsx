@@ -37,6 +37,7 @@ export default function Chat() {
 
   const messageListRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+  const uploadRef = useRef<HTMLInputElement | null>(null);
   const user = useUser();
   console.log(user);
   // Auto scroll chat to bottom
@@ -167,6 +168,7 @@ export default function Chat() {
       .then(() => {
         toast({ title: "File uploaded successfully" });
         setFile(undefined);
+        if (uploadRef.current) uploadRef.current.value = "";
       })
       .catch((err) => {
         logger.error("failed to upload file", err);
@@ -183,21 +185,6 @@ export default function Chat() {
     if (e.target.files) {
       setFile(e.target.files);
     }
-  };
-
-  const url = "/ai/generate";
-  const options: RequestInit = {
-    headers: {
-      // Add your headers here, as in your fetch example
-    },
-    referrer: "https://sdk.vercel.ai/?s=1",
-    referrerPolicy: "strict-origin-when-cross-origin",
-    body: JSON.stringify({
-      // Add your body data here, as in your fetch example
-    }),
-    method: "POST",
-    mode: "cors",
-    credentials: "include",
   };
 
   // const { data, error, cancel } = useStreamFetch(url, options);
@@ -280,6 +267,7 @@ export default function Chat() {
           <input
             type="file"
             multiple
+            ref={uploadRef}
             className=" text-sm text-white
                       file:mr-4 file:py-2 file:px-4
                       file:rounded-full file:border-0

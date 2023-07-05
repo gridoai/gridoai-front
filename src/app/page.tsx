@@ -37,12 +37,20 @@ const LandingPage = () => {
         <div className="text-2xl font-bold flex justify-between">
           {landingPageContent.navTitle}
         </div>
-        {user && (
+        {user.sessionId ? (
           <Link href="/chat">
             <button className="px-4 py-2 bg-[#141619] border border-[#30373d] rounded-lg">
               Go to chat
             </button>
           </Link>
+        ) : (
+          <>
+            <Link href="/sign-in">
+              <button className="px-4 mr-2 py-2 bg-[#141619] border border-[#30373d] rounded-lg">
+                Login
+              </button>
+            </Link>
+          </>
         )}
       </nav>
       <header className="px-8 sm:h-screen items-center justify-center flex flex-col py-20 text-center">
