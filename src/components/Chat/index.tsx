@@ -164,7 +164,10 @@ export default function Chat() {
     logger.info("uploading file", file);
     uploadFiles(file)
       .then((data) => logger.info("file uploaded: ", file))
-      .then(() => toast({ title: "File uploaded successfully" }))
+      .then(() => {
+        toast({ title: "File uploaded successfully" });
+        setFile(undefined);
+      })
       .catch((err) => {
         logger.error("failed to upload file", err);
         toast({
