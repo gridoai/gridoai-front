@@ -3,9 +3,9 @@ import { ClientProviders } from "../client-providers";
 import { auth, currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-export default function Home() {
-  const user = auth();
-  if (!user.userId) {
+export default async function Home() {
+  const user = await currentUser();
+  if (!user?.id) {
     redirect("/sign-in");
   }
   return (
