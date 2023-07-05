@@ -1,10 +1,11 @@
+import { auth, currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 
 const landingPageContent = {
   navTitle: "GridoAI",
   headerTitle: "Revolutionize Your Information Management with GridoAI",
   headerDescription:
-    "GridoAI is a powerful plugin that uses artificial intelligence to transform the way you interact with information. Whether you're navigating policy documents, searching for specific building codes, or exploring a vast library catalogue, GridoAI makes it effortless.",
+    "GridoAI is a powerful chatbot that uses artificial intelligence to transform the way you interact with information. Whether you're navigating policy documents, searching for specific building codes, or exploring a vast library catalogue, GridoAI makes it effortless.",
   features: [
     {
       title: "Intelligent Search",
@@ -28,65 +29,73 @@ const landingPageContent = {
   footerText: `© ${new Date().getFullYear()} GridoAI. All rights reserved.`,
 };
 
-const LandingPage = () => (
-  <div className="bg-neutral-950 text-white">
-    <nav className="flex items-center bg-[#141619] border-b border-[#30373d] justify-between px-8 py-6">
-      <div className="text-2xl font-bold">{landingPageContent.navTitle}</div>
-      {/* <button className="px-4 py-2 bg-[#141619] border border-[#30373d] rounded-lg">
-          Get Started
-        </button> */}
-    </nav>
-    <header className="px-8 sm:h-screen items-center justify-center flex flex-col py-20 text-center">
-      <h1 className="xl:text-8xl/tight sm:text-6xl text-5xl/tight font-bold mb-4">
-        {landingPageContent.headerTitle}
-      </h1>
-      <p className="text-xl leading-relaxed mx-auto max-w-3xl">
-        {landingPageContent.headerDescription}
-      </p>
-      {/* <button className="px-8 py-3 mt-8 bg-white border border-[#30373d] text-black hover:bg-[#141619] hover:text-white transition-all font-semibold rounded-lg">
+const LandingPage = () => {
+  const user = auth();
+  return (
+    <div className="bg-neutral-950 text-white">
+      <nav className="flex items-center bg-[#141619] border-b border-[#30373d] justify-between px-8 py-6">
+        <div className="text-2xl font-bold flex justify-between">
+          {landingPageContent.navTitle}
+        </div>
+        {user && (
+          <Link href="/chat">
+            <button className="px-4 py-2 bg-[#141619] border border-[#30373d] rounded-lg">
+              Go to chat
+            </button>
+          </Link>
+        )}
+      </nav>
+      <header className="px-8 sm:h-screen items-center justify-center flex flex-col py-20 text-center">
+        <h1 className="xl:text-8xl/tight sm:text-6xl text-5xl/tight font-bold mb-4">
+          {landingPageContent.headerTitle}
+        </h1>
+        <p className="text-xl leading-relaxed mx-auto max-w-3xl">
+          {landingPageContent.headerDescription}
+        </p>
+        {/* <button className="px-8 py-3 mt-8 bg-white border border-[#30373d] text-black hover:bg-[#141619] hover:text-white transition-all font-semibold rounded-lg">
           Learn More
         </button> */}
-    </header>
-    <section className="px-8 py-20">
-      <div className="max-w-3xl mx-auto text-center mb-12">
-        <h2 className="text-4xl font-bold mb-4">Key Features</h2>
-        <p className="text-xl">
-          GridoAI offers a range of powerful features to enhance your document
-          management process:
-        </p>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
-        {landingPageContent.features.map((feature, index) => (
-          <div
-            key={index}
-            className="p-6 bg-[#141619] border border-[#30373d] rounded-lg"
-          >
-            <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
-            <p className="text-lg">{feature.description}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-    <section className="px-8 py-20 bg-[#141619] border border-[#30373d]">
-      <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-4">
-          {landingPageContent.getStartedTitle}
-        </h2>
-        <p className="text-xl mb-8">
-          {landingPageContent.getStartedDescription}
-        </p>
-        <Link href="mailto:partners@gridoai.com">
-          <button className="px-8 py-3 bg-white border border-[#30373d] text-black hover:bg-[#141619] hover:text-white transition-all font-semibold rounded-lg">
-            Contact us
-          </button>
-        </Link>
-      </div>
-    </section>
-    <footer className="px-8 py-6 text-center">
-      <p className="text-sm">{landingPageContent.footerText}</p>
-    </footer>
-  </div>
-);
-
+      </header>
+      <section className="px-8 py-20">
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <h2 className="text-4xl font-bold mb-4">Key Features</h2>
+          <p className="text-xl">
+            GridoAI offers a range of powerful features to enhance your document
+            management process:
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+          {landingPageContent.features.map((feature, index) => (
+            <div
+              key={index}
+              className="p-6 bg-[#141619] border border-[#30373d] rounded-lg"
+            >
+              <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
+              <p className="text-lg">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="px-8 py-20 bg-[#141619] border border-[#30373d]">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-4">
+            {landingPageContent.getStartedTitle}
+          </h2>
+          <p className="text-xl mb-8">
+            {landingPageContent.getStartedDescription}
+          </p>
+          <Link href="mailto:partners@gridoai.com">
+            <button className="px-8 py-3 bg-white border border-[#30373d] text-black hover:bg-[#141619] hover:text-white transition-all font-semibold rounded-lg">
+              Contact us
+            </button>
+          </Link>
+        </div>
+      </section>
+      <footer className="px-8 py-6 text-center">
+        <p className="text-sm">{landingPageContent.footerText}</p>
+      </footer>
+    </div>
+  );
+};
 export default LandingPage;
 export const runtime = "edge";
