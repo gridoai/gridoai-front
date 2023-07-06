@@ -1,5 +1,6 @@
 import { auth, currentUser } from "@clerk/nextjs";
 import Link from "next/link";
+import { Button } from "../components/ui/button";
 
 const landingPageContent = {
   navTitle: "GridoAI",
@@ -33,22 +34,20 @@ const LandingPage = () => {
   const user = auth();
   return (
     <div className="bg-neutral-950 text-white">
-      <nav className="flex items-center bg-[#141619] border-b border-[#30373d] justify-between px-8 py-6">
+      <nav className="flex items-center bg-neutral-0 border-b border-neutral-2 justify-between px-8 py-6">
         <div className="text-2xl font-bold flex justify-between">
           {landingPageContent.navTitle}
         </div>
         {user.sessionId ? (
           <Link href="/chat">
-            <button className="px-4 py-2 bg-[#141619] border border-[#30373d] rounded-lg">
-              Go to chat
-            </button>
+            <Button variant="outline">Go to chat</Button>
           </Link>
         ) : (
           <>
             <Link href="/sign-in">
-              <button className="px-4 mr-2 py-2 bg-[#141619] border border-[#30373d] rounded-lg">
+              <Button variant="outline" className="mr-2">
                 Login
-              </button>
+              </Button>
             </Link>
           </>
         )}
@@ -60,9 +59,9 @@ const LandingPage = () => {
         <p className="text-xl leading-relaxed mx-auto max-w-3xl">
           {landingPageContent.headerDescription}
         </p>
-        {/* <button className="px-8 py-3 mt-8 bg-white border border-[#30373d] text-black hover:bg-[#141619] hover:text-white transition-all font-semibold rounded-lg">
+        {/* <Button className="px-8 py-3 mt-8 bg-white border border-neutral-2 text-black hover:bg-neutral-0 hover:text-white transition-all font-semibold rounded-lg">
           Learn More
-        </button> */}
+        </Button> */}
       </header>
       <section className="px-8 py-20">
         <div className="max-w-3xl mx-auto text-center mb-12">
@@ -76,7 +75,7 @@ const LandingPage = () => {
           {landingPageContent.features.map((feature, index) => (
             <div
               key={index}
-              className="p-6 bg-[#141619] border border-[#30373d] rounded-lg"
+              className="p-6 bg-neutral-0 border border-neutral-2 rounded-lg"
             >
               <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
               <p className="text-lg">{feature.description}</p>
@@ -84,7 +83,7 @@ const LandingPage = () => {
           ))}
         </div>
       </section>
-      <section className="px-8 py-20 bg-[#141619] border border-[#30373d]">
+      <section className="px-8 py-20 bg-neutral-0 border border-neutral-2">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-4">
             {landingPageContent.getStartedTitle}
@@ -93,9 +92,9 @@ const LandingPage = () => {
             {landingPageContent.getStartedDescription}
           </p>
           <Link href="mailto:partners@gridoai.com">
-            <button className="px-8 py-3 bg-white border border-[#30373d] text-black hover:bg-[#141619] hover:text-white transition-all font-semibold rounded-lg">
+            <Button className="px-8 py-3 bg-white border border-neutral-2 text-black hover:bg-neutral-0 hover:text-white transition-all font-semibold rounded-lg">
               Contact us
-            </button>
+            </Button>
           </Link>
         </div>
       </section>

@@ -15,11 +15,20 @@ import {
   useAuth,
   useUser,
 } from "@clerk/nextjs";
-import { PaperPlaneRight, Polygon, Spinner, User } from "@phosphor-icons/react";
+import {
+  Hamburger,
+  PaperPlaneRight,
+  Polygon,
+  Spinner,
+  User,
+} from "@phosphor-icons/react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { useToast } from "../use-toast";
 import styles from "./index.module.css";
+import { ChevronRightIcon, MenuIcon } from "lucide-react";
+import { Button } from "../ui/button";
+import { SideMenu } from "../menu";
 
 export default function Chat() {
   const [userInput, setUserInput] = useState("");
@@ -189,6 +198,19 @@ export default function Chat() {
 
   return (
     <>
+      <div className={styles.topnav}>
+        <UserButton
+          appearance={{
+            variables: {
+              colorText: "white",
+              // colorBackground: "transparent",
+              colorBackground: "rgba(100,100,100,0.1)",
+            },
+          }}
+          afterSignOutUrl="/sign-in"
+        />
+        <SideMenu />
+      </div>
       <main
         className={`${styles.main} mb-10 max-w-7xl xl:w-[80rem] xl:mx-auto `}
       >
