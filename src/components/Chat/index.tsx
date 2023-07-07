@@ -198,19 +198,6 @@ export default function Chat() {
 
   return (
     <>
-      <div className={styles.topnav}>
-        <UserButton
-          appearance={{
-            variables: {
-              colorText: "white",
-              // colorBackground: "transparent",
-              colorBackground: "rgba(100,100,100,0.1)",
-            },
-          }}
-          afterSignOutUrl="/sign-in"
-        />
-        <SideMenu />
-      </div>
       <main
         className={`${styles.main} mb-10 max-w-7xl xl:w-[80rem] xl:mx-auto `}
       >
