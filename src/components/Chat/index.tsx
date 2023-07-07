@@ -187,27 +187,8 @@ export default function Chat() {
     }
   };
 
-  // const { data, error, cancel } = useStreamFetch(url, options);
-
-  // if (error) {
-  //   return <div>Error: {error.message}</div>;
-  // }
-  // console.log("completion", data);
   return (
     <>
-      <div className={styles.topnav}>
-        <UserButton
-          appearance={{
-            variables: {
-              colorText: "white",
-              // colorBackground: "transparent",
-              colorBackground: "rgba(100,100,100,0.1)",
-            },
-          }}
-          afterSignOutUrl="/sign-in"
-        />
-        <OrganizationSwitcher />
-      </div>
       <main
         className={`${styles.main} mb-10 max-w-7xl xl:w-[80rem] xl:mx-auto `}
       >
