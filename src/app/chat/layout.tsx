@@ -1,4 +1,5 @@
 import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
+import { SideMenu } from "../../components/menu";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -17,7 +18,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           }}
           afterSignOutUrl="/sign-in"
         />
-        <OrganizationSwitcher />
+        <SideMenu />
       </div>
       {children}
     </div>
