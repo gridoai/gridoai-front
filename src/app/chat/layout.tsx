@@ -1,4 +1,4 @@
-import { UserButton, OrganizationSwitcher } from "@clerk/nextjs/app-beta";
+import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
