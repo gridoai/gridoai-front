@@ -1,5 +1,3 @@
-import { authMiddleware } from "@clerk/nextjs";
+import { authMiddleware, withClerkMiddleware } from "@clerk/nextjs";
 
-export default authMiddleware({
-  publicRoutes: ["/", "/sign-in", "/chat"],
-});
+export default withClerkMiddleware();
