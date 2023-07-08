@@ -17,7 +17,7 @@ export const NavbarLayout = ({
   Options: React.ReactNode;
 }) => {
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col bg-neutral-0">
       <div
         className={
           "bg-[#141619] flex justify-between items-center px-3 py-4 border-b-[#30373d] border-b border-solid;"
