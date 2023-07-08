@@ -29,6 +29,7 @@ import styles from "./index.module.css";
 import { ChevronRightIcon, MenuIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { SideMenu } from "../menu";
+import { FileUploader } from "../fileUploader";
 
 export default function Chat() {
   const [userInput, setUserInput] = useState("");
@@ -252,32 +253,6 @@ export default function Chat() {
               );
             })}
           </div>
-        </div>
-        <div className="flex items-center flex-wrap justify-between  gap-2 pr-4">
-          <input
-            type="file"
-            multiple
-            ref={uploadRef}
-            className=" text-sm text-white
-                      file:mr-4 file:py-2 file:px-4
-                      file:rounded-full file:border-0
-                      file:text-sm file:font-semibold
-                       file:text-white
-                       file:bg-neutral-900
-                      hover:file:bg-neutral-800  transition-all
-              "
-            onChange={handleFileChange}
-          />
-          {loadingFile ? (
-            <Spinner className="animate-spin" size={28} />
-          ) : (
-            <button
-              onClick={handleUploadClick}
-              className="text-white font-medium"
-            >
-              Upload
-            </button>
-          )}
         </div>
         <div className={styles.center}>
           <div className={styles.cloudform}>
