@@ -6,4 +6,4 @@ import { redirect } from "next/navigation";
 export default async function Home() {
   return <Chat />;
 }
-export const runtime = "edge";
+export const runtime = "nodejs";
