@@ -69,7 +69,7 @@ export const FileUploader: React.FC = () => {
           <p className="text-white text-center">Drop the files here ...</p>
         ) : (
           <p className="text-white text-center">
-            Drag 'n' drop some files here, or click to select files
+            {"Drag 'n' drop some files here, or click to select files"}
           </p>
         )}
       </div>
