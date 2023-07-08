@@ -2,6 +2,7 @@ import { Toaster } from "@/components/toaster";
 import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import RefineProvider from "./refine-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,7 +41,7 @@ export default function RootLayout({
           userButtonPopoverFooter: "hidden",
           modalContent: "backdrop-blur-lg bg-opacity-20 drop-shadow-lg",
           organizationSwitcherPopoverCard:
-            "backdrop-blur-lg bg-opacity-20 [&>*]:text-white",
+            "backdrop-blur-lg bg-opacity-20 [&>*]:text-white z-100",
           organizationSwitcherPopoverActionButtonIcon: "text-neutral-200",
           organizationSwitcherPopoverFooter: "hidden",
         },
@@ -51,7 +52,7 @@ export default function RootLayout({
           <meta name="robots" content="noindex" />
         </head>
         <body className={inter.className}>
-          {children}
+          <RefineProvider>{children}</RefineProvider>
           <Toaster />
         </body>
       </html>
