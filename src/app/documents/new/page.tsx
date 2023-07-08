@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "@refinedev/react-hook-form";
 import { useEffect } from "react";
+import { useToast } from "../../../components/use-toast";
 
 interface DocumentForm {
   name: string;
@@ -21,16 +22,18 @@ const DocumentCreate: React.FC = () => {
     refineCore: { formLoading },
     saveButtonProps,
     register,
-    watch,
     setValue,
     formState: { errors },
   } = useForm<DocumentForm>();
-
-  const name = watch("name");
+  const { toast } = useToast();
 
   useEffect(() => {
-    setValue("source", name);
-  }, [name, setValue]);
+    setValue("source", "web");
+  }, [setValue]);
+
+  useEffect(() => {
+    errors.root?.message && toast({ title: errors.root?.message });
+  }, [errors, toast]);
 
   return (
     <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
