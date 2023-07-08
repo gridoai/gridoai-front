@@ -4,10 +4,6 @@ import { auth, currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
-  return (
-    <ClientProviders>
-      <Chat />
-    </ClientProviders>
-  );
+  return <Chat />;
 }
 export const runtime = "edge";

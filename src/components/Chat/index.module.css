@@ -74,7 +74,7 @@
   border-radius: 0.5rem;
   /* border: 1px solid #30373d; */
   background: #070809;
-  color: #ECECF1;
+  color: #ececf1;
   outline: none;
 }
 
@@ -138,12 +138,12 @@
 .usermessage {
   background: #070809;
   padding: 1.5rem;
-  color: #ECECF1;
+  color: #ececf1;
 }
 
 .usermessagewaiting {
   padding: 1.5rem;
-  color: #ECECF1;
+  color: #ececf1;
   background: linear-gradient(to left, #070809, #1a1c20, #070809);
   background-size: 200% 200%;
   background-position: -100% 0;
@@ -165,7 +165,7 @@
 .apimessage {
   background: #141619;
   padding: 1.5rem;
-  color: #ECECF1;
+  color: #ececf1;
   animation: fadein 0.5s;
 }
 
@@ -221,7 +221,6 @@
   font-size: inherit;
 }
 
-
 .center {
   display: flex;
   justify-content: center;
@@ -237,7 +236,7 @@
   border-radius: 0.5rem;
   border: 1px solid #30373d;
   display: flex;
-  height: calc(100vh - 20rem);
+  height: calc(100vh - 18rem);
 
   justify-content: center;
   align-items: center;
@@ -271,7 +270,6 @@
 
 /* Mobile optimization */
 @media (max-width: 600px) {
-
   .main {
     padding: 1rem;
     max-height: 90vh;

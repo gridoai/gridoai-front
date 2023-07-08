@@ -12,7 +12,8 @@ export const FileUploader: React.FC = () => {
   const { toast } = useToast();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    setFiles(acceptedFiles);
+    console.log(acceptedFiles);
+    setFiles((otherFiles) => [...acceptedFiles, ...(otherFiles || [])]);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -43,9 +44,23 @@ export const FileUploader: React.FC = () => {
 
   return (
     <div className="flex items-center flex-wrap justify-between gap-2 pr-4">
+      <div className="flex gap-2">
+        {files?.map((file) => {
+          return (
+            <Button
+              variant="outline"
+              className="rounded-full"
+              size="sm"
+              key={file.name}
+            >
+              {file.name}
+            </Button>
+          );
+        })}
+      </div>
       <div
         {...getRootProps()}
-        className={`w-full h-32 flex items-center justify-center mb-2 p-4 border-dashed border-2 ${
+        className={`w-full h-32 flex transition-all items-center justify-center mb-2 p-4 border-dashed border-2 ${
           isDragActive ? "bg-neutral-2" : "bg-neutral-0"
         }`}
       >

@@ -1,42 +1,17 @@
 "use client";
-import {
-  DocResponse,
-  PromptResponse,
-  promptApi,
-  uploadFiles,
-} from "@/services/api";
-import { logger } from "@/services/logger";
+import { DocResponse, PromptResponse, promptApi } from "@/services/api";
 import { Message } from "@/types/Message";
 import rehypeRaw from "rehype-raw";
 
-import {
-  OrganizationSwitcher,
-  UserButton,
-  useAuth,
-  useUser,
-} from "@clerk/nextjs";
-import {
-  Hamburger,
-  PaperPlaneRight,
-  Polygon,
-  Spinner,
-  User,
-} from "@phosphor-icons/react";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { PaperPlaneRight, Polygon, Spinner, User } from "@phosphor-icons/react";
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { useToast } from "../use-toast";
 import styles from "./index.module.css";
-import { ChevronRightIcon, MenuIcon } from "lucide-react";
-import { Button } from "../ui/button";
-import { SideMenu } from "../menu";
-import { FileUploader } from "../fileUploader";
 
 export default function Chat() {
   const [userInput, setUserInput] = useState("");
-  const [history, setHistory] = useState<[string, string][]>([]);
   const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
-  const [file, setFile] = useState<FileList | undefined>();
   const [messages, setMessages] = useState<Message[]>([
     {
       message: "Hi there! How can I help?",
@@ -47,7 +22,6 @@ export default function Chat() {
 
   const messageListRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-  const uploadRef = useRef<HTMLInputElement | null>(null);
   const user = useUser();
   console.log(user);
   // Auto scroll chat to bottom
@@ -155,89 +129,46 @@ export default function Chat() {
     }
   };
 
-  // Keep history in sync with messages
-  useEffect(() => {
-    if (messages.length >= 3) {
-      setHistory([
-        [
-          messages[messages.length - 2].message,
-          messages[messages.length - 1].message,
-        ] as [string, string],
-      ]);
-    }
-  }, [messages]);
-  const [loadingFile, setLoadingFile] = useState(false);
-  const handleUploadClick = () => {
-    if (!file) {
-      return;
-    }
-    setLoadingFile(true);
-    logger.info("uploading file", file);
-    uploadFiles(file)
-      .then((data) => logger.info("file uploaded: ", file))
-      .then(() => {
-        toast({ title: "File uploaded successfully" });
-        setFile(undefined);
-        if (uploadRef.current) uploadRef.current.value = "";
-      })
-      .catch((err) => {
-        logger.error("failed to upload file", err);
-        toast({
-          title: `Error uploading file: ${err.message}`,
-          description: "Please try again later",
-        });
-      })
-      .finally(() => {
-        setLoadingFile(false);
-      });
-  };
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFile(e.target.files);
-    }
-  };
-
   return (
-    <>
-      <main
-        className={`${styles.main} mb-10 max-w-7xl xl:w-[80rem] xl:mx-auto `}
-      >
-        <div className={styles.cloud}>
-          <div ref={messageListRef} className={styles.messagelist}>
-            {messages.map((message, index) => {
-              return (
-                // The latest message sent by the user will be animated while waiting for a response
-                <div
-                  key={index}
-                  className={
-                    message.type === "userMessage" &&
-                    loading &&
-                    index === messages.length - 1
-                      ? styles.usermessagewaiting
-                      : message.type === "robot"
-                      ? styles.apimessage
-                      : styles.usermessage
-                  }
-                >
-                  {/* Display the correct icon depending on the message type */}
-                  <div className="mr-2">
-                    {message.type === "robot" ? (
-                      <Polygon size={30} color="white" />
-                    ) : (
-                      <User size={30} color="white" />
-                    )}
-                  </div>
-                  <div className={styles.markdownanswer}>
-                    {/* Messages are being rendered in Markdown format */}
-                    <ReactMarkdown
-                      rehypePlugins={[rehypeRaw]}
-                      linkTarget={"_blank"}
-                    >
-                      {message.message}
-                    </ReactMarkdown>
-                    <p className="text-neutral-400">
-                      {message.sources
-                        ? `
+    <main
+      className={`${styles.main} flex bg-neutral-0 max-w-7xl xl:w-[80rem] xl:mx-auto `}
+    >
+      <div className={`${styles.cloud} flex flex-1`}>
+        <div ref={messageListRef} className={styles.messagelist}>
+          {messages.map((message, index) => {
+            return (
+              // The latest message sent by the user will be animated while waiting for a response
+              <div
+                key={index}
+                className={
+                  message.type === "userMessage" &&
+                  loading &&
+                  index === messages.length - 1
+                    ? styles.usermessagewaiting
+                    : message.type === "robot"
+                    ? styles.apimessage
+                    : styles.usermessage
+                }
+              >
+                {/* Display the correct icon depending on the message type */}
+                <div className="mr-2">
+                  {message.type === "robot" ? (
+                    <Polygon size={30} color="white" />
+                  ) : (
+                    <User size={30} color="white" />
+                  )}
+                </div>
+                <div className={styles.markdownanswer}>
+                  {/* Messages are being rendered in Markdown format */}
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeRaw]}
+                    linkTarget={"_blank"}
+                  >
+                    {message.message}
+                  </ReactMarkdown>
+                  <p className="text-neutral-400">
+                    {message.sources
+                      ? `
                         \n\n\n\n ${message.sources
                           .map((source) =>
                             source.url
@@ -246,50 +177,47 @@ export default function Chat() {
                           )
                           .join(", ")}
                         `
-                        : ""}
-                    </p>
-                  </div>
+                      : ""}
+                  </p>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className={styles.center}>
-          <div className={styles.cloudform}>
-            <form onSubmit={handleSubmit}>
-              <div className="p-4 flex gap-4 items-center flex-1 w-full border rounded-lg border-solid border-neutral-700 pr-2">
-                <textarea
-                  disabled={loading}
-                  onKeyDown={handleEnter}
-                  ref={textAreaRef}
-                  autoFocus={false}
-                  rows={1}
-                  maxLength={512}
-                  id="userInput"
-                  name="userInput"
-                  placeholder={
-                    loading
-                      ? "Waiting for response..."
-                      : "Type your question..."
-                  }
-                  value={userInput}
-                  onChange={(e) => setUserInput(e.target.value)}
-                  className={`${styles.textarea}`}
-                />
-
-                <button type="submit" disabled={loading}>
-                  {loading ? (
-                    <Spinner className="animate-spin" size={28} />
-                  ) : (
-                    // Send icon SVG in input field
-                    <PaperPlaneRight size={28} className="text-neutral-400 " />
-                  )}
-                </button>
               </div>
-            </form>
-          </div>
+            );
+          })}
         </div>
-      </main>
-    </>
+      </div>
+      <div className={styles.center}>
+        <div className={styles.cloudform}>
+          <form onSubmit={handleSubmit}>
+            <div className="p-4 flex gap-4 items-center flex-1 w-full border rounded-lg border-solid border-neutral-700 pr-2">
+              <textarea
+                disabled={loading}
+                onKeyDown={handleEnter}
+                ref={textAreaRef}
+                autoFocus={false}
+                rows={1}
+                maxLength={512}
+                id="userInput"
+                name="userInput"
+                placeholder={
+                  loading ? "Waiting for response..." : "Type your question..."
+                }
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
+                className={`${styles.textarea}`}
+              />
+
+              <button type="submit" disabled={loading}>
+                {loading ? (
+                  <Spinner className="animate-spin" size={28} />
+                ) : (
+                  // Send icon SVG in input field
+                  <PaperPlaneRight size={28} className="text-neutral-400 " />
+                )}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
   );
 }
