@@ -105,4 +105,4 @@ const LandingPage = () => {
   );
 };
 export default LandingPage;
-export const runtime = "edge";
+export const runtime = "nodejs";
