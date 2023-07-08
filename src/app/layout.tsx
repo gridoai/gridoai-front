@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import RefineProvider from "./refine-provider";
+import { ClientProviders } from "./client-providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -47,13 +48,15 @@ export default function RootLayout({
         },
       }}
     >
-      <html lang="en">
+      <html lang="en" className="flex">
         <head>
           <meta name="robots" content="noindex" />
         </head>
-        <body className={inter.className}>
-          <RefineProvider>{children}</RefineProvider>
-          <Toaster />
+        <body className={`${inter.className} flex`}>
+          <ClientProviders>
+            <RefineProvider>{children}</RefineProvider>
+            <Toaster />
+          </ClientProviders>
         </body>
       </html>
     </ClerkProvider>

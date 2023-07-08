@@ -22,14 +22,17 @@ const DocumentCreate: React.FC = () => {
     refineCore: { formLoading },
     saveButtonProps,
     register,
+    watch,
     setValue,
     formState: { errors },
   } = useForm<DocumentForm>();
   const { toast } = useToast();
 
+  const name = watch("name");
+
   useEffect(() => {
-    setValue("source", "web");
-  }, [setValue]);
+    setValue("source", name);
+  }, [name, setValue]);
 
   useEffect(() => {
     errors.root?.message && toast({ title: errors.root?.message });
