@@ -39,8 +39,8 @@ export const promptApi = async (prompt: string, pastMessages: Message[]) => {
 
 export const uploadFiles = async (files: Iterable<File> | ArrayLike<File>) => {
   const formData = new FormData();
+
   Array.from(files).forEach((file, index) => {
-    // formData.append(`files[${index}]`, file);
     formData.append(`files`, file);
   });
 
