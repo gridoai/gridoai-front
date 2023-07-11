@@ -1,9 +1,12 @@
 import { Message, APIMessage } from "@/types/Message";
 import axios, {
+  AxiosInstance,
   AxiosInterceptorManager,
   InternalAxiosRequestConfig,
 } from "axios";
 import { logger } from "./logger";
+import { DataProvider } from "@refinedev/core";
+import baseDataProvider from "@refinedev/simple-rest";
 
 const authInterceptor = async <T>(config: InternalAxiosRequestConfig<T>) => {
   const token = await window.Clerk.session.getToken().catch(console.error);
@@ -13,22 +16,66 @@ const authInterceptor = async <T>(config: InternalAxiosRequestConfig<T>) => {
   return config;
 };
 
-// replaces _start and _end by start and end respectively from the query parameters because Refine has a weird default
-const convertQueryParams = <T>(config: InternalAxiosRequestConfig<T>) => {
-  const newConfig = {
-    ...config,
-    url: config.url?.replace(/_start/, "start").replace(/_end/, "end"),
-  };
-
-  return newConfig;
-};
-
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "/api",
 });
 
 api.interceptors.request.use(authInterceptor, console.error);
-api.interceptors.request.use(convertQueryParams, console.error);
+
+type RestDataProvider = Omit<
+  Required<DataProvider>,
+  "createMany" | "updateMany" | "deleteMany"
+>;
+
+type RefineApiClient = Parameters<typeof baseDataProvider>[1];
+
+async function fetchWithPagination(
+  current: number,
+  pageSize: number,
+  httpClient: AxiosInstance,
+  url: string
+) {
+  const start = (current - 1) * pageSize;
+  const end = current * pageSize;
+  const {
+    data: { data, total },
+  } = await httpClient.get(url, {
+    params: {
+      start,
+      end,
+    },
+  });
+  return {
+    data,
+    total: total || data.length,
+  };
+}
+
+export const restDataProvider = (
+  apiUrl: string,
+  httpClient: AxiosInstance = api
+): RestDataProvider => ({
+  ...baseDataProvider(apiUrl, httpClient as RefineApiClient),
+  getList: async ({ resource, pagination }) => {
+    let url = `${apiUrl}/${resource}`;
+
+    if (pagination?.current && pagination?.pageSize) {
+      return await fetchWithPagination(
+        pagination?.current,
+        pagination?.pageSize,
+        httpClient,
+        url
+      );
+    }
+
+    const { data } = await httpClient.get(url);
+
+    return {
+      data,
+      total: data.length,
+    };
+  },
+});
 
 console.log(process.env.NEXT_PUBLIC_API_URL);
 export type PromptResponse = {

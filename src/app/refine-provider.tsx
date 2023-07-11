@@ -1,10 +1,9 @@
 "use client";
 
 import { Refine } from "@refinedev/core";
-import dataProvider from "@refinedev/simple-rest";
 import routerProvider from "@refinedev/nextjs-router/app";
-import { api } from "../services/api";
-import { ThemedLayoutV2, RefineThemes } from "@refinedev/chakra-ui";
+import { restDataProvider } from "../services/api";
+import { RefineThemes } from "@refinedev/chakra-ui";
 import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
 
@@ -46,7 +45,7 @@ export default function RefineProvider({
     >
       <Refine
         options={{ mutationMode: "optimistic" }}
-        dataProvider={dataProvider("", api)}
+        dataProvider={restDataProvider("")}
         routerProvider={routerProvider}
         resources={[
           {
