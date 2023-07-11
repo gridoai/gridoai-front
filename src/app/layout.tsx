@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import RefineProvider from "./refine-provider";
 import { ClientProviders } from "./client-providers";
+import { ThemeProvider } from "@/providers/theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -53,10 +54,12 @@ export default function RootLayout({
           <meta name="robots" content="noindex" />
         </head>
         <body className={`${inter.className} flex`}>
-          <ClientProviders>
-            <RefineProvider>{children}</RefineProvider>
-            <Toaster />
-          </ClientProviders>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            <ClientProviders>
+              <RefineProvider>{children}</RefineProvider>
+              <Toaster />
+            </ClientProviders>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
