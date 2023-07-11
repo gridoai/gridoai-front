@@ -92,7 +92,6 @@ const DocumentsList: React.FC = () => {
   const { isLoading, fetchStatus, refetch } = refineCore.tableQueryResult;
   const loading = isLoading || fetchStatus === "fetching";
 
-  console.log({ pageSize, current, pageCount });
   return (
     <div className={` flex flex-col bg-neutral-1 p-4 rounded-xl`}>
       <List
