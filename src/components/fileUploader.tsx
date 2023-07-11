@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { uploadFiles } from "@/services/api";
 import { logger } from "@/services/logger";
-import { Spinner } from "@phosphor-icons/react";
+import { Spinner, X } from "@phosphor-icons/react";
 import { useToast } from "./use-toast";
 import { Button } from "./ui/button";
 
@@ -44,16 +44,24 @@ export const FileUploader: React.FC = () => {
 
   return (
     <div className="flex items-center flex-wrap justify-between gap-2 pr-4">
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap">
         {files?.map((file) => {
           return (
             <Button
               variant="outline"
-              className="rounded-full"
+              className="rounded-full gap-1"
               size="sm"
               key={file.name}
             >
               {file.name}
+              <X
+                className="cursor-pointer"
+                onClick={() => {
+                  setFiles((otherFiles) =>
+                    otherFiles?.filter((f) => f.name !== file.name)
+                  );
+                }}
+              />
             </Button>
           );
         })}
