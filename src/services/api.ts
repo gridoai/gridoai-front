@@ -1,8 +1,11 @@
 import { Message, APIMessage } from "@/types/Message";
-import axios from "axios";
+import axios, {
+  AxiosInterceptorManager,
+  InternalAxiosRequestConfig,
+} from "axios";
 import { logger } from "./logger";
 
-const authInterceptor = async (config: any) => {
+const authInterceptor = async <T>(config: InternalAxiosRequestConfig<T>) => {
   const token = await window.Clerk.session.getToken().catch(console.error);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -10,11 +13,23 @@ const authInterceptor = async (config: any) => {
   return config;
 };
 
+// replaces _start and _end by start and end respectively from the query parameters because Refine has a weird default
+const convertQueryParams = <T>(config: InternalAxiosRequestConfig<T>) => {
+  const newConfig = {
+    ...config,
+    url: config.url?.replace(/_start/, "start").replace(/_end/, "end"),
+  };
+
+  return newConfig;
+};
+
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "/api",
 });
 
 api.interceptors.request.use(authInterceptor, console.error);
+api.interceptors.request.use(convertQueryParams, console.error);
+
 console.log(process.env.NEXT_PUBLIC_API_URL);
 export type PromptResponse = {
   message: string;

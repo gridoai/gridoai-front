@@ -22,9 +22,9 @@ import { FileUploader } from "../../components/fileUploader";
 import { useList } from "@refinedev/core";
 import { ArrowClockwise, Spinner } from "@phosphor-icons/react";
 import { Button } from "../../components/ui/button";
+import { Pagination } from "../../components/pagination";
 const RenderActions = (props: CellContext<Document, unknown>) => {
   const { toast } = useToast();
-  console.log(props.row.original.uid);
   return (
     <div className="flex justify-end">
       <DeleteButton
@@ -86,6 +86,8 @@ const DocumentsList: React.FC = () => {
       },
     },
   });
+
+  const { current, setCurrent, pageSize, setPageSize, pageCount } = refineCore;
 
   const { isLoading, fetchStatus, refetch } = refineCore.tableQueryResult;
   const loading = isLoading || fetchStatus === "fetching";
@@ -157,6 +159,17 @@ const DocumentsList: React.FC = () => {
           </Table>
         </TableContainer>
       </List>
+      <div className="flex self-end p-4">
+        <Pagination
+          pageSize={pageSize}
+          onPageChange={({ current, pageSize }) => {
+            setPageSize(pageSize);
+            setCurrent(current);
+          }}
+          current={current}
+          pageCount={pageCount}
+        />
+      </div>
       <div className="p-2 flex-col gap-4 mt-4 flex">
         <div className="text-3xl font-bold">Upload</div>
         <FileUploader />
