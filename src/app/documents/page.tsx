@@ -20,7 +20,8 @@ import React from "react";
 import { useToast } from "../../components/use-toast";
 import { FileUploader } from "../../components/fileUploader";
 import { useList } from "@refinedev/core";
-import { Spinner } from "@phosphor-icons/react";
+import { ArrowClockwise, Spinner } from "@phosphor-icons/react";
+import { Button } from "../../components/ui/button";
 const RenderActions = (props: CellContext<Document, unknown>) => {
   const { toast } = useToast();
   console.log(props.row.original.uid);
@@ -85,7 +86,8 @@ const DocumentsList: React.FC = () => {
       },
     },
   });
-  const { isLoading, fetchStatus } = refineCore.tableQueryResult;
+
+  const { isLoading, fetchStatus, refetch } = refineCore.tableQueryResult;
   const loading = isLoading || fetchStatus === "fetching";
 
   return (
@@ -103,7 +105,14 @@ const DocumentsList: React.FC = () => {
         }
         headerButtons={
           <>
-            <RefreshButton className="mr-2" />
+            <Button
+              className={loading ? "opacity-50" : ""}
+              onClick={() => refetch()}
+              variant={"outline"}
+            >
+              Refresh
+              <ArrowClockwise className={`ml-2 `} />
+            </Button>
             <CreateButton />
           </>
         }
