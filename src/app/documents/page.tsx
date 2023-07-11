@@ -19,7 +19,6 @@ import { CellContext, ColumnDef, flexRender } from "@tanstack/react-table";
 import React from "react";
 import { useToast } from "../../components/use-toast";
 import { FileUploader } from "../../components/fileUploader";
-import { useList } from "@refinedev/core";
 import { ArrowClockwise, Spinner } from "@phosphor-icons/react";
 import { Button } from "../../components/ui/button";
 import { Pagination } from "../../components/pagination";
@@ -84,6 +83,7 @@ const DocumentsList: React.FC = () => {
         cacheTime: 3600,
         staleTime: 3600,
       },
+      pagination: { mode: "server" },
     },
   });
 
@@ -92,6 +92,8 @@ const DocumentsList: React.FC = () => {
   const { isLoading, fetchStatus, refetch } = refineCore.tableQueryResult;
   const loading = isLoading || fetchStatus === "fetching";
 
+  window.refineCore = refineCore;
+  console.log({ pageSize, current, pageCount });
   return (
     <div className={` flex flex-col bg-neutral-1 p-4 rounded-xl`}>
       <List
@@ -162,10 +164,8 @@ const DocumentsList: React.FC = () => {
       <div className="flex self-end p-4">
         <Pagination
           pageSize={pageSize}
-          onPageChange={({ current, pageSize }) => {
-            setPageSize(pageSize);
-            setCurrent(current);
-          }}
+          onPageSizeChange={setPageSize}
+          onPageChange={setCurrent}
           current={current}
           pageCount={pageCount}
         />
