@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useTable } from "@refinedev/react-table";
 import { CellContext, ColumnDef, flexRender } from "@tanstack/react-table";
-import React from "react";
+import React, { useEffect } from "react";
 import { useToast } from "../../components/use-toast";
 import { FileUploader } from "../../components/fileUploader";
 import { ArrowClockwise, Spinner } from "@phosphor-icons/react";
@@ -89,8 +89,20 @@ const DocumentsList: React.FC = () => {
 
   const { current, setCurrent, pageSize, setPageSize, pageCount } = refineCore;
 
-  const { isLoading, fetchStatus, refetch } = refineCore.tableQueryResult;
+  const { isLoading, fetchStatus, refetch, error } =
+    refineCore.tableQueryResult;
   const loading = isLoading || fetchStatus === "fetching";
+
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "There was an error fetching the documents",
+        description: error.message,
+      });
+    }
+  }, [error, toast]);
 
   return (
     <div className={` flex flex-col bg-neutral-1 p-4 rounded-xl`}>
