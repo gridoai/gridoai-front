@@ -22,11 +22,22 @@ export default function RootLayout({
     <ClerkProvider
       appearance={{
         variables: {
-          colorText: "white",
+          colorText: "#fafafa",
           colorBackground: "#141619",
           colorPrimary: "#7857FF",
+          colorInputText: "#fafafa",
         },
         elements: {
+          tabButton: "text-foreground",
+          tabPanel: "text-foreground, [& *]:text-foreground",
+          tabListContainer: "text-foreground",
+          tagInputContainer:
+            "[&>input]:text-foreground [&>input]:bg-transparent bg-transparent border-border text-foreground",
+          formFieldInput: "text-foreground bg-transparent border-border",
+          selectButton: "bg-transparent border-border text-foreground",
+
+          tagPillContainer: "bg-input",
+
           socialButtonsIconButton: {
             borderColor: "#30373d",
             backgroundColor: "#141619",
