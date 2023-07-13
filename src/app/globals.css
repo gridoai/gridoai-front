@@ -3,7 +3,12 @@
 @tailwind utilities;
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
-
+span[data-localization-key="paginationRowText__displaying"] {
+  @apply text-foreground;
+}
+span {
+  @apply !text-foreground;
+}
 * {
   box-sizing: border-box;
   padding: 0;
@@ -93,7 +98,7 @@ a:hover {
     --background: #070809;
     --foreground: 213 31% 91%;
 
-    --muted: 223 47% 11%;
+    --muted: #30373d;
     --muted-foreground: 215.4 16.3% 56.9%;
 
     --accent: #30373d38;
