@@ -6,7 +6,7 @@ import { Spinner, X } from "@phosphor-icons/react";
 import { useToast } from "./use-toast";
 import { Button } from "./ui/button";
 
-export const FileUploader: React.FC = () => {
+export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
   const [files, setFiles] = useState<Array<File> | undefined>();
   const [loadingFile, setLoadingFile] = useState(false);
   const { toast } = useToast();
@@ -29,6 +29,7 @@ export const FileUploader: React.FC = () => {
       .then(() => {
         toast({ title: "Files uploaded successfully" });
         setFiles(undefined);
+        onSuccess();
       })
       .catch((err) => {
         logger.error("failed to upload files", err);

@@ -10,6 +10,12 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  CaretDoubleLeft,
+  CaretDoubleRight,
+  CaretLeft,
+  CaretRight,
+} from "@phosphor-icons/react";
 
 export function Pagination({
   pageSize = 10,
@@ -27,43 +33,44 @@ export function Pagination({
   const hasNext = current < pageCount;
   const hasPrev = current > 1;
   return (
-    <div className="flex gap-4 items-center">
-      <div className="flex gap-2">
+    <div className="flex gap-4 flex-col items-center justify-center flex-1 ">
+      <div className="flex gap-2 ">
         <Button onClick={() => onPageChange(1)} disabled={!hasPrev}>
-          First
+          <CaretDoubleLeft />
         </Button>
         <Button onClick={() => onPageChange(current - 1)} disabled={!hasPrev}>
-          Previous
+          <CaretLeft />
         </Button>
         <Button onClick={() => onPageChange(current + 1)} disabled={!hasNext}>
-          Next
+          <CaretRight />
         </Button>
         <Button onClick={() => onPageChange(pageCount)} disabled={!hasNext}>
-          Last
+          <CaretDoubleRight />
         </Button>
       </div>
-      <span className="whitespace-nowrap">
-        Page {current} of {pageCount}
-      </span>
-
-      <Select onValueChange={(s) => onPageSizeChange(Number(s))}>
-        <SelectTrigger className="max-w-[70px]">
-          <SelectValue>{pageSize}</SelectValue>
-        </SelectTrigger>
-        <SelectContent className="max-w-[50px]">
-          <SelectGroup>
-            {[10, 20, 30, 40, 50].map((size) => (
-              <SelectItem
-                key={size}
-                value={size.toString()}
-                onClick={() => onPageSizeChange(size)}
-              >
-                Show {size}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+      <div className="flex gap-2 items-center">
+        <span className="whitespace-nowrap">
+          Page {current} of {pageCount}
+        </span>
+        <Select onValueChange={(s) => onPageSizeChange(Number(s))}>
+          <SelectTrigger className="max-w-[70px]">
+            <SelectValue>{pageSize}</SelectValue>
+          </SelectTrigger>
+          <SelectContent className="max-w-[50px]">
+            <SelectGroup>
+              {[10, 20, 30, 40, 50].map((size) => (
+                <SelectItem
+                  key={size}
+                  value={size.toString()}
+                  onClick={() => onPageSizeChange(size)}
+                >
+                  Show {size}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   );
 }
