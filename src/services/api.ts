@@ -102,17 +102,25 @@ export const promptApi = async (prompt: string, pastMessages: Message[]) => {
 export const uploadFiles = async (files: Iterable<File> | ArrayLike<File>) => {
   const formData = new FormData();
 
-  Array.from(files).forEach((file, index) => {
-    formData.append(`files`, file);
+  const fileList = Array.from(files);
+  console.log("Uploading files: ", fileList.length);
+  fileList.forEach((file, index) => {
+    formData.append(
+      `files`,
+      file,
+      file.name.replace(/[^a-zA-Z0-9_\. \-]/g, "")
+    );
   });
-
-  return (
-    await api.post<string>(`/upload/`, formData, {
+  const response = (
+    await api.post<string[]>(`/upload/`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     })
   ).data;
+  if (response.length < fileList.length) {
+    throw new Error("Failed to upload all files");
+  }
 };
 
 export type DocResponse = {
