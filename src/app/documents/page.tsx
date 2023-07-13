@@ -81,7 +81,7 @@ const DocumentsList: React.FC = () => {
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
         cacheTime: 3600,
-        staleTime: 3600,
+        staleTime: Infinity,
       },
       pagination: { mode: "server" },
     },
@@ -171,7 +171,7 @@ const DocumentsList: React.FC = () => {
           </Table>
         </TableContainer>
       </List>
-      <div className="flex self-end p-4">
+      <div className="flex self-end p-4 w-full">
         <Pagination
           pageSize={pageSize}
           onPageSizeChange={setPageSize}
@@ -182,7 +182,7 @@ const DocumentsList: React.FC = () => {
       </div>
       <div className="p-2 flex-col gap-4 mt-4 flex">
         <div className="text-3xl font-bold">Upload</div>
-        <FileUploader />
+        <FileUploader onSuccess={() => refetch()} />
       </div>
     </div>
   );
