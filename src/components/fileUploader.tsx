@@ -16,7 +16,21 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
     setFiles((otherFiles) => [...acceptedFiles, ...(otherFiles || [])]);
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    maxSize: 1e7,
+    maxFiles: 50,
+    accept: {
+      "text/plain": [".txt", ".md"],
+      "application/pdf": [".pdf"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        [".docx"],
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+        [".pptx"],
+    },
+    onError: (e) =>
+      toast({ title: "Can't upload files", description: e.message }),
+  });
 
   const handleUploadClick = () => {
     if (!files) {
@@ -85,7 +99,11 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
       {loadingFile ? (
         <Spinner className="animate-spin text-white" size={28} />
       ) : (
-        <Button variant={"outline"} onClick={handleUploadClick}>
+        <Button
+          disabled={(files?.length || 0) < 1}
+          variant={"outline"}
+          onClick={handleUploadClick}
+        >
           Upload
         </Button>
       )}
