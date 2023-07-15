@@ -5,8 +5,6 @@ export const useOrgChanges = (callback: () => void) => {
   const { organization } = useOrganization();
 
   useEffect(() => {
-    console.log("organization changed");
-
     callback();
   }, [organization]);
 };
