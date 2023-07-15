@@ -22,6 +22,9 @@ import { FileUploader } from "../../components/fileUploader";
 import { ArrowClockwise, Spinner } from "@phosphor-icons/react";
 import { Button } from "../../components/ui/button";
 import { Pagination } from "../../components/pagination";
+import { useOrganization } from "@clerk/nextjs";
+import { useOrgChanges } from "../../hooks/useOrgChanges";
+
 const RenderActions = (props: CellContext<Document, unknown>) => {
   const { toast } = useToast();
   return (
@@ -104,6 +107,7 @@ const DocumentsList: React.FC = () => {
     }
   }, [error, toast]);
 
+  useOrgChanges(() => refetch());
   return (
     <div className={` flex flex-col bg-neutral-1 p-4 rounded-xl`}>
       <List
