@@ -1,0 +1,31 @@
+{
+  "title": "GridoAI Privacy Policy",
+  "lastUpdated": "July 17, 2023",
+  "introduction": "At GridoAI, we prioritize your privacy and data security. Our mission is to provide you with AI-powered responses based on the data you provide, in a manner that respects your privacy and security. This Privacy Policy outlines our practices and your rights in relation to information that we collect and process.",
+  "sections": [
+    {
+      "header": "Information We Collect",
+      "body": "We collect only the information necessary to deliver our service: providing you with AI-powered responses. This includes any data you provide us, whether directly or through integrations with other platforms."
+    },
+    {
+      "header": "How We Use Information We Collect",
+      "body": "We strictly use your data to generate AI-based responses. We do not use it for any other purposes. We store your data in its original form along with its numerical representation (embedding) that is used for providing the AI services. This storage is to allow for future optimization of our services, should we find better ways of calculating embeddings."
+    },
+    {
+      "header": "Data Storage and Anonymization",
+      "body": "While we store your original data, we also implement a process called data anonymization. This means that we convert your data into a different format (an 'embedding') that can't be reversed or decoded. Although we retain the original data, the use of embeddings for our services provides an additional layer of security and privacy."
+    },
+    {
+      "header": "Information We Share",
+      "body": "GridoAI does not share your personal data with any third parties, except as necessary to comply with the law or to protect our rights."
+    },
+    {
+      "header": "Information Security",
+      "body": "We take stringent measures to ensure the security of your data. We maintain strict administrative, technical, and physical procedures to protect information stored in our servers."
+    },
+    {
+      "header": "Changes to this Policy",
+      "body": "We may change this Privacy Policy from time to time, and if we do we’ll post any changes on this page. If you continue to use GridoAI after those changes are in effect, you agree to the revised policy."
+    }
+  ]
+}
