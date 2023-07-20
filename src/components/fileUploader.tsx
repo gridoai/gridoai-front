@@ -18,7 +18,7 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    maxSize: 1e7,
+    maxSize: 50e6, // 1 MB = 1e6 bytes
     maxFiles: 50,
     accept: {
       "text/plain": [".txt", ".md"],
