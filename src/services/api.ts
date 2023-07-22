@@ -16,11 +16,26 @@ const authInterceptor = async <T>(config: InternalAxiosRequestConfig<T>) => {
   return config;
 };
 
+const endpointInterceptor = async <T>(
+  config: InternalAxiosRequestConfig<T>
+) => {
+  if (typeof window === "undefined") {
+    return config;
+  }
+
+  config.baseURL =
+    localStorage.getItem("baseURL") ||
+    window.baseURL ||
+    process.env.NEXT_PUBLIC_API_URL;
+  return config;
+};
+
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "/api",
 });
 
 api.interceptors.request.use(authInterceptor, console.error);
+api.interceptors.request.use(endpointInterceptor, console.error);
 
 type RestDataProvider = Omit<
   Required<DataProvider>,
