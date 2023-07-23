@@ -189,7 +189,6 @@ const DocumentsList: React.FC = () => {
           Upload <div className="text-sm font-medium">(30MB Max)</div>{" "}
         </div>
         <FileUploader onSuccess={() => refetch()} />
-        <GoogleDriveSync />
       </div>
     </div>
   );
