@@ -185,8 +185,11 @@ const DocumentsList: React.FC = () => {
         />
       </div>
       <div className="p-2 flex-col gap-4 mt-4 flex">
-        <div className="text-3xl font-bold">Upload</div>
+        <div className="text-3xl flex items-end gap-2 font-bold">
+          Upload <div className="text-sm font-medium">(30MB Max)</div>{" "}
+        </div>
         <FileUploader onSuccess={() => refetch()} />
+        <GoogleDriveSync />
       </div>
     </div>
   );
