@@ -18,7 +18,7 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    maxSize: 50e6, // 1 MB = 1e6 bytes
+    maxSize: 30e6, // 1 MB = 1e6 bytes
     maxFiles: 50,
     accept: {
       "text/plain": [".txt", ".md"],
@@ -89,7 +89,7 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
       >
         <input {...getInputProps()} />
         {isDragActive ? (
-          <p className="text-white text-center">Drop the files here ...</p>
+          <p className="text-white text-center">Drop the files here ... </p>
         ) : (
           <p className="text-white text-center">
             {"Drag 'n' drop some files here, or click to select files"}
