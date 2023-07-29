@@ -131,7 +131,7 @@ export default function Chat() {
 
   return (
     <main
-      className={`${styles.main} flex bg-neutral-0 max-w-7xl xl:w-[80rem] xl:mx-auto `}
+      className={`${styles.main} flex bg-background max-w-7xl xl:w-[80rem] xl:mx-auto `}
     >
       <div className={`${styles.cloud} flex flex-1`}>
         <div ref={messageListRef} className={styles.messagelist}>

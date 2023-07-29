@@ -84,20 +84,22 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
       <div
         {...getRootProps()}
         className={`w-full h-32 flex transition-all items-center justify-center mb-2 p-4 border-dashed border-2 ${
-          isDragActive ? "bg-neutral-2" : "bg-neutral-0"
+          isDragActive ? "bg-neutral-2" : "bg-background"
         }`}
       >
         <input {...getInputProps()} />
         {isDragActive ? (
-          <p className="text-white text-center">Drop the files here ... </p>
+          <p className="text-foreground text-center">
+            Drop the files here ...{" "}
+          </p>
         ) : (
-          <p className="text-white text-center">
+          <p className="text-foreground text-center">
             {"Drag 'n' drop some files here, or click to select files"}
           </p>
         )}
       </div>
       {loadingFile ? (
-        <Spinner className="animate-spin text-white" size={28} />
+        <Spinner className="animate-spin text-foreground" size={28} />
       ) : (
         <Button
           disabled={(files?.length || 0) < 1}

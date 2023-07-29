@@ -18,6 +18,8 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+All CSS variables are present in globals.css. You can use them in any component with tailwind, like bg-background or text-primary.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

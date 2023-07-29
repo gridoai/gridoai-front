@@ -12,7 +12,7 @@ export function SideMenu() {
           <MenuIcon />
         </Button>
       </SheetTrigger>
-      <SheetContent className="border-none bg-neutral-0 flex flex-col justify-end gap-4 items-end">
+      <SheetContent className="border-none bg-background flex flex-col justify-end gap-4 items-end">
         <OrganizationSwitcher defaultOpen />
         <Link href="/documents">
           <Button variant="outline">Manage documents</Button>

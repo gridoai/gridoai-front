@@ -17,17 +17,15 @@ export const NavbarLayout = ({
   Options: React.ReactNode;
 }) => {
   return (
-    <div className="flex flex-1 flex-col bg-neutral-0">
+    <div className="flex flex-1 flex-col bg-background">
       <div
-        className={
-          "bg-[#141619] flex justify-between items-center px-3 py-4 border-b-[#30373d] border-b border-solid;"
-        }
+        className={` flex justify-between items-center px-3 py-4  border-b border-solid;`}
       >
         <UserButton
           appearance={{
             variables: {
-              colorText: "white",
-              colorBackground: "rgba(100,100,100,0.1)",
+              colorText: `white`,
+              colorBackground: `rgba(100,100,100,0.1)`,
             },
           }}
           afterSignOutUrl="/sign-in"
