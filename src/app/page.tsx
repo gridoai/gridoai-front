@@ -1,40 +1,47 @@
 import { auth, currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "../components/ui/button";
-
+import Image from "next/image";
+import bg from "../../public/bg_purple.png";
 const landingPageContent = {
-  navTitle: "GridoAI",
-  headerTitle: "Revolutionize Your Information Management with GridoAI",
-  headerDescription:
-    "GridoAI is a powerful chatbot that uses artificial intelligence to transform the way you interact with information. Whether you're navigating policy documents, searching for specific building codes, or exploring a vast library catalogue, GridoAI makes it effortless.",
+  navTitle: `GridoAI`,
+  headerTitle: (
+    <>
+      Talk with your data
+      <br /> wherever it is
+    </>
+  ),
+  headerDescription: `GridoAI is a powerful chatbot that uses your data to provide precise and contextually relevant answers`,
   features: [
     {
-      title: "Intelligent Search",
-      description:
-        "GridoAI uses AI and a vector space model to deliver precise and contextually relevant search results. Whether you're a hospital administrator, a construction project manager, or a university librarian, finding the information you need has never been easier.",
+      title: `Data-Driven Answers`,
+      description: `GridoAI leverages your data to provide accurate, insightful responses. No more guesswork, just data-backed answers`,
     },
     {
-      title: "Smart Information Interaction",
-      description:
-        "Interact conversationally with your information, as though speaking with an oracle or genie. GridoAI understands your queries and provides intelligent responses, making it a valuable tool for project managers, software developers, and compliance officers alike.",
+      title: `Multiple Workspace Support`,
+      description: `We understand that different projects require different resources. GridoAI supports multiple workspaces, each with its unique set of documents, ensuring organized and efficient data management`,
     },
     {
-      title: "Graph-Based Search",
-      description:
-        "Leverage the power of a graph database with GridoAI. Explore relationships between documents, uncover hidden insights, and navigate your information landscape with ease and precision.",
+      title: `User Management`,
+      description: `Add users to your organization and manage their permissions seamlessly with GridoAI`,
+    },
+    {
+      title: `Robust data integration`,
+      description: `Upload files, connect with popular providers like Google Drive, or integrate with your own custom data sources`,
     },
   ],
-  getStartedTitle: "Experience the Power of GridoAI",
-  getStartedDescription:
-    "Transform the way you manage information. Experience the efficiency, precision, and intelligence of GridoAI's interactive information management solution.",
+  getStartedTitle: `Experience the Power of GridoAI`,
+  getStartedDescription: `Transform the way you get information. Experience the efficiency, precision, and intelligence of GridoAI's interactive information solution.`,
   footerText: `© ${new Date().getFullYear()} GridoAI. All rights reserved.`,
+  contactUs: `Contact us`,
 };
 
 const LandingPage = () => {
   const user = auth();
   return (
-    <div className="bg-neutral-950 text-white">
-      <nav className="flex items-center bg-neutral-0 border-b border-neutral-2 justify-between px-8 py-6">
+    <div className=" text-foreground">
+      <Image src={bg} className="w-screen absolute h-screen -z-10" alt="" />
+      <nav className="fixed w-full flex items-center backdrop-blur-3xl bg-opacity-20 drop-shadow-lg border-b border-neutral-2 justify-between px-8 py-6">
         <div className="text-2xl font-bold flex justify-between">
           {landingPageContent.navTitle}
         </div>
@@ -56,34 +63,36 @@ const LandingPage = () => {
         <h1 className="xl:text-8xl/tight sm:text-6xl text-5xl/tight font-bold mb-4">
           {landingPageContent.headerTitle}
         </h1>
-        <p className="text-xl leading-relaxed mx-auto max-w-3xl">
+        <p className="text-2xl leading-relaxed mx-auto max-w-3xl">
           {landingPageContent.headerDescription}
         </p>
-        {/* <Button className="px-8 py-3 mt-8 bg-white border border-neutral-2 text-black hover:bg-neutral-0 hover:text-white transition-all font-semibold rounded-lg">
+        {/* <Button className="px-8 py-3 mt-8 bg-foreground border border-neutral-2 text-black hover:bg-background hover:text-foreground transition-all font-semibold rounded-lg">
           Learn More
         </Button> */}
       </header>
-      <section className="px-8 py-20">
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Key Features</h2>
-          <p className="text-xl">
-            GridoAI offers a range of powerful features to enhance your document
-            management process:
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
-          {landingPageContent.features.map((feature, index) => (
-            <div
-              key={index}
-              className="p-6 bg-neutral-0 border border-neutral-2 rounded-lg"
-            >
-              <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
-              <p className="text-lg">{feature.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className="px-8 py-20 bg-neutral-0 border border-neutral-2">
+      <main className="xl:max-w-6xl mx-auto">
+        <section className="px-8 py-20">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Key Features</h2>
+            {/* <p className="text-xl">
+              GridoAI offers a range of powerful features to enhance your
+              document management process:
+            </p> */}
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+            {landingPageContent.features.map((feature, index) => (
+              <div
+                key={index}
+                className="p-6 bg-background border border-neutral-2 rounded-lg"
+              >
+                <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
+                <p className="text-lg">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+      <section className="px-8 py-20 bg-background border border-neutral-2">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-4">
             {landingPageContent.getStartedTitle}
@@ -92,7 +101,7 @@ const LandingPage = () => {
             {landingPageContent.getStartedDescription}
           </p>
           <Link href="mailto:partners@gridoai.com">
-            <Button className="px-8 py-3 bg-white border border-neutral-2 text-black hover:bg-neutral-0 hover:text-white transition-all font-semibold rounded-lg">
+            <Button className="px-8 py-3 bg-foreground border border-neutral-2 text-black hover:bg-background hover:text-foreground transition-all font-semibold rounded-lg">
               Contact us
             </Button>
           </Link>
@@ -105,4 +114,4 @@ const LandingPage = () => {
   );
 };
 export default LandingPage;
-export const runtime = "nodejs";
+export const runtime = `nodejs`;

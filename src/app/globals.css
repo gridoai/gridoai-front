@@ -23,12 +23,12 @@ body {
 }
 
 html {
-  background-color: #070809;
+  background-color: var(--background);
 }
 
 body {
   color: snow;
-  background: #070809;
+  background: var(--background) !important;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -58,8 +58,9 @@ a:hover {
 }
 
 :root {
-  --ck-colors-chakra-body-bg: #141619;
+  --ck-colors-chakra-body-bg: var(--background);
 }
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -96,7 +97,7 @@ a:hover {
 
   .dark {
     --background: #070809;
-    --foreground: 213 31% 91%;
+    --foreground: #fafafa;
 
     --muted: #30373d;
     --muted-foreground: 215.4 16.3% 56.9%;
@@ -110,8 +111,8 @@ a:hover {
     --border: #30373d;
     --input: #30373d;
 
-    --card: 224 71% 4%;
-    --card-foreground: 213 31% 91%;
+    --card: #141619;
+    --card-foreground: #fafafa;
 
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 1.2%;
@@ -126,6 +127,9 @@ a:hover {
 
     --radius: 0.5rem;
   }
+  span > .icon {
+    color: var(--card);
+  }
 }
 
 @layer base {
@@ -133,7 +137,7 @@ a:hover {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }

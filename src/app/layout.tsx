@@ -6,11 +6,12 @@ import RefineProvider from "./refine-provider";
 import { ClientProviders } from "./client-providers";
 import { ThemeProvider } from "@/providers/theme";
 
+// eslint-disable-next-line quotes
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Grido AI",
-  description: "Your intelligent knowledge base",
+  title: `Grido AI`,
+  description: `Your intelligent knowledge base`,
 };
 
 export default function RootLayout({
@@ -22,41 +23,38 @@ export default function RootLayout({
     <ClerkProvider
       appearance={{
         variables: {
-          colorText: "#fafafa",
-          colorBackground: "#141619",
-          colorPrimary: "#7857FF",
-          colorInputText: "#fafafa",
+          colorText: `#fafafa`,
+          colorBackground: `#141619`,
+          colorPrimary: `#7857FF`,
+          colorInputText: `#fafafa`,
         },
         elements: {
-          tabButton: "text-foreground",
-          tabPanel: "text-foreground, [& *]:text-foreground",
-          tabListContainer: "text-foreground",
-          tagInputContainer:
-            "[&>input]:text-foreground [&>input]:bg-transparent bg-transparent border-border text-foreground",
-          formFieldInput: "text-foreground bg-transparent border-border",
-          selectButton: "bg-transparent border-border text-foreground",
+          tabButton: `text-foreground`,
+          tabPanel: `text-foreground, [& *]:text-foreground`,
+          tabListContainer: `text-foreground`,
+          tagInputContainer: `[&>input]:text-foreground [&>input]:bg-transparent bg-transparent border-border text-foreground`,
+          formFieldInput: `text-foreground bg-transparent border-border`,
+          selectButton: `bg-transparent border-border text-foreground`,
 
-          tagPillContainer: "bg-input",
+          tagPillContainer: `bg-input`,
 
           socialButtonsIconButton: {
-            borderColor: "#30373d",
-            backgroundColor: "#141619",
-            borderRadius: "0.5rem",
-            color: "white",
+            borderColor: `#30373d`,
+            backgroundColor: `#141619`,
+            borderRadius: `0.5rem`,
+            color: `white`,
           },
-          userButtonPopoverCard:
-            "backdrop-blur-lg bg-opacity-20 drop-shadow-lg",
-          userButtonPopoverActionButtonIcon: "text-neutral-200",
-          userButtonPopoverActionButton: "hover:bg-neutral-700 bg-opacity-0",
+          userButtonPopoverCard: `backdrop-blur-lg bg-opacity-20 drop-shadow-lg`,
+          userButtonPopoverActionButtonIcon: `text-neutral-200`,
+          userButtonPopoverActionButton: `hover:bg-neutral-700 bg-opacity-0`,
           card: {
-            backgroundColor: "rgba(100,100,100,0.1) !important",
+            backgroundColor: `rgba(100,100,100,0.1) !important`,
           },
-          userButtonPopoverFooter: "hidden",
-          modalContent: "backdrop-blur-lg bg-opacity-20 drop-shadow-lg",
-          organizationSwitcherPopoverCard:
-            "backdrop-blur-lg bg-opacity-20 [&>*]:text-white z-100",
-          organizationSwitcherPopoverActionButtonIcon: "text-neutral-200",
-          organizationSwitcherPopoverFooter: "hidden",
+          userButtonPopoverFooter: `hidden`,
+          modalContent: `backdrop-blur-lg bg-opacity-20 drop-shadow-lg`,
+          organizationSwitcherPopoverCard: `backdrop-blur-lg bg-opacity-20 [&>*]:text-foreground z-100`,
+          organizationSwitcherPopoverActionButtonIcon: `text-neutral-200`,
+          organizationSwitcherPopoverFooter: `hidden`,
         },
       }}
     >
@@ -76,4 +74,4 @@ export default function RootLayout({
     </ClerkProvider>
   );
 }
-export const runtime = "nodejs";
+export const runtime = `nodejs`;

@@ -20,9 +20,6 @@ module.exports = {
         border: "var(--border)",
         input: "var(--input)",
         ring: "var(--ring)",
-        "neutral-0": "#070809",
-        "neutral-1": "#141619",
-        "neutral-2": "#30373d",
         background: "var(--background)",
         foreground: "var(--foreground)",
         primary: {

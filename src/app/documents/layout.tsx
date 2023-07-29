@@ -10,7 +10,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
       </Link>
     }
   >
-    <div className="p-8 bg-neutral-0 flex-1">{children}</div>
+    <div className="p-8 bg-background flex-1">{children}</div>
   </NavbarLayout>
 );
 

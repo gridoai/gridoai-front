@@ -32,7 +32,7 @@ const RenderActions = (props: CellContext<Document, unknown>) => {
       <DeleteButton
         hideText
         onError={() => {
-          toast({ title: "There was an error deleting the document" });
+          toast({ title: `There was an error deleting the document` });
         }}
         recordItemId={props.row.original.uid}
       />
@@ -44,19 +44,19 @@ const DocumentsList: React.FC = () => {
   const columns = React.useMemo<ColumnDef<Document>[]>(
     () => [
       {
-        id: "name",
-        header: "Name",
-        accessorKey: "name",
+        id: `name`,
+        header: `Name`,
+        accessorKey: `name`,
       },
       {
-        id: "source",
-        header: "Source",
-        accessorKey: "source",
+        id: `source`,
+        header: `Source`,
+        accessorKey: `source`,
       },
       {
-        id: "content",
-        header: "Content",
-        accessorKey: "content",
+        id: `content`,
+        header: `Content`,
+        accessorKey: `content`,
         cell: function render({ getValue }) {
           return (
             <pre className="whitespace-nowrap text-ellipsis">
@@ -66,8 +66,8 @@ const DocumentsList: React.FC = () => {
         },
       },
       {
-        id: "actions",
-        accessorKey: "name",
+        id: `actions`,
+        accessorKey: `name`,
         header: () => <div className="flex justify-end">Actions</div>,
         cell: RenderActions,
       },
@@ -86,7 +86,7 @@ const DocumentsList: React.FC = () => {
         cacheTime: 3600,
         staleTime: Infinity,
       },
-      pagination: { mode: "server" },
+      pagination: { mode: `server` },
     },
   });
 
@@ -94,14 +94,14 @@ const DocumentsList: React.FC = () => {
 
   const { isLoading, fetchStatus, refetch, error } =
     refineCore.tableQueryResult;
-  const loading = isLoading || fetchStatus === "fetching";
+  const loading = isLoading || fetchStatus === `fetching`;
 
   const { toast } = useToast();
 
   useEffect(() => {
     if (error) {
       toast({
-        title: "There was an error fetching the documents",
+        title: `There was an error fetching the documents`,
         description: error.message,
       });
     }
@@ -109,24 +109,26 @@ const DocumentsList: React.FC = () => {
 
   useOrgChanges(() => refetch());
   return (
-    <div className={` flex flex-col bg-neutral-1 p-4 rounded-xl`}>
+    <div className={` flex flex-col bg-card p-4 rounded-xl`}>
       <List
         title={
           <>
             <div className="font-bold items-center text-3xl flex gap-2">
               Documents
               <Spinner
-                className={loading ? "inline-block animate-spin" : "hidden"}
-              />{" "}
+                className={loading ? `inline-block animate-spin` : `hidden`}
+              />
+              {` `}
             </div>
           </>
         }
         headerButtons={
           <>
             <Button
-              className={loading ? "opacity-50" : ""}
+              className={loading ? `opacity-50` : ``}
               onClick={() => refetch()}
-              variant={"outline"}
+              variant={`outline`}
+              size={`lg`}
             >
               Refresh
               <ArrowClockwise className={`ml-2 `} />
@@ -186,7 +188,8 @@ const DocumentsList: React.FC = () => {
       </div>
       <div className="p-2 flex-col gap-4 mt-4 flex">
         <div className="text-3xl flex items-end gap-2 font-bold">
-          Upload <div className="text-sm font-medium">(30MB Max)</div>{" "}
+          Upload <div className="text-sm font-medium">(30MB Max)</div>
+          {` `}
         </div>
         <FileUploader onSuccess={() => refetch()} />
       </div>
