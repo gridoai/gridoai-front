@@ -97,33 +97,38 @@ a:hover {
 
   .dark {
     --background: #070809;
+    --background-accent: #0a3565;
+    --background-accent-2: #512163;
+    --surface-1: #141619;
+    --surface-2: #30373d;
+
     --foreground: #fafafa;
 
-    --muted: #30373d;
+    --muted: var(--surface-1);
     --muted-foreground: 215.4 16.3% 56.9%;
 
-    --accent: #30373d38;
+    --accent: #11112238;
     --accent-foreground: 210 40% 98%;
 
     --popover: #00000000;
     --popover-foreground: 215 20.2% 65.1%;
 
-    --border: #30373d;
-    --input: #30373d;
+    --border: var(--surface-2);
+    --input: var(--surface-1);
 
-    --card: #141619;
+    --card: var(--surface-1);
     --card-foreground: #fafafa;
 
-    --primary: 210 40% 98%;
+    --primary: #4078f2;
     --primary-foreground: 222.2 47.4% 1.2%;
 
-    --secondary: 222.2 47.4% 11.2%;
+    --secondary: #2ec88a;
     --secondary-foreground: 210 40% 98%;
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
 
-    --ring: #30373d;
+    --ring: var(--surface-1);
 
     --radius: 0.5rem;
   }

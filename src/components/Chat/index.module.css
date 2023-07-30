@@ -17,8 +17,8 @@
 }
 
 .topnav {
-  background-color: #141619;
-  border-bottom: 1px solid #30373d;
+  background-color: var(--surface-1);
+  border-bottom: 1px solid var(--surface-2);
   display: flex;
   justify-content: space-between;
   padding: 1rem 0.75rem 1rem 0.75rem;
@@ -72,8 +72,8 @@
   display: flex;
   flex: 1;
   border-radius: 0.5rem;
-  /* border: 1px solid #30373d; */
-  background: #070809;
+  /* border: 1px solid var(--surface-2); */
+  background: var(--background);
   color: #ececf1;
   outline: none;
 }
@@ -136,7 +136,7 @@
 }
 
 .usermessage {
-  background: #070809;
+  background: var(--background);
   padding: 1.5rem;
   color: #ececf1;
 }
@@ -144,7 +144,12 @@
 .usermessagewaiting {
   padding: 1.5rem;
   color: #ececf1;
-  background: linear-gradient(to left, #070809, #1a1c20, #070809);
+  background: linear-gradient(
+    to left,
+    var(--background),
+    #1a1c20,
+    var(--background)
+  );
   background-size: 200% 200%;
   background-position: -100% 0;
   animation: loading-gradient 2s ease-in-out infinite;
@@ -163,7 +168,7 @@
 }
 
 .apimessage {
-  background: #141619;
+  background: var(--surface-1);
   padding: 1.5rem;
   color: #ececf1;
   animation: fadein 0.5s;
@@ -232,9 +237,9 @@
 
 .cloud {
   width: 100%;
-  background: #070809;
+  background: var(--background);
   border-radius: 0.5rem;
-  border: 1px solid #30373d;
+  border: 1px solid var(--surface-2);
   display: flex;
   height: calc(100vh - 18rem);
 

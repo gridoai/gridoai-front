@@ -10,12 +10,12 @@ import ReactMarkdown from "react-markdown";
 import styles from "./index.module.css";
 
 export default function Chat() {
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState(``);
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
-      message: "Hi there! How can I help?",
-      type: "robot",
+      message: `Hi there! How can I help?`,
+      type: `robot`,
       timestamp: new Date(0),
     },
   ]);
@@ -43,33 +43,33 @@ export default function Chat() {
     setMessages((prevMessages) => [
       ...prevMessages,
       {
-        message: "Oops! There seems to be an error. Please try again.",
-        type: "robot",
+        message: `Oops! There seems to be an error. Please try again.`,
+        type: `robot`,
         timestamp: new Date(),
       },
     ]);
     setLoading(false);
-    setUserInput("");
+    setUserInput(``);
   };
 
   // Handle form submission
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (userInput.trim() === "") {
+    if (userInput.trim() === ``) {
       return;
     }
 
     setLoading(true);
     setMessages((prevMessages) => [
       ...prevMessages,
-      { message: userInput, type: "userMessage", timestamp: new Date() },
+      { message: userInput, type: `userMessage`, timestamp: new Date() },
     ]);
 
     const newMsg: Message = {
       id: messages.length,
       message: userInput,
-      type: "userMessage",
+      type: `userMessage`,
       timestamp: new Date(),
     };
     const messagesWithoutFirst = messages.slice(1);
@@ -94,9 +94,9 @@ export default function Chat() {
     }
 
     // Reset user input
-    setUserInput("");
+    setUserInput(``);
 
-    if (data.error === "Unauthorized") {
+    if (data.error === `Unauthorized`) {
       handleError();
       return;
     }
@@ -105,7 +105,7 @@ export default function Chat() {
       ...prevMessages,
       {
         message: data,
-        type: "robot",
+        type: `robot`,
         timestamp: new Date(),
 
         sources: (data as unknown as PromptResponse).sources as DocResponse[],
@@ -120,11 +120,11 @@ export default function Chat() {
     shiftKey: any;
     preventDefault: () => void;
   }) => {
-    if (e.key === "Enter" && userInput) {
+    if (e.key === `Enter` && userInput) {
       if (!e.shiftKey && userInput) {
         handleSubmit(e);
       }
-    } else if (e.key === "Enter") {
+    } else if (e.key === `Enter`) {
       e.preventDefault();
     }
   };
@@ -141,18 +141,18 @@ export default function Chat() {
               <div
                 key={index}
                 className={
-                  message.type === "userMessage" &&
+                  message.type === `userMessage` &&
                   loading &&
                   index === messages.length - 1
                     ? styles.usermessagewaiting
-                    : message.type === "robot"
+                    : message.type === `robot`
                     ? styles.apimessage
                     : styles.usermessage
                 }
               >
                 {/* Display the correct icon depending on the message type */}
                 <div className="mr-2">
-                  {message.type === "robot" ? (
+                  {message.type === `robot` ? (
                     <Polygon size={30} color="white" />
                   ) : (
                     <User size={30} color="white" />
@@ -162,7 +162,7 @@ export default function Chat() {
                   {/* Messages are being rendered in Markdown format */}
                   <ReactMarkdown
                     rehypePlugins={[rehypeRaw]}
-                    linkTarget={"_blank"}
+                    linkTarget={`_blank`}
                   >
                     {message.message}
                   </ReactMarkdown>
@@ -175,9 +175,9 @@ export default function Chat() {
                               ? `[${source.name}](${source.url})`
                               : source.name
                           )
-                          .join(", ")}
+                          .join(`, `)}
                         `
-                      : ""}
+                      : ``}
                   </p>
                 </div>
               </div>
@@ -199,7 +199,7 @@ export default function Chat() {
                 id="userInput"
                 name="userInput"
                 placeholder={
-                  loading ? "Waiting for response..." : "Type your question..."
+                  loading ? `Waiting for response...` : `Type your question...`
                 }
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
