@@ -9,21 +9,21 @@ import { extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
   config: {
-    cssVarPrefix: "ck",
+    cssVarPrefix: `ck`,
   },
   colors: {
     ...RefineThemes.Blue.colors,
-    transparent: "transparent",
-    black: "#000",
-    white: "#fff",
+    transparent: `transparent`,
+    black: `#000`,
+    white: `#fff`,
     gray: {
-      50: "#f7fafc",
+      50: `#f7fafc`,
       // ...
-      800: "#141619",
+      800: `var(--card)`,
 
-      700: "#30373d",
+      700: `#30373d`,
 
-      900: "#070809",
+      900: `#070809`,
     },
     // ...
   },
@@ -38,20 +38,20 @@ export default function RefineProvider({
     <ChakraProvider
       theme={theme}
       colorModeManager={{
-        get: () => "dark",
+        get: () => `dark`,
         set: () => {},
-        type: "cookie",
+        type: `cookie`,
       }}
     >
       <Refine
-        options={{ mutationMode: "optimistic" }}
-        dataProvider={restDataProvider("")}
+        options={{ mutationMode: `optimistic` }}
+        dataProvider={restDataProvider(``)}
         routerProvider={routerProvider}
         resources={[
           {
-            name: "documents",
-            list: "/documents",
-            create: "/documents/new",
+            name: `documents`,
+            list: `/documents`,
+            create: `/documents/new`,
           },
         ]}
       >
