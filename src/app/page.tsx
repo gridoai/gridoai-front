@@ -19,11 +19,11 @@ const landingPageContent = {
     },
     {
       title: `Multiple Workspace Support`,
-      description: `We understand that different projects require different resources. GridoAI supports multiple workspaces, each with its unique set of documents, ensuring organized and efficient data management`,
+      description: `Different projects require different resources. GridoAI supports multiple workspaces with its unique set of documents, ensuring organized and efficient data management`,
     },
     {
       title: `User Management`,
-      description: `Add users to your organization and manage their permissions seamlessly with GridoAI`,
+      description: `Add users to your organization and manage their permissions seamlessly`,
     },
     {
       title: `Robust data integration`,
@@ -94,7 +94,7 @@ const LandingPage = () => {
       </main>
       <section className="px-8 py-20 bg-background border border-neutral-2">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-4xl  font-bold mb-4">
             {landingPageContent.getStartedTitle}
           </h2>
           <p className="text-xl mb-8">
