@@ -22,8 +22,8 @@ export const useStreamFetch = (
       const reader = response.body?.getReader();
 
       if (reader) {
-        const decoder = new TextDecoder("utf-8");
-        let result = "";
+        const decoder = new TextDecoder(`utf-8`);
+        let result = ``;
 
         while (true) {
           const { value, done } = await reader.read();
@@ -34,10 +34,10 @@ export const useStreamFetch = (
           setData(result);
         }
       } else {
-        setError(new Error("No reader found"));
+        setError(new Error(`No reader found`));
       }
     } catch (err: { name: string }) {
-      if (err.name !== "AbortError") {
+      if (err.name !== `AbortError`) {
         setError(err);
       }
     }

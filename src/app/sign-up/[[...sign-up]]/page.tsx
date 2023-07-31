@@ -7,4 +7,4 @@ export default function Page() {
     </div>
   );
 }
-export const runtime = "nodejs";
+export const runtime = `nodejs`;
