@@ -19,19 +19,19 @@ const authInterceptor = async <T>(config: InternalAxiosRequestConfig<T>) => {
 const endpointInterceptor = async <T>(
   config: InternalAxiosRequestConfig<T>
 ) => {
-  if (typeof window === "undefined") {
+  if (typeof window === `undefined`) {
     return config;
   }
 
   config.baseURL =
-    localStorage.getItem("baseURL") ||
+    localStorage.getItem(`baseURL`) ||
     window.baseURL ||
     process.env.NEXT_PUBLIC_API_URL;
   return config;
 };
 
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || `/api`,
 });
 
 api.interceptors.request.use(authInterceptor, console.error);
@@ -39,7 +39,7 @@ api.interceptors.request.use(endpointInterceptor, console.error);
 
 type RestDataProvider = Omit<
   Required<DataProvider>,
-  "createMany" | "updateMany" | "deleteMany"
+  `createMany` | `updateMany` | `deleteMany`
 >;
 
 type RefineApiClient = Parameters<typeof baseDataProvider>[1];
@@ -102,13 +102,13 @@ export type PromptResponse = {
 export const promptApi = async (prompt: string, pastMessages: Message[]) => {
   const messages: APIMessage[] = pastMessages.map((m) => ({
     message: m.message,
-    from: m.type === "userMessage" ? { User: {} } : { Bot: {} },
+    from: m.type === `userMessage` ? { User: {} } : { Bot: {} },
   }));
 
   return (
-    await api.post<string>("/ask", messages, {
+    await api.post<string>(`/ask`, messages, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": `application/json`,
       },
     })
   ).data;
@@ -118,23 +118,23 @@ export const uploadFiles = async (files: Iterable<File> | ArrayLike<File>) => {
   const formData = new FormData();
 
   const fileList = Array.from(files);
-  console.log("Uploading files: ", fileList.length);
+  console.log(`Uploading files: `, fileList.length);
   fileList.forEach((file, index) => {
     formData.append(
       `files`,
       file,
-      file.name.replace(/[^a-zA-Z0-9_\. \-]/g, "")
+      file.name.replace(/[^a-zA-Z0-9_\. \-]/g, ``)
     );
   });
   const response = (
     await api.post<string[]>(`/upload/`, formData, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": `multipart/form-data`,
       },
     })
   ).data;
   if (response.length < fileList.length) {
-    throw new Error("Failed to upload all files");
+    throw new Error(`Failed to upload all files`);
   }
 };
 
@@ -149,9 +149,9 @@ export type DocResponse = {
 export const searchDocs = async (query: string) =>
   (
     await api
-      .get<DocResponse[]>("/search", {
+      .get<DocResponse[]>(`/search`, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": `application/json`,
         },
         params: {
           query,
@@ -167,10 +167,10 @@ export const searchDocs = async (query: string) =>
       })
       .catch((e) => {
         console.error(
-          "Failed to search docs:",
+          `Failed to search docs:`,
           JSON.parse(JSON.stringify(e)),
           e
         );
-        logger.error("Failed to search docs:", JSON.parse(JSON.stringify(e)));
+        logger.error(`Failed to search docs:`, JSON.parse(JSON.stringify(e)));
       })
   )?.data;

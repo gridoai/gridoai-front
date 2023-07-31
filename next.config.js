@@ -1,4 +1,4 @@
-const { withAxiom } = require("next-axiom");
+const { withAxiom } = require(`next-axiom`);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -6,8 +6,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/remote/:path*",
-        destination: process.env.REMOTE_SERVER + "/:path*",
+        source: `/remote/:path*`,
+        destination: process.env.REMOTE_SERVER + `/:path*`,
       },
     ];
   },

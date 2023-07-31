@@ -28,10 +28,10 @@ const DocumentCreate: React.FC = () => {
   } = useForm<DocumentForm>();
   const { toast } = useToast();
 
-  const name = watch("name");
+  const name = watch(`name`);
 
   useEffect(() => {
-    setValue("source", name);
+    setValue(`source`, name);
   }, [name, setValue]);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const DocumentCreate: React.FC = () => {
         <Input
           id="name"
           type="text"
-          {...register("name", { required: "Name is required" })}
+          {...register(`name`, { required: `Name is required` })}
         />
         <FormErrorMessage>{`${errors.name?.message}`}</FormErrorMessage>
       </FormControl>
@@ -53,7 +53,7 @@ const DocumentCreate: React.FC = () => {
         <FormLabel>Content</FormLabel>
         <Textarea
           id="content"
-          {...register("content", { required: "Content is required" })}
+          {...register(`content`, { required: `Content is required` })}
         />
         <FormErrorMessage>{`${errors.content?.message}`}</FormErrorMessage>
       </FormControl>

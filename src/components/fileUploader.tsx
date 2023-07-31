@@ -21,15 +21,15 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
     maxSize: 30e6, // 1 MB = 1e6 bytes
     maxFiles: 50,
     accept: {
-      "text/plain": [".txt", ".md"],
-      "application/pdf": [".pdf"],
+      "text/plain": [`.txt`, `.md`],
+      "application/pdf": [`.pdf`],
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-        [".docx"],
+        [`.docx`],
       "application/vnd.openxmlformats-officedocument.presentationml.presentation":
-        [".pptx"],
+        [`.pptx`],
     },
     onError: (e) =>
-      toast({ title: "Can't upload files", description: e.message }),
+      toast({ title: `Can't upload files`, description: e.message }),
   });
 
   const handleUploadClick = () => {
@@ -37,19 +37,19 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
       return;
     }
     setLoadingFile(true);
-    logger.info("uploading files", files);
+    logger.info(`uploading files`, files);
     uploadFiles(files)
-      .then((data) => logger.info("files uploaded: ", files))
+      .then((data) => logger.info(`files uploaded: `, files))
       .then(() => {
-        toast({ title: "Files uploaded successfully" });
+        toast({ title: `Files uploaded successfully` });
         setFiles(undefined);
         onSuccess();
       })
       .catch((err) => {
-        logger.error("failed to upload files", err);
+        logger.error(`failed to upload files`, err);
         toast({
           title: `Error uploading files: ${err.message}`,
-          description: "Please try again later",
+          description: `Please try again later`,
         });
       })
       .finally(() => {
@@ -84,17 +84,17 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
       <div
         {...getRootProps()}
         className={`w-full h-32 flex transition-all items-center justify-center mb-2 p-4 border-dashed border-2 ${
-          isDragActive ? "bg-neutral-2" : "bg-background"
+          isDragActive ? `bg-neutral-2` : `bg-background`
         }`}
       >
         <input {...getInputProps()} />
         {isDragActive ? (
           <p className="text-foreground text-center">
-            Drop the files here ...{" "}
+            Drop the files here ...{` `}
           </p>
         ) : (
           <p className="text-foreground text-center">
-            {"Drag 'n' drop some files here, or click to select files"}
+            {`Drag 'n' drop some files here, or click to select files`}
           </p>
         )}
       </div>
@@ -103,7 +103,7 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
       ) : (
         <Button
           disabled={(files?.length || 0) < 1}
-          variant={"outline"}
+          variant={`outline`}
           onClick={handleUploadClick}
         >
           Upload
