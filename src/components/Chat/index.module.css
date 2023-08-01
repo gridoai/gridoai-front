@@ -111,7 +111,7 @@
 }
 
 .generatebutton:hover {
-  background: #1f2227;
+  /* background: #1f2227; */
   border-radius: 0.2rem;
 }
 
@@ -147,7 +147,7 @@
   background: linear-gradient(
     to left,
     var(--background),
-    #1a1c20,
+    var(--surface-1),
     var(--background)
   );
   background-size: 200% 200%;
