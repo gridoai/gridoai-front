@@ -25,10 +25,7 @@ module.exports = {
         "background-accent-2": `var(--background-accent-2)`,
 
         foreground: `var(--foreground)`,
-        primary: {
-          DEFAULT: `var(--primary)`,
-          foreground: `var(--primary-foreground)`,
-        },
+        primary: `#4078f2`,
         secondary: {
           DEFAULT: `var(--secondary)`,
           foreground: `var(--secondary-foreground)`,
