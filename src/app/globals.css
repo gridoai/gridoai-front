@@ -63,34 +63,43 @@ a:hover {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 47.4% 11.2%;
+    /* --background: #070809; */
+    --background: #131416;
+    /* --background-accent: #1a1c20; */
+    --background-accent: #161d3a;
+    --background-accent-2: #512163;
+    /* --surface-1: #141619; */
+    --surface-1: #1d1e21;
+    /* --surface-2: #30373d; */
+    --surface-2: #27282c;
+    --surface-3: #484c53;
+    --foreground: #fafafa;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: var(--surface-1);
+    --muted-foreground: 215.4 16.3% 56.9%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+    --accent: #11112238;
+    --accent-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --popover: #00000000;
+    --popover-foreground: 215 20.2% 65.1%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 47.4% 11.2%;
+    --border: var(--surface-3);
+    --input: var(--surface-1);
+
+    --card: var(--surface-1);
+    --card-foreground: #fafafa;
 
     --primary: #4078f2;
-    --primary-foreground: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: #2ec88a;
+    --secondary-foreground: 210 40% 98%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 100% 50%;
+    --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
 
-    --ring: 215 20.2% 65.1%;
+    --ring: var(--surface-1);
 
     --radius: 0.5rem;
   }

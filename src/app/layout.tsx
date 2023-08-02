@@ -55,6 +55,7 @@ export default function RootLayout({
           organizationSwitcherPopoverCard: `backdrop-blur-lg bg-opacity-20 [&>*]:text-foreground z-100`,
           organizationSwitcherPopoverActionButtonIcon: `text-neutral-200`,
           organizationSwitcherPopoverFooter: `hidden`,
+          rootBox: `items-center flex`
         },
       }}
     >
