@@ -1,44 +1,43 @@
-import { auth, currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "../components/ui/button";
 import Image from "next/image";
 import bg from "../../public/bg_purple.png";
 import { Brain, Funnel, User, Users } from "../components/icon";
+import { Navbar } from "./Navbar";
 
 const useCases = [
-
   {
-    title: `Internal Data Oracle`,
-    image: `An employee using GridoAI to access company data`,
-    description: `GridoAI serves as an 'Internal Data Oracle' for corporations, offering insightful answers by analyzing vast internal data across departments. Professionals can ask specific operational or strategic questions, and GridoAI will provide contextually accurate responses, aiding decision-making and strategic planning`,
+    "title": `Internal Data Oracle`,
+    "description": `GridoAI analyzes vast internal data across departments to provide insightful answers for corporations, aiding decision-making and strategic planning.`
   },
   {
     "title": `Software Development`,
-    "description": `A software developer can upload code repositories and related documentation into GridoAI. They can then ask the chatbot questions about specific functions, algorithms, or coding practices, getting accurate answers supported by the uploaded data.`
+    "description": `Software developers can upload code repositories and documentation into GridoAI and get accurate answers about specific functions, algorithms, or coding practices.`
   },
   {
     "title": `Legal Document Review`,
-    "description": `A lawyer can upload a series of legal documents and contracts into GridoAI. They can then ask the chatbot to find specific clauses or terms within the documents, saving time on manually reviewing each document and ensuring that nothing is missed.`
+    "description": `Lawyers can upload legal documents and contracts into GridoAI to find specific clauses or terms, saving time on manual review.`
   },
   {
     "title": `Business Analysis`,
-    "description": `A business analyst can upload various company reports and data into GridoAI. They can then ask the chatbot to provide insights or explanations about specific business metrics or trends, backed by the uploaded documents.`
+    "description": `Business analysts can upload company reports and data into GridoAI to get insights or explanations about specific business metrics or trends.`
   },
   {
     "title": `Project Management`,
-    "description": `A project manager can upload project planning documents, timelines, and team assignments into GridoAI. They can then ask the chatbot questions about project milestones, deadlines, or responsibilities, getting accurate answers supported by the uploaded data.`
+    "description": `Project managers can upload planning documents, timelines, and team assignments into GridoAI and get accurate answers about project milestones, deadlines, or responsibilities.`
   },
   {
     "title": `Educational Research`,
-    "description": `Academics and students can upload a series of articles, books, and research papers into GridoAI. They can then use the chatbot to ask questions about specific topics, theories, or historical events, getting answers backed by the uploaded documents.`
-  },
+    "description": `Academics and students can upload articles, books, and research papers into GridoAI and use it to ask questions about specific topics, theories, or historical events.`
+  }
 ];
+
 const iconSize = 42
-const landingPageContent = {
+export const landingPageContent = {
   navTitle: `GridoAI`,
   headerTitle: (
     <>
-      Talk with your data,
+      Talk with <i> your</i> data,
       <br /> wherever it is.
     </>
   ),
@@ -72,14 +71,9 @@ const landingPageContent = {
   contactUs: `Contact us`,
 };
 
-
-
 const LandingPage = () => {
   return (
     <div
-      // style={{
-      //   background: `radial-gradient(circle, var(--background-accent), var(--background))`,
-      // }}
       className=" text-foreground"
     >
       <Image src={bg} className="w-screen absolute h-screen -z-10" alt="" />
@@ -149,13 +143,7 @@ const LandingPage = () => {
   );
 };
 export default LandingPage;
-export const runtime = `nodejs`;
 
-const SectionColumn = ({ children }: {
-  children: React.ReactNode
-}) => {
-  return <div className="flex flex-col gap-10">{children}</div>;
-}
 
 type Item = {
   title: string;
@@ -183,42 +171,4 @@ const SectionFeatures = ({
   </div>
 );
 
-function SectionFeature({ feature }: { feature: { title: string; description: string; }; }) {
-  return <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-
-    <div className="h-60  flex flex-col">
-      <h3 className="text-4xl font-bold mb-4">{feature.title}</h3>
-      <p className="text-lg">{feature.description}</p>
-    </div>
-    <div className="aspect-square h-96 bg-card rounded-lg">
-
-    </div>
-  </div>
-}
-
-function Navbar() {
-  const user = auth();
-
-  return (
-    <nav className=" fixed w-full flex items-center backdrop-blur-3xl bg-opacity-20 drop-shadow-lg border-b border-neutral-2 justify-between px-8 py-6">
-      <div className="text-2xl font-bold flex justify-between">
-        {landingPageContent.navTitle}
-      </div>
-      {user.sessionId ? (
-        <Link href="/chat">
-          <Button className="transparent" variant="outline">
-            Go to chat
-          </Button>
-        </Link>
-      ) : (
-        <>
-          <Link href="/sign-in">
-            <Button variant="outline" className="mr-2 transparent">
-              Login
-            </Button>
-          </Link>
-        </>
-      )}
-    </nav>
-  );
-}
+export const runtime = `nodejs`;
