@@ -4,7 +4,7 @@ import { Message } from "@/types/Message";
 import rehypeRaw from "rehype-raw";
 
 import { useUser } from "@clerk/nextjs";
-import { PaperPlaneRight, Polygon, Spinner, User } from "@phosphor-icons/react";
+import { FileText, PaperPlaneRight, Polygon, Spinner, User } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import styles from "./index.module.css";
@@ -80,12 +80,12 @@ export default function Chat() {
       newMsg,
     ]).catch(
       (e) =>
-        ({
-          error: e.message,
-        } as {
-          error: string;
-          message: never;
-        })
+      ({
+        error: e.message,
+      } as {
+        error: string;
+        message: never;
+      })
     );
 
     if (data.error) {
@@ -136,18 +136,23 @@ export default function Chat() {
       <div className={`${styles.cloud} flex flex-1`}>
         <div ref={messageListRef} className={styles.messagelist}>
           {messages.map((message, index) => {
+            const [content, sources] = message.message.split(`\n\n\n\nsources:`);
+            console.log({
+              content,
+              sources,
+            })
             return (
               // The latest message sent by the user will be animated while waiting for a response
               <div
                 key={index}
                 className={
-                  message.type === `userMessage` &&
-                  loading &&
-                  index === messages.length - 1
+                  (message.type === `userMessage` &&
+                    loading &&
+                    index === messages.length - 1
                     ? styles.usermessagewaiting
                     : message.type === `robot`
-                    ? styles.apimessage
-                    : styles.usermessage
+                      ? styles.apimessage
+                      : styles.usermessage)
                 }
               >
                 {/* Display the correct icon depending on the message type */}
@@ -158,27 +163,37 @@ export default function Chat() {
                     <User size={30} color="white" />
                   )}
                 </div>
-                <div className={styles.markdownanswer}>
-                  {/* Messages are being rendered in Markdown format */}
-                  <ReactMarkdown
-                    rehypePlugins={[rehypeRaw]}
-                    linkTarget={`_blank`}
-                  >
-                    {message.message}
-                  </ReactMarkdown>
-                  <p className="text-neutral-400">
-                    {message.sources
-                      ? `
-                        \n\n\n\n ${message.sources
-                          .map((source) =>
-                            source.url
-                              ? `[${source.name}](${source.url})`
-                              : source.name
-                          )
-                          .join(`, `)}
-                        `
-                      : ``}
-                  </p>
+                <div className="flex flex-col gap-2 flex-1">
+                  <div className={styles.markdownanswer}>
+                    {/* Messages are being rendered in Markdown format */}
+                    <ReactMarkdown
+                      rehypePlugins={[rehypeRaw]}
+                      linkTarget={`_blank`}
+                    >
+                      {content}
+                    </ReactMarkdown>
+                    {/* <p className="text-neutral-400">
+                      {message.sources
+                        ? `
+                          \n\n\n\n ${message.sources
+                            .map((source) =>
+                              source.url
+                                ? `[${source.name}](${source.url})`
+                                : source.name
+                            )
+                            .join(`, `)}
+                          `
+                        : ``}
+                    </p> */}
+                  </div>
+                  <div className="flex gap-2">
+                    {sources?.split(`,`).map(source =>
+                      <div key={source} className="flex self-start items-center text-xs border border-border border-solid gap-1 bg-card p-2 rounded-md">
+                        <FileText height={14} width={14} />  {source}
+                      </div>
+                    )
+                    }
+                  </div>
                 </div>
               </div>
             );
