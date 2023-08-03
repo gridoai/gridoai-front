@@ -37,24 +37,24 @@ export const landingPageContent = {
   navTitle: `GridoAI`,
   headerTitle: (
     <>
-      Talk with <i> your</i> data,
+      Talk with <span className="bg-clip-text from-primary to-secondary text-transparent bg-gradient-to-r "> your</span> data,
       <br /> wherever it is.
     </>
   ),
   headerDescription: `GridoAI is a powerful chatbot that uses your data to provide precise and contextually relevant answers`,
   features: [
     {
-      title: `Data-Driven Answers`,
+      title: `Data-driven answers`,
       description: `GridoAI leverages your data to provide accurate, insightful responses. No more guesswork, just data-backed answers`,
       icon: <Brain size={iconSize} />
     },
     {
-      title: `Multiple Workspace Support`,
+      title: `Multiple workspaces`,
       description: `Different projects require different resources. GridoAI supports multiple workspaces with its unique set of documents, ensuring organized and efficient data management`,
       icon: <Users size={iconSize} />
     },
     {
-      title: `User Management`,
+      title: `User management`,
       description: `Add users to your organization and manage their permissions seamlessly`,
       icon: <User size={iconSize} />
     },
@@ -95,7 +95,7 @@ const LandingPage = () => {
         </p>
         <div className="flex gap-2 mt-2 items-center">
           <Link href="https://calendly.com/gridoai/30min">
-            <Button className="bg-primary ">
+            <Button className="bg-secondary ">
               Contact us
             </Button>
           </Link>
@@ -157,14 +157,14 @@ const SectionFeatures = ({
   items: Item[]
 }) => (
   <div className="relative flex flex-col justify-center py-6 sm:py-12">
-    <div className="columns-1 md:columns-2 gap-10 [column-fill:_balance] box-border mx-auto before:box-inherit after:box-inherit">
+    <div className="columns-1 md:columns-2 gap-4 [column-fill:_balance] box-border mx-auto before:box-inherit after:box-inherit">
       {items.map((feature, index) => (
-        <div key={index} className="break-inside-avoid flex flex-col gap-2 cursor-pointer hover:shadow-2xl hover:bg-[#242954] hover:from-[#242954] hover:to-[#282F70] hover:bg-gradient-to-br hover:drop-shadow hover:shadow-[#242954] transition-all p-4 md:p-6 mb-6 bg-card rounded-lg">
-          <div className="flex gap-1 items-center">
+        <div key={index} className="break-inside-avoid flex flex-col gap-4 cursor-pointer  transition-all p-4 md:p-10 mb-6 bg-gradient-to-br from-surface-gradient-from to-surface-gradient-to rounded-xl">
+          <div className="flex flex-col gap-1 items-center">
             {feature.icon}
-            <h1 className="md:text-3xl text-2xl font-bold">{feature.title}</h1>
+            <h1 className="md:text-4xl text-2xl font-bold text-center ">{feature.title}</h1>
           </div>
-          <p className="text-xl">{feature.description}</p>
+          <p className="text-xl opacity-75">{feature.description}</p>
         </div>
       ))}
     </div>

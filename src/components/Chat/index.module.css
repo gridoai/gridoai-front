@@ -241,7 +241,8 @@
   border-radius: 0.5rem;
   border: 1px solid var(--surface-2);
   display: flex;
-  height: calc(100vh - 18rem);
+  height: calc(100vh - 180px);
+  max-height: calc(100vh - 180px);
 
   justify-content: center;
   align-items: center;

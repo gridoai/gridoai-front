@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 span[data-localization-key="paginationRowText__displaying"] {
   @apply text-foreground;
 }
@@ -66,10 +66,14 @@ a:hover {
     /* --background: #070809; */
     --background: #131416;
     /* --background-accent: #1a1c20; */
-    --background-accent: #161d3a;
+    --background-accent: #192245;
     --background-accent-2: #512163;
     /* --surface-1: #141619; */
+    --surface-gradient-from: #0f1015;
+    --surface-gradient-to: #14151c;
+
     --surface-1: #1d1e21;
+
     /* --surface-2: #30373d; */
     --surface-2: #27282c;
     --surface-3: #484c53;
@@ -90,10 +94,10 @@ a:hover {
     --card: var(--surface-1);
     --card-foreground: #fafafa;
 
-    --primary: #4078f2;
+    /* --primary: #4078f2; */
     --primary-foreground: 222.2 47.4% 1.2%;
 
-    --secondary: #2ec88a;
+    /* --secondary: #2ec88a; */
     --secondary-foreground: 210 40% 98%;
 
     --destructive: 0 63% 31%;
@@ -106,14 +110,14 @@ a:hover {
 
   .dark {
     /* --background: #070809; */
-    --background: #131416;
+    --background: #0a0b0e;
     /* --background-accent: #1a1c20; */
-    --background-accent: #161d3a;
+    --background-accent: #111e26;
     --background-accent-2: #512163;
     /* --surface-1: #141619; */
-    --surface-1: #1d1e21;
+    --surface-1: #1e2026;
     /* --surface-2: #30373d; */
-    --surface-2: #27282c;
+    --surface-2: #2e313c;
     --surface-3: #484c53;
     --foreground: #fafafa;
 
@@ -132,10 +136,10 @@ a:hover {
     --card: var(--surface-1);
     --card-foreground: #fafafa;
 
-    --primary: #4078f2;
+    --primary: #49e2e7;
     --primary-foreground: 222.2 47.4% 1.2%;
 
-    --secondary: #2ec88a;
+    --secondary: #4299e8;
     --secondary-foreground: 210 40% 98%;
 
     --destructive: 0 63% 31%;

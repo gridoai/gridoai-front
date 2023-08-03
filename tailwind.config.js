@@ -22,10 +22,13 @@ module.exports = {
         ring: `var(--ring)`,
         background: `var(--background)`,
         "background-accent": `var(--background-accent)`,
+        "surface-gradient-from": `var(--surface-gradient-from)`,
+        "surface-gradient-to": `var(--surface-gradient-to)`,
+
         "background-accent-2": `var(--background-accent-2)`,
 
         foreground: `var(--foreground)`,
-        primary: `#4078f2`,
+        primary: `var(--primary)`,
         secondary: {
           DEFAULT: `var(--secondary)`,
           foreground: `var(--secondary-foreground)`,
