@@ -145,7 +145,7 @@ export default function Chat() {
               // The latest message sent by the user will be animated while waiting for a response
               <div
                 key={index}
-                className={
+                className={`items-center ` +
                   (message.type === `userMessage` &&
                     loading &&
                     index === messages.length - 1
@@ -186,14 +186,14 @@ export default function Chat() {
                         : ``}
                     </p> */}
                   </div>
-                  <div className="flex gap-2">
+                  {sources && <div className="flex gap-2">
                     {sources?.split(`,`).map(source =>
                       <div key={source} className="flex self-start items-center text-xs border border-border border-solid gap-1 bg-card p-2 rounded-md">
                         <FileText height={14} width={14} />  {source}
                       </div>
                     )
                     }
-                  </div>
+                  </div>}
                 </div>
               </div>
             );
