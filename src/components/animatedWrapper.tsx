@@ -1,14 +1,16 @@
 'use client'
 import React, { useEffect, useRef, ReactNode } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type AnimatedComponentProps = {
     children: ReactNode;
     animationClass: string;
     delay?: string;
     threshold?: number;
+    className?: string;
 }
 
-const AnimatedComponent: React.FC<AnimatedComponentProps> = ({ children, animationClass, delay = `0s`, threshold = 0.5 }) => {
+const AnimatedComponent: React.FC<AnimatedComponentProps> = ({ children, animationClass, delay = `0s`, threshold = 0.5, className }) => {
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -16,7 +18,7 @@ const AnimatedComponent: React.FC<AnimatedComponentProps> = ({ children, animati
             ([entry]) => {
                 // Add animation class when element is in the viewport
                 if (entry.isIntersecting && ref.current) {
-                    ref.current.classList.add(animationClass);
+                    animationClass.split(` `).map(c => ref.current?.classList.add(c));
                 }
             },
             {
@@ -38,7 +40,7 @@ const AnimatedComponent: React.FC<AnimatedComponentProps> = ({ children, animati
     }, [animationClass, threshold]);
 
     return (
-        <div ref={ref} style={{ animationDelay: delay }} className="transition-opacity duration-2000">
+        <div ref={ref} style={{ animationDelay: delay }} className={twMerge(`transition-opacity `, className)}>
             {children}
         </div>
     );

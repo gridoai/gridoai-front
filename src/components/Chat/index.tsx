@@ -142,60 +142,47 @@ export default function Chat() {
               sources,
             })
             return (
+              <Message key={index} content={content} sources={sources} type={message.type} loading={loading} index={index} />
               // The latest message sent by the user will be animated while waiting for a response
-              <div
-                key={index}
-                className={`items-center ` +
-                  (message.type === `userMessage` &&
-                    loading &&
-                    index === messages.length - 1
-                    ? styles.usermessagewaiting
-                    : message.type === `robot`
-                      ? styles.apimessage
-                      : styles.usermessage)
-                }
-              >
-                {/* Display the correct icon depending on the message type */}
-                <div className="mr-2">
-                  {message.type === `robot` ? (
-                    <Polygon size={30} color="white" />
-                  ) : (
-                    <User size={30} color="white" />
-                  )}
-                </div>
-                <div className="flex flex-col gap-2 flex-1">
-                  <div className={styles.markdownanswer}>
-                    {/* Messages are being rendered in Markdown format */}
-                    <ReactMarkdown
-                      rehypePlugins={[rehypeRaw]}
-                      linkTarget={`_blank`}
-                    >
-                      {content}
-                    </ReactMarkdown>
-                    {/* <p className="text-neutral-400">
-                      {message.sources
-                        ? `
-                          \n\n\n\n ${message.sources
-                            .map((source) =>
-                              source.url
-                                ? `[${source.name}](${source.url})`
-                                : source.name
-                            )
-                            .join(`, `)}
-                          `
-                        : ``}
-                    </p> */}
-                  </div>
-                  {sources && <div className="flex gap-2">
-                    {sources?.split(`,`).map(source =>
-                      <div key={source} className="flex self-start items-center text-xs border border-border border-solid gap-1 bg-card p-2 rounded-md">
-                        <FileText height={14} width={14} />  {source}
-                      </div>
-                    )
-                    }
-                  </div>}
-                </div>
-              </div>
+              // <div
+              //   key={index}
+              //   className={`items-center ` +
+              //     (message.type === `userMessage` &&
+              //       loading &&
+              //       index === messages.length - 1
+              //       ? styles.usermessagewaiting
+              //       : message.type === `robot`
+              //         ? styles.apimessage
+              //         : styles.usermessage)
+              //   }
+              // >
+              //   {/* Display the correct icon depending on the message type */}
+              //   <div className="mr-2">
+              //     {message.type === `robot` ? (
+              //       <Polygon size={30} color="white" />
+              //     ) : (
+              //       <User size={30} color="white" />
+              //     )}
+              //   </div>
+              //   <div className="flex flex-col gap-2 flex-1">
+              //     <div className={styles.markdownanswer}>
+              //       <ReactMarkdown
+              //         rehypePlugins={[rehypeRaw]}
+              //         linkTarget={`_blank`}
+              //       >
+              //         {content}
+              //       </ReactMarkdown>
+              //     </div>
+              //     {sources && <div className="flex gap-2">
+              //       {sources?.split(`,`).map(source =>
+              //         <div key={source} className="flex self-start items-center text-xs border border-border border-solid gap-1 bg-card p-2 rounded-md">
+              //           <FileText height={14} width={14} />  {source}
+              //         </div>
+              //       )
+              //       }
+              //     </div>}
+              //   </div>
+              // </div>
             );
           })}
         </div>
@@ -235,4 +222,58 @@ export default function Chat() {
       </div>
     </main>
   );
+}
+export const Message = ({
+  content,
+  type,
+  sources,
+  loading,
+}: {
+  content: string,
+  type: `userMessage` | `robot`,
+  sources: string,
+  loading: boolean,
+  index: number,
+}) => {
+
+  return (
+    <div
+
+      className={`items-center ` +
+        (type === `userMessage` &&
+          loading
+          // &&                    index === messages.length - 1
+          ? styles.usermessagewaiting
+          : type === `robot`
+            ? styles.apimessage
+            : styles.usermessage)
+      }
+    >
+      {/* Display the correct icon depending on the message type */}
+      <div className="mr-2">
+        {type === `robot` ? (
+          <Polygon size={30} color="white" />
+        ) : (
+          <User size={30} color="white" />
+        )}
+      </div>
+      <div className="flex flex-col gap-2 flex-1">
+        <div className={styles.markdownanswer}>
+          <ReactMarkdown
+            rehypePlugins={[rehypeRaw]}
+            linkTarget={`_blank`}
+          >
+            {content}
+          </ReactMarkdown>
+        </div>
+        {sources && <div className="flex gap-2">
+          {sources?.split(`,`).map(source =>
+            <div key={source} className="flex self-start items-center text-xs border border-border border-solid gap-1 bg-card p-2 rounded-md">
+              <FileText height={14} width={14} />  {source}
+            </div>
+          )
+          }
+        </div>}
+      </div>
+    </div>)
 }
