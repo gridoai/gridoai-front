@@ -8,6 +8,8 @@ import { Message } from "../components/Chat";
 import AnimatedComponent from "../components/animatedWrapper";
 import workspaces from "../../public/workspaces.png";
 import orgMembers from "../../public/orgMembers.png";
+import platforms from "../../public/platforms.png";
+
 
 const useCases = [{ "title": `Internal Data Oracle`, "description": `Analyze cross-departmental data for insightful answers, aiding decision-making and strategic planning.` }, { "title": `Software Development`, "description": `Get accurate answers about functions, algorithms, and coding practices using code repositories and documentation.` }, { "title": `Legal Document Review`, "description": `Save time on manual review by uploading legal documents and contracts to find specific clauses or terms.` }, { "title": `Business Analysis`, "description": `Gain insights and explanations about business metrics or trends by uploading company reports and data.` }, { "title": `Project Management`, "description": `Manage projects effectively by uploading planning documents, timelines, and team assignments for accurate answers about milestones, deadlines, or responsibilities.` }, { "title": `Educational Research`, "description": `Utilize academic materials like articles, books, and research papers to ask questions about specific topics, theories, or historical events.` }];
 
@@ -52,7 +54,8 @@ export const landingPageContent = {
     {
       title: `Robust data integration`,
       description: `Upload files, connect with popular providers like Google Drive, or integrate with your own custom data sources`,
-      icon: <Funnel size={iconSize} />
+      icon: <Funnel size={iconSize} />,
+      image: <Image src={platforms} alt="" />
 
     },
   ],
@@ -126,9 +129,7 @@ const LandingPage = () => {
                 )
               }
             </div>
-            <h2 className="md:text-5xl text-4xl font-bold mb-4 text-center">One platform, endless possibilities</h2>
-
-
+            <h2 className="md:text-7xl mt-8 md:mt-16 text-4xl !leading-tight font-bold mb-4 text-center">One platform, endless possibilities</h2>
             <SectionFeatures items={useCases} />
             {/* <div className="flex gap-2 overflow-y-scroll">
               {useCases.map(useCase =>
