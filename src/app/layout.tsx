@@ -61,7 +61,6 @@ export default function RootLayout({
     >
       <html lang="en" className="flex">
         <head>
-          <meta name="robots" content="noindex" />
         </head>
         <body className={`${inter.className} flex`}>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
