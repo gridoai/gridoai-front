@@ -1,7 +1,8 @@
 import { auth } from "@clerk/nextjs";
-import Link from "next/link";
 import { Button } from "../components/ui/button";
 import { landingPageContent } from "./page";
+import { AuthProtectedBtn } from "./AuthProtectedBtn";
+import Link from "next/link";
 
 export function Navbar() {
     const user = auth();
@@ -11,21 +12,14 @@ export function Navbar() {
             <div className="text-2xl font-bold flex justify-between">
                 {landingPageContent.navTitle}
             </div>
-            {user.sessionId ? (
+            <AuthProtectedBtn>
                 <Link href="/chat">
                     <Button className="transparent" variant="outline">
                         Go to chat
                     </Button>
                 </Link>
-            ) : (
-                <>
-                    <Link href="/sign-in">
-                        <Button variant="outline" className="mr-2 transparent">
-                            Login
-                        </Button>
-                    </Link>
-                </>
-            )}
+            </AuthProtectedBtn>
+
         </nav>
     );
 }
