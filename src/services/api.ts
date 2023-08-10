@@ -7,9 +7,17 @@ import axios, {
 import { logger } from "./logger";
 import { DataProvider } from "@refinedev/core";
 import baseDataProvider from "@refinedev/simple-rest";
+import { canAsk, incrementRequestCount } from "./canAsk";
+import { getToken } from "./auth";
+
+declare global {
+  interface Window {
+    baseURL?: string;
+  }
+}
 
 const authInterceptor = async <T>(config: InternalAxiosRequestConfig<T>) => {
-  const token = await window.Clerk.session.getToken().catch(console.error);
+  const token = await getToken().catch(console.error);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -100,18 +108,26 @@ export type PromptResponse = {
 };
 
 export const promptApi = async (prompt: string, pastMessages: Message[]) => {
+  if (await canAsk()) {
+    throw new Error(
+      `You have reached the maximum number of requests. Please upgrade to a paid plan to continue.`
+    );
+  }
+
   const messages: APIMessage[] = pastMessages.map((m) => ({
     message: m.message,
     from: m.type === `userMessage` ? { User: {} } : { Bot: {} },
   }));
 
-  return (
+  const response = (
     await api.post<string>(`/ask`, messages, {
       headers: {
         "Content-Type": `application/json`,
       },
     })
   ).data;
+  incrementRequestCount();
+  return response;
 };
 
 export const uploadFiles = async (files: Iterable<File> | ArrayLike<File>) => {
