@@ -6,10 +6,21 @@ import { Spinner, X } from "@phosphor-icons/react";
 import { useToast } from "./use-toast";
 import { Button } from "./ui/button";
 import { asyncMap } from "../lib/utils";
+import { canUpload } from "../services/rateLimit";
+import Link from "next/link";
+import { GradientBtn } from "./GradientBtn";
 
-export const FileUploader = ({ onSuccess, alreadyUploaded }: { onSuccess: () => void, alreadyUploaded: string[] }) => {
+export const FileUploader = ({
+  onSuccess,
+  alreadyUploaded,
+}: {
+  onSuccess: () => void;
+  alreadyUploaded: string[];
+}) => {
   const [unfilteredFiles, setFiles] = useState<Array<File> | undefined>();
-  const files = unfilteredFiles?.filter(f => !alreadyUploaded.includes(f.name));
+  const files = unfilteredFiles?.filter(
+    (f) => !alreadyUploaded.includes(f.name)
+  );
   const [loadingFile, setLoadingFile] = useState(false);
   const { toast } = useToast();
 
@@ -33,17 +44,28 @@ export const FileUploader = ({ onSuccess, alreadyUploaded }: { onSuccess: () => 
       toast({ title: `Can't upload files`, description: e.message }),
   });
 
-  const handleUploadClick = () => {
+  const handleUploadClick = async () => {
+    if (!(await canUpload())) {
+      return toast({
+        title: `Você chegou no limite de uploads`,
+        description: (
+          <Link href="" target="_blank">
+            <GradientBtn>Contate-nos para continuar usando</GradientBtn>
+          </Link>
+        ),
+      });
+    }
     if (!files) {
       return;
     }
     setLoadingFile(true);
     logger.info(`uploading files`, files);
-    asyncMap(files, file =>
-      uploadFiles([file]).then(() => {
-        toast({ title: `File uploaded successfully: ${file.name}` });
-        setFiles(oldFiles => oldFiles?.filter(f => f.name !== file.name));
-      })
+    asyncMap(files, (file) =>
+      uploadFiles([file])
+        .then(() => {
+          toast({ title: `File uploaded successfully: ${file.name}` });
+          setFiles((oldFiles) => oldFiles?.filter((f) => f.name !== file.name));
+        })
         .catch((err) => {
           logger.error(`Failed to upload file`, err);
           toast({
@@ -53,9 +75,8 @@ export const FileUploader = ({ onSuccess, alreadyUploaded }: { onSuccess: () => 
         })
     )
       .then((data) => {
-        logger.info(`files uploaded: `, files)
+        logger.info(`files uploaded: `, files);
         onSuccess();
-
       })
       .finally(() => {
         setLoadingFile(false);
@@ -88,8 +109,9 @@ export const FileUploader = ({ onSuccess, alreadyUploaded }: { onSuccess: () => 
       </div>
       <div
         {...getRootProps()}
-        className={`w-full h-32 flex transition-all items-center justify-center mb-2 p-4 border-dashed border-2 ${isDragActive ? `bg-neutral-2` : `bg-background`
-          }`}
+        className={`w-full h-32 flex transition-all items-center justify-center mb-2 p-4 border-dashed border-2 ${
+          isDragActive ? `bg-neutral-2` : `bg-background`
+        }`}
       >
         <input {...getInputProps()} />
         {isDragActive ? (

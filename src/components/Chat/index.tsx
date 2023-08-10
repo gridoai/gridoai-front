@@ -1,6 +1,6 @@
 "use client";
 import { DocResponse, PromptResponse, promptApi } from "@/services/api";
-import { canAsk, getLastDayRequestCount } from "@/services/canAsk";
+import { canAsk, getLastDayRequestCount } from "@/services/rateLimit";
 import { Message as MessageType } from "@/types/Message";
 
 import { useUser } from "@clerk/nextjs";
@@ -8,9 +8,9 @@ import { PaperPlaneRight, Spinner } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
 import styles from "./index.module.css";
 import { useToast } from "../use-toast";
-import { Button } from "../ui/button";
 import Link from "next/link";
 import { Message } from "./Message";
+import { GradientBtn } from "../GradientBtn";
 
 export default function Chat() {
   const [userInput, setUserInput] = useState(``);
@@ -22,7 +22,7 @@ export default function Chat() {
       timestamp: new Date(0),
     },
   ]);
-  const toast = useToast()
+  const toast = useToast();
 
   const messageListRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -59,20 +59,15 @@ export default function Chat() {
   // Handle form submission
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (await canAsk()) {
+    if (!(await canAsk())) {
       return toast.toast({
         title: `Você chegou no limite de perguntas`,
-        description:
+        description: (
           <Link href="" target="_blank">
-            <div className="bg-gradient-to-r p-[1px] mt-2 from-primary to-secondary rounded-md">
-              <Button className="bg-background ">
-                <p className="underline bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  Contate-nos para continuar usando
-                </p>
-              </Button>
-            </div>
+            <GradientBtn>Contate-nos para continuar usando</GradientBtn>
           </Link>
-      })
+        ),
+      });
     }
     if (userInput.trim() === ``) {
       return;
@@ -98,12 +93,12 @@ export default function Chat() {
       newMsg,
     ]).catch(
       (e) =>
-      ({
-        error: e.message,
-      } as {
-        error: string;
-        message: never;
-      })
+        ({
+          error: e.message,
+        } as {
+          error: string;
+          message: never;
+        })
     );
 
     if (data.error) {
@@ -151,17 +146,24 @@ export default function Chat() {
     <main
       className={`${styles.main} flex bg-background max-w-7xl xl:w-[80rem] xl:mx-auto `}
     >
-
       <div className={`${styles.cloud} flex flex-1`}>
         <div ref={messageListRef} className={styles.messagelist}>
           {messages.map((message, index) => {
-            const [content, sources] = message.message.split(`\n\n\n\nsources:`);
+            const [content, sources] =
+              message.message.split(`\n\n\n\nsources:`);
             console.log({
               content,
               sources,
-            })
+            });
             return (
-              <Message key={index} content={content} sources={sources} type={message.type} loading={loading} index={index} />
+              <Message
+                key={index}
+                content={content}
+                sources={sources}
+                type={message.type}
+                loading={loading}
+                index={index}
+              />
             );
           })}
         </div>
@@ -201,4 +203,3 @@ export default function Chat() {
     </main>
   );
 }
-
