@@ -1,7 +1,7 @@
 "use client";
 import { DocResponse, PromptResponse, promptApi } from "@/services/api";
-import { Message } from "@/types/Message";
-import rehypeRaw from "rehype-raw";
+import { canAsk, getLastDayRequestCount } from "@/services/canAsk";
+import { Message as MessageType } from "@/types/Message";
 
 import { useUser } from "@clerk/nextjs";
 import {
@@ -12,23 +12,28 @@ import {
   User,
 } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
-import ReactMarkdown from "react-markdown";
 import styles from "./index.module.css";
 import {
   AutoHeightTextarea,
   maxResizableInputHeight,
 } from "../ui/resizingTextArea";
+import { useToast } from "../use-toast";
+import { Button } from "../ui/button";
+import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 
 export default function Chat() {
   const [userInput, setUserInput] = useState(``);
   const [loading, setLoading] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
+  const [messages, setMessages] = useState<MessageType[]>([
     {
       message: `Hi there! How can I help?`,
       type: `robot`,
       timestamp: new Date(0),
     },
   ]);
+  const toast = useToast();
 
   const messageListRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -65,7 +70,22 @@ export default function Chat() {
   // Handle form submission
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
+    if (await canAsk()) {
+      return toast.toast({
+        title: `Você chegou no limite de perguntas`,
+        description: (
+          <Link href="" target="_blank">
+            <div className="bg-gradient-to-r p-[1px] mt-2 from-primary to-secondary rounded-md">
+              <Button className="bg-background ">
+                <p className="underline bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  Contate-nos para continuar usando
+                </p>
+              </Button>
+            </div>
+          </Link>
+        ),
+      });
+    }
     if (userInput.trim() === ``) {
       return;
     }
@@ -76,7 +96,7 @@ export default function Chat() {
       { message: userInput, type: `userMessage`, timestamp: new Date() },
     ]);
 
-    const newMsg: Message = {
+    const newMsg: MessageType = {
       id: messages.length,
       message: userInput,
       type: `userMessage`,
@@ -173,46 +193,6 @@ export default function Chat() {
                 loading={loading}
                 index={index}
               />
-              // The latest message sent by the user will be animated while waiting for a response
-              // <div
-              //   key={index}
-              //   className={`items-center ` +
-              //     (message.type === `userMessage` &&
-              //       loading &&
-              //       index === messages.length - 1
-              //       ? styles.usermessagewaiting
-              //       : message.type === `robot`
-              //         ? styles.apimessage
-              //         : styles.usermessage)
-              //   }
-              // >
-              //   {/* Display the correct icon depending on the message type */}
-              //   <div className="mr-2">
-              //     {message.type === `robot` ? (
-              //       <Polygon size={30} color="white" />
-              //     ) : (
-              //       <User size={30} color="white" />
-              //     )}
-              //   </div>
-              //   <div className="flex flex-col gap-2 flex-1">
-              //     <div className={styles.markdownanswer}>
-              //       <ReactMarkdown
-              //         rehypePlugins={[rehypeRaw]}
-              //         linkTarget={`_blank`}
-              //       >
-              //         {content}
-              //       </ReactMarkdown>
-              //     </div>
-              //     {sources && <div className="flex gap-2">
-              //       {sources?.split(`,`).map(source =>
-              //         <div key={source} className="flex self-start items-center text-xs border border-border border-solid gap-1 bg-card p-2 rounded-md">
-              //           <FileText height={14} width={14} />  {source}
-              //         </div>
-              //       )
-              //       }
-              //     </div>}
-              //   </div>
-              // </div>
             );
           })}
         </div>
@@ -241,7 +221,6 @@ export default function Chat() {
                 {loading ? (
                   <Spinner className="animate-spin" size={28} />
                 ) : (
-                  // Send icon SVG in input field
                   <PaperPlaneRight size={28} className="text-neutral-400 " />
                 )}
               </button>
