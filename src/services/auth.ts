@@ -36,10 +36,10 @@ function parseJwt<T>(token: string): T {
   }
   return JSON.parse(Buffer.from(token.split(`.`)[1], `base64`).toString());
 }
-
+export type Plan = `free` | `pro` | `enterprise`;
 type PublicJWTData = {
   meta: {
-    questionLimit?: number;
+    plan?: Plan;
   };
 };
 

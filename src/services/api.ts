@@ -7,7 +7,11 @@ import axios, {
 import { logger } from "./logger";
 import { DataProvider } from "@refinedev/core";
 import baseDataProvider from "@refinedev/simple-rest";
-import { canAsk, incrementRequestCount } from "./canAsk";
+import {
+  canAsk,
+  incrementRequestCount,
+  incrementUploadCount,
+} from "./rateLimit";
 import { getToken } from "./auth";
 
 declare global {
@@ -108,7 +112,7 @@ export type PromptResponse = {
 };
 
 export const promptApi = async (prompt: string, pastMessages: Message[]) => {
-  if (await canAsk()) {
+  if (!(await canAsk())) {
     throw new Error(
       `You have reached the maximum number of requests. Please upgrade to a paid plan to continue.`
     );
@@ -152,6 +156,8 @@ export const uploadFiles = async (files: Iterable<File> | ArrayLike<File>) => {
   if (response.length < fileList.length) {
     throw new Error(`Failed to upload all files`);
   }
+  incrementUploadCount();
+  return response;
 };
 
 export type DocResponse = {
