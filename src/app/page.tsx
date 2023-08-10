@@ -4,12 +4,12 @@ import Image from "next/image";
 import bg from "../../public/bg_purple.png";
 import { Brain, Funnel, User, Users } from "../components/icon";
 import { Navbar } from "./Navbar";
-import { Message } from "../components/Chat";
 import AnimatedComponent from "../components/animatedWrapper";
 import workspaces from "../../public/workspaces.png";
 import orgMembers from "../../public/orgMembers.png";
 import platforms from "../../public/platforms.png";
 import { AuthProtectedBtn } from "./AuthProtectedBtn";
+import { Message } from "../components/Chat/Message";
 
 const useCases = [
   {
