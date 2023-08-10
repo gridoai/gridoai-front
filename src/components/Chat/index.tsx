@@ -1,6 +1,6 @@
 "use client";
 import { DocResponse, PromptResponse, promptApi } from "@/services/api";
-import { canAsk, getLastDayRequestCount } from "@/services/canAsk";
+import { canAsk, getLastDayRequestCount } from "@/services/rateLimit";
 import { Message as MessageType } from "@/types/Message";
 
 import { useUser } from "@clerk/nextjs";
@@ -18,10 +18,10 @@ import {
   maxResizableInputHeight,
 } from "../ui/resizingTextArea";
 import { useToast } from "../use-toast";
-import { Button } from "../ui/button";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import { GradientBtn } from "../GradientBtn";
 
 export default function Chat() {
   const [userInput, setUserInput] = useState(``);
@@ -70,18 +70,12 @@ export default function Chat() {
   // Handle form submission
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (await canAsk()) {
+    if (!(await canAsk())) {
       return toast.toast({
         title: `Você chegou no limite de perguntas`,
         description: (
           <Link href="" target="_blank">
-            <div className="bg-gradient-to-r p-[1px] mt-2 from-primary to-secondary rounded-md">
-              <Button className="bg-background ">
-                <p className="underline bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  Contate-nos para continuar usando
-                </p>
-              </Button>
-            </div>
+            <GradientBtn>Contate-nos para continuar usando</GradientBtn>
           </Link>
         ),
       });
