@@ -5,9 +5,11 @@ import { logger } from "@/services/logger";
 import { Spinner, X } from "@phosphor-icons/react";
 import { useToast } from "./use-toast";
 import { Button } from "./ui/button";
+import { asyncMap } from "../lib/utils";
 
-export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
-  const [files, setFiles] = useState<Array<File> | undefined>();
+export const FileUploader = ({ onSuccess, alreadyUploaded }: { onSuccess: () => void, alreadyUploaded: string[] }) => {
+  const [unfilteredFiles, setFiles] = useState<Array<File> | undefined>();
+  const files = unfilteredFiles?.filter(f => !alreadyUploaded.includes(f.name));
   const [loadingFile, setLoadingFile] = useState(false);
   const { toast } = useToast();
 
@@ -19,7 +21,6 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     maxSize: 30e6, // 1 MB = 1e6 bytes
-    maxFiles: 50,
     accept: {
       "text/plain": [`.txt`, `.md`],
       "application/pdf": [`.pdf`],
@@ -38,19 +39,23 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
     }
     setLoadingFile(true);
     logger.info(`uploading files`, files);
-    uploadFiles(files)
-      .then((data) => logger.info(`files uploaded: `, files))
-      .then(() => {
-        toast({ title: `Files uploaded successfully` });
-        setFiles(undefined);
-        onSuccess();
+    asyncMap(files, file =>
+      uploadFiles([file]).then(() => {
+        toast({ title: `File uploaded successfully: ${file.name}` });
+        setFiles(oldFiles => oldFiles?.filter(f => f.name !== file.name));
       })
-      .catch((err) => {
-        logger.error(`failed to upload files`, err);
-        toast({
-          title: `Error uploading files: ${err.message}`,
-          description: `Please try again later`,
-        });
+        .catch((err) => {
+          logger.error(`Failed to upload file`, err);
+          toast({
+            title: `Error uploading ${file.name}: ${err.message}`,
+            description: `Please try again later`,
+          });
+        })
+    )
+      .then((data) => {
+        logger.info(`files uploaded: `, files)
+        onSuccess();
+
       })
       .finally(() => {
         setLoadingFile(false);
@@ -83,9 +88,8 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
       </div>
       <div
         {...getRootProps()}
-        className={`w-full h-32 flex transition-all items-center justify-center mb-2 p-4 border-dashed border-2 ${
-          isDragActive ? `bg-neutral-2` : `bg-background`
-        }`}
+        className={`w-full h-32 flex transition-all items-center justify-center mb-2 p-4 border-dashed border-2 ${isDragActive ? `bg-neutral-2` : `bg-background`
+          }`}
       >
         <input {...getInputProps()} />
         {isDragActive ? (
