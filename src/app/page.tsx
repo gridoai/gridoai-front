@@ -29,30 +29,34 @@ const landingPageContent = {
   footerText: `© ${new Date().getFullYear()} GridoAI. All rights reserved.`,
 };
 
-const LandingPage = () => {
+const LandingPage = ({ params: { lang } }: {
+  params: {
+    lang: string
+  }
+}) => {
   const user = auth();
   return (
     <div className="bg-neutral-950 text-white">
-      <nav className="flex items-center bg-[#141619] border-b border-[#30373d] justify-between px-8 py-6">
-        <div className="text-2xl font-bold flex justify-between">
-          {landingPageContent.navTitle}
-        </div>
-        {user.sessionId ? (
-          <Link href="/chat">
-            <button className="px-4 py-2 bg-[#141619] border border-[#30373d] rounded-lg">
-              Go to chat
-            </button>
-          </Link>
-        ) : (
-          <>
-            <Link href="/sign-in">
-              <button className="px-4 mr-2 py-2 bg-[#141619] border border-[#30373d] rounded-lg">
-                Login
-              </button>
-            </Link>
-          </>
-        )}
-      </nav>
+                        <nav className="flex items-center bg-[#141619] border-b border-[#30373d] justify-between px-8 py-6">
+                          <div className="text-2xl font-bold flex justify-between">
+                            {landingPageContent.navTitle}
+                          </div>
+                          {user.sessionId ? (
+                            <Link href="/chat">
+                              <button className="px-4 py-2 bg-[#141619] border border-[#30373d] rounded-lg">
+                                Go to chat
+                              </button>
+                            </Link>
+                          ) : (
+                            <>
+                              <Link href="/sign-in">
+                                <button className="px-4 mr-2 py-2 bg-[#141619] border border-[#30373d] rounded-lg">
+                                  Login
+                                </button>
+                              </Link>
+                            </>
+                          )}
+                        </nav>
       <header className="px-8 sm:h-screen items-center justify-center flex flex-col py-20 text-center">
         <h1 className="xl:text-8xl/tight sm:text-6xl text-5xl/tight font-bold mb-4">
           {landingPageContent.headerTitle}

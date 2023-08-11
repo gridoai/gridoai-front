@@ -1,5 +1,7 @@
 {
   "files.watcherExclude": {
     "**/target": true
-  }
+  },
+  "editor.tabCompletion": "on",
+  "diffEditor.codeLens": true
 }
