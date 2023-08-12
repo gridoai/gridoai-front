@@ -107,7 +107,7 @@ const DocumentsList: React.FC = () => {
 
   const { current, setCurrent, pageSize, setPageSize, pageCount } = refineCore;
 
-  const { isLoading, fetchStatus, refetch, error } =
+  const { isLoading, fetchStatus, refetch, error, data } =
     refineCore.tableQueryResult;
   const loading = isLoading || fetchStatus === `fetching`;
 

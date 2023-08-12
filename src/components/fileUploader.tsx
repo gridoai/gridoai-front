@@ -10,17 +10,9 @@ import { canUpload } from "../services/rateLimit";
 import Link from "next/link";
 import { GradientBtn } from "./GradientBtn";
 
-export const FileUploader = ({
-  onSuccess,
-  alreadyUploaded,
-}: {
-  onSuccess: () => void;
-  alreadyUploaded: string[];
-}) => {
-  const [unfilteredFiles, setFiles] = useState<Array<File> | undefined>();
-  const files = unfilteredFiles?.filter(
-    (f) => !alreadyUploaded.includes(f.name)
-  );
+export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
+  const [files, setFiles] = useState<Array<File> | undefined>();
+
   const [loadingFile, setLoadingFile] = useState(false);
   const { toast } = useToast();
 
