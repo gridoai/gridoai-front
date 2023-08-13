@@ -22,8 +22,16 @@ import { FileUploader } from "../../components/fileUploader";
 import { ArrowClockwise, Spinner } from "@phosphor-icons/react";
 import { Button } from "../../components/ui/button";
 import { Pagination } from "../../components/pagination";
-import { useOrganization } from "@clerk/nextjs";
 import { useOrgChanges } from "../../hooks/useOrgChanges";
+import { P, match } from "ts-pattern";
+import { DocumentSrc, Document } from "../../types/Document";
+
+const renderDocumentSrc = (src: DocumentSrc) =>
+  match(src)
+    .with({ Upload: P._ }, () => `Upload`)
+    .with({ CreateButton: P._ }, () => `Manual creation`)
+    .with({ GDrive: P._ }, () => `Google Drive`)
+    .exhaustive();
 
 const RenderActions = (props: CellContext<Document, unknown>) => {
   const { toast } = useToast();
@@ -52,6 +60,13 @@ const DocumentsList: React.FC = () => {
         id: `source`,
         header: `Source`,
         accessorKey: `source`,
+        cell: function render({ getValue }) {
+          return (
+            <pre className="whitespace-nowrap text-ellipsis">
+              {renderDocumentSrc(getValue() as DocumentSrc)}
+            </pre>
+          );
+        },
       },
       {
         id: `content`,
@@ -60,7 +75,7 @@ const DocumentsList: React.FC = () => {
         cell: function render({ getValue }) {
           return (
             <pre className="whitespace-nowrap text-ellipsis">
-              {getValue().toString().slice(0, 20)}...
+              {(getValue() as string).toString().slice(0, 20)}...
             </pre>
           );
         },
@@ -196,13 +211,5 @@ const DocumentsList: React.FC = () => {
     </div>
   );
 };
-
-interface Document {
-  uid: string;
-  name: number;
-  title: string;
-  content: string;
-  source: string;
-}
 
 export default DocumentsList;
