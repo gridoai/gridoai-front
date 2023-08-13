@@ -24,6 +24,9 @@ export const incrementRequestCount = () => {
 };
 
 export const getLastDayRequestCount = () => {
+  if (typeof localStorage === `undefined`) {
+    return 10;
+  }
   const lastRequestDate = new Date(
     localStorage.getItem(`lastRequestDate`) || new Date().toISOString()
   );
@@ -52,7 +55,9 @@ export const incrementUploadCount = () => {
 };
 
 export const getUploadCount = () =>
-  Number(localStorage.getItem(`uploadCount`)) || 0;
+  typeof localStorage === `undefined`
+    ? 0
+    : Number(localStorage.getItem(`uploadCount`)) || 0;
 
 export const canUpload = async () =>
   getUploadCount() < ((await getUploadLimit()) || freePlan.uploadLimit);
