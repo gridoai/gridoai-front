@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "@/components/toaster";
 import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { Inter } from "next/font/google";
@@ -69,6 +70,7 @@ export default function RootLayout({
               <Toaster />
             </ClientProviders>
           </ThemeProvider>
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
