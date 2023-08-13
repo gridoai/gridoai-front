@@ -2,6 +2,8 @@ import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
 import { SideMenu } from "../../components/menu";
 import { Button } from "../../components/ui/button";
 import Link from "next/link";
+import { CurrentPlan } from "../../components/currentPlan";
+import { DocsBtn } from "./DocsBtn";
 
 const DocsLink = (
   <Link href="/documents">
@@ -11,7 +13,14 @@ const DocsLink = (
 
 export const NavbarLayout = ({
   children,
-  Options = DocsLink,
+  Options = (
+    <>
+      <DocsBtn />
+      <SideMenu>
+        <CurrentPlan />
+      </SideMenu>
+    </>
+  ),
 }: {
   children: React.ReactNode;
   Options: React.ReactNode;
@@ -30,10 +39,7 @@ export const NavbarLayout = ({
           }}
           afterSignOutUrl="/sign-in"
         />
-        <div className="flex gap-2">
-          {Options}
-          <OrganizationSwitcher defaultOpen />
-        </div>
+        <div className="flex gap-2">{Options}</div>
       </div>
       {children}
     </div>

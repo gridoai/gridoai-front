@@ -11,6 +11,7 @@ import { useToast } from "../use-toast";
 import Link from "next/link";
 import { Message } from "./Message";
 import { GradientBtn } from "../GradientBtn";
+import { calendlyLink } from "../../app/calendlyLink";
 
 export default function Chat() {
   const [userInput, setUserInput] = useState(``);
@@ -63,7 +64,7 @@ export default function Chat() {
       return toast.toast({
         title: `Você chegou no limite de perguntas`,
         description: (
-          <Link href="" target="_blank">
+          <Link href={calendlyLink} target="_blank">
             <GradientBtn>Contate-nos para continuar usando</GradientBtn>
           </Link>
         ),

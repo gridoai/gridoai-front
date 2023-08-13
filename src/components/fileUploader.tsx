@@ -9,6 +9,7 @@ import { asyncMap } from "../lib/utils";
 import { canUpload } from "../services/rateLimit";
 import Link from "next/link";
 import { GradientBtn } from "./GradientBtn";
+import { calendlyLink } from "../app/calendlyLink";
 
 export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
   const [files, setFiles] = useState<Array<File> | undefined>();
@@ -41,7 +42,7 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
       return toast({
         title: `Você chegou no limite de uploads`,
         description: (
-          <Link href="" target="_blank">
+          <Link href={calendlyLink} target="_blank">
             <GradientBtn>Contate-nos para continuar usando</GradientBtn>
           </Link>
         ),
