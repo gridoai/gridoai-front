@@ -10,7 +10,7 @@ import orgMembers from "../../public/orgMembers.png";
 import platforms from "../../public/platforms.png";
 import { AuthProtectedBtn } from "./AuthProtectedBtn";
 import { Message } from "../components/Chat/Message";
-
+import { calendlyLink } from "./calendlyLink";
 const useCases = [
   {
     title: `Internal Data Oracle`,
@@ -47,7 +47,8 @@ export const landingPageContent = {
       <span className="bg-clip-text from-primary to-secondary text-transparent bg-gradient-to-r ">
         {` `}
         your
-      </span>{` `}
+      </span>
+      {` `}
       data,
       <br /> wherever it is.
     </>
@@ -166,14 +167,17 @@ const LandingPage = () => {
                   className="opacity-0 duration-10000"
                 >
                   <div
-                    className={`flex ${index % 2 !== 0 ? `md:flex-row-reverse` : `md:flex-row`
-                      } flex-col items-center md:min-h-[750px] flex-1 gap-8`}
+                    className={`flex ${
+                      index % 2 !== 0 ? `md:flex-row-reverse` : `md:flex-row`
+                    } flex-col items-center md:min-h-[750px] flex-1 gap-8`}
                   >
                     <div className={`flex flex-col md:flex-1 gap-4`}>
                       <div className="md:text-7xl text-2xl font-bold">
                         {feature.title}
                       </div>
-                      <div className="md:text-2xl text-xl">{feature.description}</div>
+                      <div className="md:text-2xl text-xl">
+                        {feature.description}
+                      </div>
                     </div>
                     <div className="flex flex-1">{feature.image}</div>
                   </div>
@@ -194,7 +198,7 @@ const LandingPage = () => {
             <p className="text-xl mb-8">
               {landingPageContent.getStartedDescription}
             </p>
-            <Link target="_blank" href="https://calendly.com/gridoai/30min">
+            <Link target="_blank" href={calendlyLink}>
               <Button className="px-8 py-3 bg-foreground border border-border text-black hover:bg-background hover:text-foreground transition-all font-semibold rounded-lg">
                 Book meeting
               </Button>

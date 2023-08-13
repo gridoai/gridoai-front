@@ -1,3 +1,5 @@
+import { auth } from "@clerk/nextjs";
+
 declare global {
   interface Window {
     cookieStore: {
@@ -8,7 +10,7 @@ declare global {
 
 export const getToken = async () => {
   if (typeof window === `undefined`) {
-    return;
+    return auth().getToken();
   }
 
   const fromCookie = (await window.cookieStore.getAll()).find(
