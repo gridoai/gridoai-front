@@ -1,6 +1,9 @@
 "use client";
 
+import Link from "next/link";
+import { calendlyLink } from "../app/calendlyLink";
 import { getLastDayRequestCount, getUploadCount } from "../services/rateLimit";
+import { GradientText } from "./GradientBtn";
 import { Info } from "./icon";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 
@@ -18,5 +21,8 @@ export const FreePlanCard = () => (
       </HoverCardContent>
     </HoverCard>
     Free plan
+    <Link href={calendlyLink} target="_blank">
+      <GradientText>Upgrade now</GradientText>
+    </Link>
   </>
 );

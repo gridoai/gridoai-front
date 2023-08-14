@@ -17,12 +17,10 @@ import {
 import { useTable } from "@refinedev/react-table";
 import { CellContext, ColumnDef, flexRender } from "@tanstack/react-table";
 import React, { useEffect } from "react";
-import { useToast } from "../../components/use-toast";
-import { FileUploader } from "../../components/fileUploader";
+import { useToast } from "../../../components/use-toast";
+import { FileUploader } from "../../../components/fileUploader";
 import { ArrowClockwise, Spinner } from "@phosphor-icons/react";
-import { Button } from "../../components/ui/button";
-import { Pagination } from "../../components/pagination";
-import { useOrgChanges } from "../../hooks/useOrgChanges";
+
 import { P, match } from "ts-pattern";
 import { DocumentSrc, Document } from "../../types/Document";
 
@@ -32,6 +30,9 @@ const renderDocumentSrc = (src: DocumentSrc) =>
     .with({ CreateButton: P._ }, () => `Manual creation`)
     .with({ GDrive: P._ }, () => `Google Drive`)
     .exhaustive();
+import { Button } from "../../../components/ui/button";
+import { Pagination } from "../../../components/pagination";
+import { useOrgChanges } from "../../../hooks/useOrgChanges";
 
 const RenderActions = (props: CellContext<Document, unknown>) => {
   const { toast } = useToast();
@@ -124,7 +125,14 @@ const DocumentsList: React.FC = () => {
 
   useOrgChanges(() => refetch());
   return (
-    <div className={` flex flex-col bg-card p-4 rounded-xl`}>
+    <div className={`flex flex-col bg-card p-2 gap-4 md:p-4 rounded-xl`}>
+      <div className="p-2 m-1 flex-col gap-4 flex">
+        <div className="text-3xl flex items-end gap-2 font-bold">
+          Upload <div className="text-sm font-medium">(30MB Max)</div>
+          {` `}
+        </div>
+        <FileUploader onSuccess={() => refetch()} />
+      </div>
       <List
         title={
           <>
@@ -192,7 +200,7 @@ const DocumentsList: React.FC = () => {
           </Table>
         </TableContainer>
       </List>
-      <div className="flex self-end p-4 w-full">
+      <div className="flex self-end p-2 md:p-4 w-full">
         <Pagination
           pageSize={pageSize}
           onPageSizeChange={setPageSize}
@@ -200,13 +208,6 @@ const DocumentsList: React.FC = () => {
           current={current}
           pageCount={pageCount}
         />
-      </div>
-      <div className="p-2 flex-col gap-4 mt-4 flex">
-        <div className="text-3xl flex items-end gap-2 font-bold">
-          Upload <div className="text-sm font-medium">(30MB Max)</div>
-          {` `}
-        </div>
-        <FileUploader onSuccess={() => refetch()} />
       </div>
     </div>
   );
