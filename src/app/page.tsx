@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Button } from "../components/ui/button";
 import Image from "next/image";
-import bg from "../../public/bg_purple.png";
 import { Brain, Funnel, User, Users } from "../components/icon";
 import { Navbar } from "./Navbar";
 import AnimatedComponent from "../components/animatedWrapper";
@@ -123,7 +122,6 @@ export const landingPageContent = {
 const LandingPage = () => {
   return (
     <div className=" text-foreground">
-      <Image src={bg} className="w-screen absolute h-screen -z-10" alt="" />
       <Navbar />
       <section
         style={{
