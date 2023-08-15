@@ -1,28 +1,30 @@
 "use client";
 import {
-  List,
-  CreateButton,
-  DeleteButton,
-  RefreshButton,
-} from "@refinedev/chakra-ui";
-import {
-  TableContainer,
   Table,
-  Thead,
-  Tr,
-  Th,
+  TableContainer,
   Tbody,
   Td,
+  Th,
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
+import { ArrowClockwise, Spinner } from "@phosphor-icons/react";
+import {
+  CreateButton,
+  DeleteButton,
+  List,
+  RefreshButton,
+} from "@refinedev/chakra-ui";
 import { useTable } from "@refinedev/react-table";
 import { CellContext, ColumnDef, flexRender } from "@tanstack/react-table";
 import React, { useEffect } from "react";
-import { useToast } from "../../../components/use-toast";
-import { FileUploader } from "../../../components/fileUploader";
-import { ArrowClockwise, Spinner } from "@phosphor-icons/react";
-
 import { P, match } from "ts-pattern";
-import { DocumentSrc, Document } from "../../types/Document";
+import { FileUploader } from "../../../components/fileUploader";
+import { Pagination } from "../../../components/pagination";
+import { Button } from "../../../components/ui/button";
+import { useToast } from "../../../components/use-toast";
+import { useOrgChanges } from "../../../hooks/useOrgChanges";
+import { Document, DocumentSrc } from "../../../types/Document";
 
 const renderDocumentSrc = (src: DocumentSrc) =>
   match(src)
@@ -30,9 +32,6 @@ const renderDocumentSrc = (src: DocumentSrc) =>
     .with({ CreateButton: P._ }, () => `Manual creation`)
     .with({ GDrive: P._ }, () => `Google Drive`)
     .exhaustive();
-import { Button } from "../../../components/ui/button";
-import { Pagination } from "../../../components/pagination";
-import { useOrgChanges } from "../../../hooks/useOrgChanges";
 
 const RenderActions = (props: CellContext<Document, unknown>) => {
   const { toast } = useToast();
