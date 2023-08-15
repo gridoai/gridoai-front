@@ -20,20 +20,13 @@ import {
 } from "../ui/resizingTextArea";
 
 export default function Chat() {
-  const [userInput, setUserInput] = useState(
-    `nvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo a`
-  );
+  const [userInput, setUserInput] = useState(``);
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       message: `Hi there! How can I help?`,
       type: `robot`,
       timestamp: new Date(0),
-    },
-    {
-      message: `nvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo a`,
-      type: `userMessage`,
-      timestamp: new Date(1),
     },
   ]);
 
