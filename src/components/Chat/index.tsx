@@ -14,16 +14,26 @@ import {
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import styles from "./index.module.css";
-import { AutoHeightTextarea } from "../ui/resizingTextArea";
+import {
+  AutoHeightTextarea,
+  maxResizableInputHeight,
+} from "../ui/resizingTextArea";
 
 export default function Chat() {
-  const [userInput, setUserInput] = useState(``);
+  const [userInput, setUserInput] = useState(
+    `nvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo a`
+  );
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       message: `Hi there! How can I help?`,
       type: `robot`,
       timestamp: new Date(0),
+    },
+    {
+      message: `nvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo anvm odsifjao saosidjfoai sjdofijaosidjfo aisdjfoaijsdfo iasdfoaijsdoifj asodifjaosid foasjdfo a`,
+      type: `userMessage`,
+      timestamp: new Date(1),
     },
   ]);
 
@@ -135,12 +145,24 @@ export default function Chat() {
       e.preventDefault();
     }
   };
-
+  const [inputHeight, setInputHeight] = useState<number>(0);
+  const inputSpacing = 16;
   return (
     <main
       className={`${styles.main} flex bg-background max-w-7xl xl:w-[80rem] xl:mx-auto `}
     >
-      <div className={`${styles.cloud} flex flex-1`}>
+      <div
+        className={`${styles.cloud} flex flex-1`}
+        style={{
+          height: `calc(100vh - ${
+            (inputHeight > maxResizableInputHeight
+              ? maxResizableInputHeight
+              : inputHeight) +
+            (maxResizableInputHeight + inputSpacing)
+          }px)`,
+          minHeight: `inherit`,
+        }}
+      >
         <div ref={messageListRef} className={styles.messagelist}>
           {messages.map((message, index) => {
             const [content, sources] =
@@ -211,6 +233,7 @@ export default function Chat() {
                 onKeyDown={handleEnter}
                 ref={textAreaRef}
                 autoFocus={false}
+                onChangeHeight={setInputHeight}
                 id="userInput"
                 name="userInput"
                 placeholder={

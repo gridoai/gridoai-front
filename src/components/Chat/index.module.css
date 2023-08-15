@@ -244,8 +244,8 @@
   height: calc(100vh - 180px);
   max-height: calc(100vh - 180px);
 
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .pointsnormal {
