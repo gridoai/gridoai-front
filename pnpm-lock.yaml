@@ -83,6 +83,9 @@ dependencies:
   next-axiom:
     specifier: ^0.17.0
     version: 0.17.0(next@13.4.13)
+  next-international:
+    specifier: ^0.9.1
+    version: 0.9.1
   next-themes:
     specifier: ^0.2.1
     version: 0.2.1(next@13.4.13)(react-dom@18.2.0)(react@18.2.0)
@@ -8835,6 +8838,10 @@ packages:
       side-channel: 1.0.4
     dev: false
 
+  /international-types@0.8.0:
+    resolution: {integrity: sha512-cJwagIBzMG0FTK81TABeSBU0eReIXWmvW18m/URn8ZA+GLoWIcdL43kfjArwHVmZJ1n+IFchsBj8tQLYUqmwnA==}
+    dev: false
+
   /invariant@2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
     dependencies:
@@ -10505,6 +10512,14 @@ packages:
       whatwg-fetch: 3.6.2
     dev: false
 
+  /next-international@0.9.1:
+    resolution: {integrity: sha512-LllzaDcqcVJ/UoWBz2PqQTpSZaULQUwVc49jlzN4YwnrcFnex+hstkKb15tnh7A16wmB+4sd6RCUXmwf72+R+A==}
+    dependencies:
+      client-only: 0.0.1
+      international-types: 0.8.0
+      server-only: 0.0.1
+    dev: false
+
   /next-themes@0.2.1(next@13.4.13)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-B+AKNfYNIzh0vqQQKqQItTS8evEouKD7H5Hj3kmuPERwddR2TxvDSFZuTj6T7Jfn1oyeUyJMydPl1Bkxkh0W7A==}
     peerDependencies:
@@ -12154,6 +12169,7 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
+    dev: false
 
   /semver@7.5.4:
     resolution: {integrity: sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==}
@@ -12192,6 +12208,10 @@ packages:
       send: 0.18.0
     transitivePeerDependencies:
       - supports-color
+
+  /server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
+    dev: false
 
   /set-blocking@2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
@@ -14001,7 +14021,7 @@ packages:
       esbuild: 0.15.18
       js-yaml: 4.1.0
       pcre-to-regexp: 1.1.0
-      semver: 7.5.1
+      semver: 7.5.4
       vercel: 30.2.2(@types/node@20.2.5)
       wrangler: 3.1.1
       zod: 3.21.4
