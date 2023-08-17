@@ -22,7 +22,6 @@ export const AutoHeightTextarea = ({
   onChangeHeight?: (height: number) => void;
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [currentValue, setCurrentValue] = useState(``); // you can manage data with it
 
   useEffect(() => {
     if (!textareaRef.current) return;
@@ -30,16 +29,15 @@ export const AutoHeightTextarea = ({
     const scrollHeight = textareaRef.current.scrollHeight;
     onChangeHeight?.(scrollHeight);
     textareaRef.current.style.height = scrollHeight + `px`;
-  }, [currentValue, onChangeHeight]);
+  }, [onChangeHeight, props.value]);
 
   return (
     <textarea
       ref={textareaRef}
       style={style}
       {...props}
-      value={currentValue}
+      value={props.value}
       onChange={(e) => {
-        setCurrentValue(e.target.value);
         props.onChange?.(e);
       }}
     />

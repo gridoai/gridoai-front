@@ -17,7 +17,13 @@ export const getToken = async () => {
     (c) => c.name === `__session`
   );
   console.log(parseJwt(fromCookie?.value ?? ``));
-  return fromCookie?.value ?? (await window.Clerk.session.getToken());
+  if (fromCookie?.value) {
+    return fromCookie?.value;
+  }
+  if (!window.Clerk.session) {
+    await window.Clerk.load();
+  }
+  return await window.Clerk.session.getToken();
 };
 
 function parseJwt<T>(token: string): T {

@@ -25,6 +25,11 @@ import { Button } from "../../../components/ui/button";
 import { useToast } from "../../../components/use-toast";
 import { useOrgChanges } from "../../../hooks/useOrgChanges";
 import { Document, DocumentSrc } from "../../../types/Document";
+import {
+  decrementUploadCount,
+  setDocumentCount,
+} from "../../../services/rateLimit";
+import { usePlanUsage } from "../../../hooks/usePlanUsage";
 
 const renderDocumentSrc = (src: DocumentSrc) =>
   match(src)
@@ -42,6 +47,7 @@ const RenderActions = (props: CellContext<Document, unknown>) => {
         onError={() => {
           toast({ title: `There was an error deleting the document` });
         }}
+        onSuccess={decrementUploadCount}
         recordItemId={props.row.original.uid}
       />
     </div>
@@ -100,6 +106,7 @@ const DocumentsList: React.FC = () => {
         refetchOnReconnect: false,
         cacheTime: 3600,
         staleTime: Infinity,
+        onSuccess: (data) => setDocumentCount(data.total),
       },
       pagination: { mode: `server` },
     },

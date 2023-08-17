@@ -56,13 +56,12 @@ export default function RootLayout({
           organizationSwitcherPopoverCard: `backdrop-blur-lg bg-opacity-20 [&>*]:text-foreground z-100`,
           organizationSwitcherPopoverActionButtonIcon: `text-neutral-200`,
           organizationSwitcherPopoverFooter: `hidden`,
-          rootBox: `items-center flex`
+          rootBox: `items-center flex`,
         },
       }}
     >
       <html lang="en" className="flex">
-        <head>
-        </head>
+        <head></head>
         <body className={`${inter.className} flex`}>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <ClientProviders>
