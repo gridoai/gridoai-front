@@ -16,11 +16,24 @@ export const getQuestionLimit = async () =>
 
 export const getUploadLimit = async () =>
   (await isFreePlan()) ? freePlan.uploadLimit : Infinity;
+export const triggerLocalStorageRefresh = () =>
+  window.dispatchEvent(new Event(`local-storage`));
+
+export const setDocumentCount = (count: number) => {
+  localStorage.setItem(DOC_COUNTER_KEY, `${count}`);
+  triggerLocalStorageRefresh();
+};
 
 export const incrementRequestCount = () => {
-  const count = Number(localStorage.getItem(`requestCount`)) || 0;
+  const count = Number(localStorage.getItem(QUESTION_COUNTER_KEY)) || 0;
   localStorage.setItem(`lastRequestDate`, new Date().toISOString());
-  localStorage.setItem(`requestCount`, `${count + 1}`);
+  localStorage.setItem(QUESTION_COUNTER_KEY, `${count + 1}`);
+  triggerLocalStorageRefresh();
+};
+
+export const decrementUploadCount = () => {
+  const count = Number(localStorage.getItem(DOC_COUNTER_KEY)) || 0;
+  setDocumentCount(count - 1);
 };
 
 export const getLastDayRequestCount = () => {
@@ -34,10 +47,10 @@ export const getLastDayRequestCount = () => {
   const diff = now.getTime() - lastRequestDate.getTime();
   const diffDays = Math.ceil(diff / (1000 * 3600 * 24));
   if (diffDays > 1) {
-    localStorage.setItem(`requestCount`, `0`);
+    localStorage.setItem(QUESTION_COUNTER_KEY, `0`);
   }
-  const n = Number(localStorage.getItem(`requestCount`)) || 0;
-  console.log(`getLastDayRequestCount`, n);
+  const n = Number(localStorage.getItem(QUESTION_COUNTER_KEY)) || 0;
+
   return n;
 };
 
@@ -49,15 +62,19 @@ export const canAsk = async () => {
   return getLastDayRequestCount() < limit;
 };
 
-export const incrementUploadCount = () => {
-  const count = Number(localStorage.getItem(`uploadCount`)) || 0;
-  localStorage.setItem(`uploadCount`, `${count + 1}`);
+export const DOC_COUNTER_KEY = `documentCount`;
+
+export const QUESTION_COUNTER_KEY = `requestCount`;
+
+export const incrementDocumentCount = () => {
+  const count = Number(localStorage.getItem(DOC_COUNTER_KEY)) || 0;
+  setDocumentCount(count + 1);
 };
 
-export const getUploadCount = () =>
+export const getDocumentCount = () =>
   typeof localStorage === `undefined`
     ? 0
-    : Number(localStorage.getItem(`uploadCount`)) || 0;
+    : Number(localStorage.getItem(DOC_COUNTER_KEY)) || 0;
 
 export const canUpload = async () =>
-  getUploadCount() < ((await getUploadLimit()) || freePlan.uploadLimit);
+  getDocumentCount() < ((await getUploadLimit()) || freePlan.uploadLimit);

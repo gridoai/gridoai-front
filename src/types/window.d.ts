@@ -3,5 +3,6 @@ interface Window {
     session: {
       getToken: () => Promise<string>;
     };
+    load: () => Promise<void>;
   };
 }

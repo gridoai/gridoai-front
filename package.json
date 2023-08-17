@@ -48,7 +48,8 @@
     "tailwind-merge": "^1.13.0",
     "tailwindcss": "3.3.2",
     "tailwindcss-animate": "^1.0.6",
-    "ts-pattern": "^5.0.5"
+    "ts-pattern": "^5.0.5",
+    "usehooks-ts": "^2.9.1"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "https://prerelease-registry.devprod.cloudflare.dev/next-on-pages/runs/5288727385/npm-package-next-on-pages-317",

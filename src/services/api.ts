@@ -10,7 +10,7 @@ import baseDataProvider from "@refinedev/simple-rest";
 import {
   canAsk,
   incrementRequestCount,
-  incrementUploadCount,
+  incrementDocumentCount,
 } from "./rateLimit";
 import { getToken } from "./auth";
 
@@ -156,7 +156,7 @@ export const uploadFiles = async (files: Iterable<File> | ArrayLike<File>) => {
   if (response.length < fileList.length) {
     throw new Error(`Failed to upload all files`);
   }
-  incrementUploadCount();
+  incrementDocumentCount();
   return response;
 };
 

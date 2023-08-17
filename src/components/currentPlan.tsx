@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { getPublicData } from "../services/auth";
-import { getLastDayRequestCount, getUploadCount } from "../services/rateLimit";
+import {
+  getLastDayRequestCount,
+  getDocumentCount,
+} from "../services/rateLimit";
 import { GradientText } from "./GradientBtn";
 import { Info } from "./icon";
 import { Button } from "./ui/button";

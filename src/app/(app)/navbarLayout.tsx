@@ -14,10 +14,16 @@ export const NavbarLayout = ({ children }: { children: React.ReactNode }) => {
         className={` flex justify-between items-center px-3  border-b border-solid;`}
       >
         <NavbarRoutes pathname={pathname} />
-        <div id="desktopMiddleSide" className="hidden md:flex gap-2">
+        <div
+          id="desktopMiddleSide"
+          className="hidden md:flex gap-2 items-center"
+        >
           <FreePlanCard />
         </div>
-        <div id="desktopRightSide" className="hidden md:flex gap-2">
+        <div
+          id="desktopRightSide"
+          className="hidden md:flex gap-2 items-center"
+        >
           <OrganizationSwitcher />
         </div>
         <div id="mobileRightSide" className="flex md:hidden gap-2">

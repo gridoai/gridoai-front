@@ -10,6 +10,7 @@ import {
 import { useForm } from "@refinedev/react-hook-form";
 import { useEffect } from "react";
 import { useToast } from "../../../../components/use-toast";
+import { incrementDocumentCount } from "../../../../services/rateLimit";
 
 interface DocumentForm {
   name: string;
@@ -25,7 +26,13 @@ const DocumentCreate: React.FC = () => {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<DocumentForm>();
+  } = useForm<DocumentForm>({
+    refineCoreProps: {
+      queryOptions: {
+        onSuccess: incrementDocumentCount,
+      },
+    },
+  });
   const { toast } = useToast();
 
   const name = watch(`name`);

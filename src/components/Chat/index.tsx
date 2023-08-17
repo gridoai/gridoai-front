@@ -125,7 +125,7 @@ export default function Chat() {
       handleError();
       return;
     }
-
+    setUserInput(``);
     setMessages((prevMessages) => [
       ...prevMessages,
       {
@@ -185,7 +185,7 @@ export default function Chat() {
                 content={content}
                 sources={sources}
                 type={message.type}
-                loading={loading}
+                loading={loading && index === messages.length - 1}
                 index={index}
               />
             );
