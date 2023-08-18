@@ -1,8 +1,8 @@
 import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
-import { SideMenu } from "../../components/menu";
-import { Chat, Upload } from "../../components/icon";
-import { currentUrl } from "../../lib/url";
-import { FreePlanCard } from "../../components/freePlanCard";
+import { SideMenu } from "../../../components/menu";
+import { Chat, Upload } from "../../../components/icon";
+import { currentUrl } from "../../../lib/url";
+import { FreePlanCard } from "../../../components/freePlanCard";
 import { NavbarLink } from "./chat/NavbarLink";
 
 export const NavbarLayout = ({ children }: { children: React.ReactNode }) => {

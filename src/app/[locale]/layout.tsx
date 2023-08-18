@@ -2,10 +2,11 @@ import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "@/components/toaster";
 import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import RefineProvider from "./refine-provider";
-import { ClientProviders } from "./client-providers";
+import "../../styles/globals.css";
+import RefineProvider from "../refine-provider";
+import { ClientProviders } from "../client-providers";
 import { ThemeProvider } from "@/providers/theme";
+import { ptBR } from "@clerk/localizations";
 
 // eslint-disable-next-line quotes
 const inter = Inter({ subsets: ["latin"] });
@@ -17,11 +18,14 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
   return (
     <ClerkProvider
+      localization={params.locale === `pt` ? ptBR : undefined}
       appearance={{
         variables: {
           colorText: `#fafafa`,

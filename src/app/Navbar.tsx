@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import { Button } from "../components/ui/button";
-import { landingPageContent } from "./page";
+import { landingPageContent } from "./[locale]/page";
 import { AuthProtectedBtn } from "./AuthProtectedBtn";
 import Link from "next/link";
 

@@ -17,7 +17,7 @@ export function NavbarLink({
     <Link href={path}>
       <div
         className={`flex transition-all flex-1 gap-2 items-center justify-center h-full ${
-          path === currentPath
+          currentPath.endsWith(path)
             ? `text-secondary border-b border-solid border-secondary`
             : ``
         }`}
