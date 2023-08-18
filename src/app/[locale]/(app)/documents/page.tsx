@@ -19,17 +19,17 @@ import { useTable } from "@refinedev/react-table";
 import { CellContext, ColumnDef, flexRender } from "@tanstack/react-table";
 import React, { useEffect } from "react";
 import { P, match } from "ts-pattern";
-import { FileUploader } from "../../../components/fileUploader";
-import { Pagination } from "../../../components/pagination";
-import { Button } from "../../../components/ui/button";
-import { useToast } from "../../../components/use-toast";
-import { useOrgChanges } from "../../../hooks/useOrgChanges";
-import { Document, DocumentSrc } from "../../../types/Document";
+import { FileUploader } from "../../../../components/fileUploader";
+import { Pagination } from "../../../../components/pagination";
+import { Button } from "../../../../components/ui/button";
+import { useToast } from "../../../../components/use-toast";
+import { useOrgChanges } from "../../../../hooks/useOrgChanges";
+import { Document, DocumentSrc } from "../../../../types/Document";
 import {
   decrementUploadCount,
   setDocumentCount,
-} from "../../../services/rateLimit";
-import { usePlanUsage } from "../../../hooks/usePlanUsage";
+} from "../../../../services/rateLimit";
+import { usePlanUsage } from "../../../../hooks/usePlanUsage";
 
 const renderDocumentSrc = (src: DocumentSrc) =>
   match(src)

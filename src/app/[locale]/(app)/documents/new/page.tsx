@@ -10,13 +10,13 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "@refinedev/react-hook-form";
 import { useEffect } from "react";
-import { useToast } from "../../../../components/use-toast";
+import { useToast } from "../../../../../components/use-toast";
 import {
   canUpload,
   incrementDocumentCount,
-} from "../../../../services/rateLimit";
-import { GradientBtn } from "../../../../components/GradientBtn";
-import { calendlyLink } from "../../../calendlyLink";
+} from "../../../../../services/rateLimit";
+import { GradientBtn } from "../../../../../components/GradientBtn";
+import { calendlyLink } from "../../../../calendlyLink";
 
 interface DocumentForm {
   name: string;

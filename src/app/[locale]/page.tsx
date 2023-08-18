@@ -1,15 +1,15 @@
 import Link from "next/link";
-import { Button } from "../components/ui/button";
+import { Button } from "../../components/ui/button";
 import Image from "next/image";
-import { Brain, Funnel, User, Users } from "../components/icon";
-import { Navbar } from "./Navbar";
-import AnimatedComponent from "../components/animatedWrapper";
-import workspaces from "../../public/workspaces.png";
-import orgMembers from "../../public/orgMembers.png";
-import platforms from "../../public/platforms.png";
-import { AuthProtectedBtn } from "./AuthProtectedBtn";
-import { Message } from "../components/Chat/Message";
-import { calendlyLink } from "./calendlyLink";
+import { Brain, Funnel, User, Users } from "../../components/icon";
+import { Navbar } from "../Navbar";
+import AnimatedComponent from "../../components/animatedWrapper";
+import workspaces from "../../../public/workspaces.png";
+import orgMembers from "../../../public/orgMembers.png";
+import platforms from "../../../public/platforms.png";
+import { AuthProtectedBtn } from "../AuthProtectedBtn";
+import { Message } from "../../components/Chat/Message";
+import { calendlyLink } from "../calendlyLink";
 const useCases = [
   {
     title: `Internal Data Oracle`,
@@ -36,6 +36,7 @@ const useCases = [
     description: `Utilize academic materials like articles, books, and research papers to ask questions about specific topics, theories, or historical events.`,
   },
 ];
+import { getI18n, getScopedI18n } from "../../locales/server";
 
 const iconSize = 42;
 export const landingPageContent = {
@@ -119,7 +120,9 @@ export const landingPageContent = {
   contactUs: `Contact us`,
 };
 
-const LandingPage = () => {
+const LandingPage = async () => {
+  const t = await getI18n();
+
   return (
     <div className=" text-foreground">
       <Navbar />
@@ -159,7 +162,7 @@ const LandingPage = () => {
             <div className="flex flex-col gap-16 md:gap-8">
               {landingPageContent.features.map((feature, index) => (
                 <AnimatedComponent
-                  threshold={0.7}
+                  threshold={0.5}
                   key={index}
                   animationClass="animate-in fade-in opacity-100 ease-in"
                   className="opacity-0 duration-10000"
@@ -183,7 +186,7 @@ const LandingPage = () => {
               ))}
             </div>
             <h2 className="md:text-7xl mt-8 md:mt-16 text-4xl !leading-tight font-bold mb-4 text-center">
-              One platform, endless possibilities
+              {t(`landingPage.useCasesTitle`)}
             </h2>
             <SectionFeatures items={useCases} />
           </section>
