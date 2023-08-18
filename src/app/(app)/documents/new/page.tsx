@@ -5,12 +5,18 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  Link,
   Textarea,
 } from "@chakra-ui/react";
 import { useForm } from "@refinedev/react-hook-form";
 import { useEffect } from "react";
 import { useToast } from "../../../../components/use-toast";
-import { incrementDocumentCount } from "../../../../services/rateLimit";
+import {
+  canUpload,
+  incrementDocumentCount,
+} from "../../../../services/rateLimit";
+import { GradientBtn } from "../../../../components/GradientBtn";
+import { calendlyLink } from "../../../calendlyLink";
 
 interface DocumentForm {
   name: string;
@@ -46,7 +52,25 @@ const DocumentCreate: React.FC = () => {
   }, [errors, toast]);
 
   return (
-    <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
+    <Create
+      isLoading={formLoading}
+      saveButtonProps={{
+        ...saveButtonProps,
+        onClick: async (p) => {
+          if (!(await canUpload())) {
+            return toast({
+              title: `Você chegou no limite de documentos`,
+              description: (
+                <Link href={calendlyLink} target="_blank">
+                  <GradientBtn>Contate-nos para continuar usando</GradientBtn>
+                </Link>
+              ),
+            });
+          }
+          saveButtonProps?.onClick(p);
+        },
+      }}
+    >
       <FormControl mb="3" isInvalid={!!errors?.name}>
         <FormLabel>Name</FormLabel>
         <Input

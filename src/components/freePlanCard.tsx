@@ -10,9 +10,18 @@ import { GradientText } from "./GradientBtn";
 import { Info } from "./icon";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { usePlanUsage } from "../hooks/usePlanUsage";
+import { useQuery } from "@tanstack/react-query";
+import { getPublicData } from "../services/auth";
 
 export const FreePlanCard = () => {
   const planInfo = usePlanUsage();
+  const { data } = useQuery({
+    queryKey: [`plan`],
+    queryFn: getPublicData,
+  });
+  if (data?.plan === `pro`) {
+    return;
+  }
   return (
     <>
       <HoverCard openDelay={0}>

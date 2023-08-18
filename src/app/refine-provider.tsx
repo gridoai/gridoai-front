@@ -6,6 +6,14 @@ import { restDataProvider } from "../services/api";
 import { RefineThemes } from "@refinedev/chakra-ui";
 import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+const queryClient = new QueryClient();
 
 const theme = extendTheme({
   config: {
@@ -35,6 +43,7 @@ export default function RefineProvider({
   children: React.ReactNode;
 }) {
   return (
+    // <QueryClientProvider client={queryClient}>
     <ChakraProvider
       theme={theme}
       colorModeManager={{
@@ -58,5 +67,6 @@ export default function RefineProvider({
         {children}
       </Refine>
     </ChakraProvider>
+    // </QueryClientProvider>
   );
 }
