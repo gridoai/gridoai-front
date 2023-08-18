@@ -44,9 +44,8 @@ export const getLastDayRequestCount = () => {
     localStorage.getItem(`lastRequestDate`) || new Date().toISOString()
   );
   const now = new Date();
-  const diff = now.getTime() - lastRequestDate.getTime();
-  const diffDays = Math.ceil(diff / (1000 * 3600 * 24));
-  if (diffDays > 1) {
+
+  if (lastRequestDate.getDay() !== now.getDay()) {
     localStorage.setItem(QUESTION_COUNTER_KEY, `0`);
   }
   const n = Number(localStorage.getItem(QUESTION_COUNTER_KEY)) || 0;
