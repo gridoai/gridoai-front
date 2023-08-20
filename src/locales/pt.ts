@@ -102,10 +102,15 @@ export default {
     justDrop: `Solte os arquivos aqui... `,
   },
   tryLater: `Por favor, tente novamente mais tarde`,
-  upgradeNow: `Atualize agora`,
+  upgradeNow: `Faça upgrade agora`,
   chat: {
     firstMessage: `Oi! Como posso ajudar?`,
     errorMsg: `Ops! Parece que houve um erro. Por favor, tente novamente`,
     inputPlaceholder: `Digite sua pergunta...`,
+  },
+  freePlanCard: {
+    title: `Plano Gratuito`,
+    questionsToday: `perguntas feitas hoje`,
+    processedDocuments: `documentos processados`,
   },
 } as const;

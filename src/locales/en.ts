@@ -108,4 +108,9 @@ export default {
     errorMsg: `Oops! There seems to be an error. Please try again`,
     inputPlaceholder: `Type your question...`,
   },
+  freePlanCard: {
+    title: `Free plan`,
+    questionsToday: `questions today`,
+    processedDocuments: `processed documents`,
+  },
 } as const;

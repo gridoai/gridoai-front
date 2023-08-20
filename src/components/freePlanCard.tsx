@@ -12,6 +12,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { usePlanUsage } from "../hooks/usePlanUsage";
 import { useQuery } from "@tanstack/react-query";
 import { getPublicData } from "../services/auth";
+import { useI18n } from "../locales/client";
 
 export const FreePlanCard = () => {
   const planInfo = usePlanUsage();
@@ -19,6 +20,7 @@ export const FreePlanCard = () => {
     queryKey: [`plan`],
     queryFn: getPublicData,
   });
+  const t = useI18n();
   if (data?.plan === `pro`) {
     return;
   }
@@ -29,15 +31,19 @@ export const FreePlanCard = () => {
           <Info width={20} height={20} />
         </HoverCardTrigger>
         <HoverCardContent className="bg-background">
-          <div className="flex flex-col gap-2 items-center">
-            <div>{planInfo.questionCount}/10 questions today</div>
-            <div>{planInfo.documentCount}/5 documents stored</div>
+          <div className="flex flex-col gap-2 items-start justify-start">
+            <div>
+              {planInfo.questionCount}/10 {t(`freePlanCard.questionsToday`)}
+            </div>
+            <div className="whitespace-nowrap">
+              {planInfo.documentCount}/5 {t(`freePlanCard.processedDocuments`)}
+            </div>
           </div>
         </HoverCardContent>
       </HoverCard>
-      Free plan
+      {t(`freePlanCard.title`)}
       <Link href={calendlyLink} target="_blank">
-        <GradientText>Upgrade now</GradientText>
+        <GradientText> {t(`upgradeNow`)}</GradientText>
       </Link>
     </>
   );
