@@ -4,8 +4,10 @@ import Image from "next/image";
 import { Brain, Funnel, User, Users } from "../../components/icon";
 import { Navbar } from "../Navbar";
 import AnimatedComponent from "../../components/animatedWrapper";
-import workspaces from "../../../public/workspaces.png";
-import orgMembers from "../../../public/orgMembers.png";
+import workspacesEn from "../../../public/workspaces.png";
+import orgMembersEn from "../../../public/orgMembers.png";
+import workspacesPt from "../../../public/workspacesPt.png";
+import orgMembersPt from "../../../public/orgMembersPt.png";
 import platforms from "../../../public/platforms.png";
 import { AuthProtectedBtn } from "../AuthProtectedBtn";
 import { Message } from "../../components/Chat/Message";
@@ -23,7 +25,10 @@ import { JSX } from "react";
 
 const iconSize = 42;
 export const landingPageContent = {
-  features: (t: ScopedTranslator<`landingPage.features`>) => [
+  features: (
+    t: ScopedTranslator<`landingPage.features`>,
+    locale: `en` | `pt`
+  ) => [
     {
       title: t(`dataDriven.title`),
       description: t(`dataDriven.description`),
@@ -66,14 +71,20 @@ export const landingPageContent = {
     {
       title: t(`multiWorkspace.title`),
       description: t(`multiWorkspace.description`),
-      image: <Image src={workspaces} alt="" />,
+      image: (
+        <Image src={locale === `en` ? workspacesEn : workspacesPt} alt="" />
+      ),
     },
     {
       title: t(`userManagement.title`),
       description: t(`userManagement.description`),
       icon: <User size={iconSize} />,
       image: (
-        <Image src={orgMembers} alt="" className="rounded-xl overflow-hidden" />
+        <Image
+          src={locale === `en` ? orgMembersEn : orgMembersPt}
+          alt=""
+          className="rounded-xl overflow-hidden"
+        />
       ),
     },
     {
@@ -85,7 +96,13 @@ export const landingPageContent = {
   ],
 };
 
-const LandingPage = async () => {
+const LandingPage = async ({
+  params: { locale },
+}: {
+  params: {
+    locale: `en` | `pt`;
+  };
+}) => {
   const t = await getI18n();
   const featTranslator = await getScopedI18n(`landingPage.features`);
   return (
@@ -128,7 +145,7 @@ const LandingPage = async () => {
           <section className="px-8 py-20">
             <div className="flex flex-col gap-16 md:gap-8">
               {landingPageContent
-                .features(featTranslator)
+                .features(featTranslator, locale)
                 .map((feature, index) => (
                   <AnimatedComponent
                     threshold={0.5}
