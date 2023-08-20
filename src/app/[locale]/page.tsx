@@ -11,82 +11,51 @@ import { AuthProtectedBtn } from "../AuthProtectedBtn";
 import { Message } from "../../components/Chat/Message";
 import { calendlyLink } from "../calendlyLink";
 const useCases = [
-  {
-    title: `Internal Data Oracle`,
-    description: `Analyze cross-departmental data for insightful answers, aiding decision-making and strategic planning.`,
-  },
-  {
-    title: `Software Development`,
-    description: `Get accurate answers about functions, algorithms, and coding practices using code repositories and documentation.`,
-  },
-  {
-    title: `Legal Document Review`,
-    description: `Save time on manual review by uploading legal documents and contracts to find specific clauses or terms.`,
-  },
-  {
-    title: `Business Analysis`,
-    description: `Gain insights and explanations about business metrics or trends by uploading company reports and data.`,
-  },
-  {
-    title: `Project Management`,
-    description: `Manage projects effectively by uploading planning documents, timelines, and team assignments for accurate answers about milestones, deadlines, or responsibilities.`,
-  },
-  {
-    title: `Educational Research`,
-    description: `Utilize academic materials like articles, books, and research papers to ask questions about specific topics, theories, or historical events.`,
-  },
-];
-import { getI18n, getScopedI18n } from "../../locales/server";
+  `internalDataOracle`,
+  `softwareDevelopment`,
+  `legalDocumentReview`,
+  `businessAnalysis`,
+  `projectManagement`,
+  `educationalResearch`,
+] as const;
+import { ScopedTranslator, getI18n, getScopedI18n } from "../../locales/server";
+import { JSX } from "react";
 
 const iconSize = 42;
 export const landingPageContent = {
-  navTitle: `GridoAI`,
-  headerTitle: (
-    <>
-      Talk with{` `}
-      <span className="bg-clip-text from-primary to-secondary text-transparent bg-gradient-to-r ">
-        {` `}
-        your
-      </span>
-      {` `}
-      data,
-      <br /> wherever it is.
-    </>
-  ),
-  headerDescription: `GridoAI is a powerful chatbot that uses your data to provide precise and contextually relevant answers`,
-  features: [
+  features: (t: ScopedTranslator<`landingPage.features`>) => [
     {
-      title: `Data-driven answers`,
-      description: `GridoAI leverages your data to provide accurate, insightful responses. No more guesswork, just data-backed answers`,
+      title: t(`dataDriven.title`),
+      description: t(`dataDriven.description`),
       icon: <Brain size={iconSize} />,
       image: (
         <div>
           <Message
-            content={`What were the action items from our last team meeting?`}
+            content={t(`dataDriven.example.question1`)}
             type={`userMessage`}
             sources={``}
             loading={false}
             index={0}
           />
           <Message
-            content={`The action items from our last team meeting were: 1) Jane to finalize the budget proposal, 2) Mike to schedule a follow-up meeting with the client, and 3) Sarah to update the project timeline.`}
+            content={t(`dataDriven.example.answer1`)}
             type={`robot`}
-            sources={`Team_Meeting_Minutes.pptx`}
+            sources={t(`dataDriven.example.answer1Source`)}
             loading={false}
             index={1}
           />
           <div className="hidden md:block">
             <Message
-              content={`What are the key updates expected in the project timeline that Sarah needs to make?`}
+              content={t(`dataDriven.example.question2`)}
               type={`userMessage`}
               sources={``}
               loading={false}
               index={1}
             />
             <Message
-              content={`Sarah needs to update the project timeline to reflect the new product launch date and the revised marketing campaign schedule`}
+              content={t(`dataDriven.example.answer2`)}
               type={`robot`}
-              sources={`Project_Timeline.docx`}
+              sources={t(`dataDriven.example.answer2Source`)}
               loading={false}
               index={1}
             />
@@ -95,34 +64,30 @@ export const landingPageContent = {
       ),
     },
     {
-      title: `Multiple workspaces`,
-      description: `GridoAI supports multiple workspaces, each with its own set of documents. This makes it easy to manage projects and teams`,
+      title: t(`multiWorkspace.title`),
+      description: t(`multiWorkspace.description`),
       image: <Image src={workspaces} alt="" />,
     },
     {
-      title: `User management`,
-      description: `You can add users to workspaces and manage their permissions as either an admin or a member. This ensures that everyone has the access they need without compromising security`,
+      title: t(`userManagement.title`),
+      description: t(`userManagement.description`),
       icon: <User size={iconSize} />,
       image: (
         <Image src={orgMembers} alt="" className="rounded-xl overflow-hidden" />
       ),
     },
     {
-      title: `Robust data integration`,
-      description: `Upload files, connect with popular providers like Google Drive, or integrate with your own custom data sources`,
+      title: t(`dataIntegration.title`),
+      description: t(`dataIntegration.description`),
       icon: <Funnel size={iconSize} />,
       image: <Image src={platforms} alt="" />,
     },
   ],
-  getStartedTitle: `For demos and pricing, contact us today`,
-  getStartedDescription: ``,
-  footerText: `© ${new Date().getFullYear()} GridoAI. All rights reserved.`,
-  contactUs: `Contact us`,
 };
 
 const LandingPage = async () => {
   const t = await getI18n();
-
+  const featTranslator = await getScopedI18n(`landingPage.features`);
   return (
     <div className=" text-foreground">
       <Navbar />
@@ -138,19 +103,21 @@ const LandingPage = async () => {
             backgroundImage: `radial-gradient(circle at 60%, rgb(255, 255, 255) 15%, rgba(255, 255, 255, 0.38))`,
           }}
         >
-          {landingPageContent.headerTitle}
+          {t(`landingPage.headerTitle`)}
         </h1>
         <p className="text-xl mx:text-2xl  leading-relaxed mx-auto max-w-3xl">
-          {landingPageContent.headerDescription}
+          {t(`landingPage.headerDescription`)}
         </p>
         <div className="flex gap-2 mt-2 items-center">
           <Link target="_blank" href="https://calendly.com/gridoai/30min">
-            <Button className="bg-secondary ">Contact us</Button>
+            <Button className="bg-secondary ">
+              {t(`landingPage.contactUs`)}
+            </Button>
           </Link>
-          <AuthProtectedBtn fallback="Try for free">
+          <AuthProtectedBtn fallback={t(`landingPage.tryForFree`)}>
             <Link href={`/chat`}>
               <Button size={`lg`} variant="outline">
-                Try for free
+                {t(`landingPage.tryForFree`)}
               </Button>
             </Link>
           </AuthProtectedBtn>
@@ -160,58 +127,83 @@ const LandingPage = async () => {
         <main className="xl:max-w-7xl mx-auto   to-background">
           <section className="px-8 py-20">
             <div className="flex flex-col gap-16 md:gap-8">
-              {landingPageContent.features.map((feature, index) => (
-                <AnimatedComponent
-                  threshold={0.5}
-                  key={index}
-                  animationClass="animate-in fade-in opacity-100 ease-in"
-                  className="opacity-0 duration-10000"
-                >
-                  <div
-                    className={`flex ${
-                      index % 2 !== 0 ? `md:flex-row-reverse` : `md:flex-row`
-                    } flex-col items-center md:min-h-[750px] flex-1 gap-8`}
+              {landingPageContent
+                .features(featTranslator)
+                .map((feature, index) => (
+                  <AnimatedComponent
+                    threshold={0.5}
+                    key={feature.title}
+                    animationClass="animate-in fade-in opacity-100 ease-in"
+                    className="opacity-0 duration-10000"
                   >
-                    <div className={`flex flex-col md:flex-1 gap-4`}>
-                      <div className="md:text-7xl text-2xl font-bold">
-                        {feature.title}
-                      </div>
-                      <div className="md:text-2xl text-xl">
-                        {feature.description}
-                      </div>
-                    </div>
-                    <div className="flex flex-1">{feature.image}</div>
-                  </div>
-                </AnimatedComponent>
-              ))}
+                    <LandingPageFeature index={index} feature={feature} />
+                  </AnimatedComponent>
+                ))}
             </div>
             <h2 className="md:text-7xl mt-8 md:mt-16 text-4xl !leading-tight font-bold mb-4 text-center">
               {t(`landingPage.useCasesTitle`)}
             </h2>
-            <SectionFeatures items={useCases} />
+            <SectionFeatures
+              items={useCases.map((key) => ({
+                title: t(`landingPage.useCases.${key}.title`),
+                description: t(`landingPage.useCases.${key}.description`),
+              }))}
+            />
           </section>
         </main>
         <section className="px-8 py-20 bg-card border-y border-border">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-4xl  font-bold mb-4">
-              {landingPageContent.getStartedTitle}
+              {t(`landingPage.features.getStartedTitle`)}
             </h2>
-            <p className="text-xl mb-8">
-              {landingPageContent.getStartedDescription}
-            </p>
+
             <Link target="_blank" href={calendlyLink}>
               <Button className="px-8 py-3 bg-foreground border border-border text-black hover:bg-background hover:text-foreground transition-all font-semibold rounded-lg">
-                Book meeting
+                {t(`landingPage.features.bookMeeting`)}
               </Button>
             </Link>
           </div>
         </section>
       </div>
       <footer className="px-8 py-6 text-center">
-        <p className="text-sm">{landingPageContent.footerText}</p>
+        <p className="text-sm">{t(`landingPage.features.footerText`)}</p>
       </footer>
     </div>
   );
+
+  function LandingPageFeature({
+    index,
+    feature,
+  }: {
+    index: number;
+    feature:
+      | {
+          title: string;
+          description: string;
+          icon: JSX.Element;
+          image: JSX.Element;
+        }
+      | {
+          title: string;
+          description: string;
+          image: JSX.Element;
+          icon?: undefined;
+        };
+  }) {
+    return (
+      <div
+        className={`flex ${
+          index % 2 !== 0 ? `md:flex-row-reverse` : `md:flex-row`
+        } flex-col items-center md:min-h-[750px] flex-1 gap-8`}
+      >
+        <div className={`flex flex-col md:flex-1 gap-4`}>
+          <div className="md:text-7xl text-2xl font-bold">{feature.title}</div>
+          <div className="md:text-2xl text-xl">{feature.description}</div>
+        </div>
+        <div className="flex flex-1">{feature.image}</div>
+      </div>
+    );
+  }
 };
 export default LandingPage;
 
@@ -227,7 +219,7 @@ const SectionFeatures = ({ items }: { items: Item[] }) => (
       {items.map((feature, index) => (
         <AnimatedComponent
           threshold={0.9}
-          key={index}
+          key={feature.title}
           animationClass="animate-in fade-in opacity-100 ease-in"
           className="opacity-0 duration-10000"
         >

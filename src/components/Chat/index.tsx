@@ -23,13 +23,16 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { GradientBtn } from "../GradientBtn";
 import { calendlyLink } from "../../app/calendlyLink";
+import { useI18n, useScopedI18n } from "../../locales/client";
 
 export default function Chat() {
   const [userInput, setUserInput] = useState(``);
   const [loading, setLoading] = useState(false);
+  const t = useI18n();
+
   const [messages, setMessages] = useState<MessageType[]>([
     {
-      message: `Hi there! How can I help?`,
+      message: t(`chat.firstMessage`),
       type: `robot`,
       timestamp: new Date(0),
     },
@@ -59,7 +62,7 @@ export default function Chat() {
     setMessages((prevMessages) => [
       ...prevMessages,
       {
-        message: `Oops! There seems to be an error. Please try again.`,
+        message: t(`chat.errorMsg`),
         type: `robot`,
         timestamp: new Date(),
       },
@@ -73,10 +76,10 @@ export default function Chat() {
     e.preventDefault();
     if (!(await canAsk())) {
       return toast.toast({
-        title: `Você chegou no limite de perguntas`,
+        title: t(`planLimitErrorMessage.questions`),
         description: (
           <Link href={calendlyLink} target="_blank">
-            <GradientBtn>Contate-nos para continuar usando</GradientBtn>
+            <GradientBtn>{t(`planLimitErrorMessage.description`)}</GradientBtn>
           </Link>
         ),
       });
@@ -204,9 +207,7 @@ export default function Chat() {
                 onChangeHeight={setInputHeight}
                 id="userInput"
                 name="userInput"
-                placeholder={
-                  loading ? `Waiting for response...` : `Type your question...`
-                }
+                placeholder={t(`chat.inputPlaceholder`)}
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
                 className={`${styles.textarea} max-h-80`}

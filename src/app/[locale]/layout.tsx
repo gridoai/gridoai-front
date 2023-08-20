@@ -7,6 +7,7 @@ import RefineProvider from "../refine-provider";
 import { ClientProviders } from "../client-providers";
 import { ThemeProvider } from "@/providers/theme";
 import { ptBR } from "@clerk/localizations";
+import SubLayout from "./client/layout";
 
 // eslint-disable-next-line quotes
 const inter = Inter({ subsets: ["latin"] });
@@ -65,11 +66,13 @@ export default function RootLayout({
       }}
     >
       <html lang="en" className="flex">
-        <head></head>
+        <head />
         <body className={`${inter.className} flex`}>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <ClientProviders>
-              <RefineProvider>{children}</RefineProvider>
+              <SubLayout params={params}>
+                <RefineProvider>{children}</RefineProvider>
+              </SubLayout>
               <Toaster />
             </ClientProviders>
           </ThemeProvider>

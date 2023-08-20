@@ -10,13 +10,14 @@ import { canUpload } from "../services/rateLimit";
 import Link from "next/link";
 import { GradientBtn } from "./GradientBtn";
 import { calendlyLink } from "../app/calendlyLink";
+import { useI18n } from "../locales/client";
 
 export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
   const [files, setFiles] = useState<Array<File> | undefined>();
 
   const [loadingFile, setLoadingFile] = useState(false);
   const { toast } = useToast();
-
+  const t = useI18n();
   const onDrop = useCallback((acceptedFiles: File[]) => {
     console.log(acceptedFiles);
     setFiles((otherFiles) => [...acceptedFiles, ...(otherFiles || [])]);
@@ -33,17 +34,16 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
       "application/vnd.openxmlformats-officedocument.presentationml.presentation":
         [`.pptx`],
     },
-    onError: (e) =>
-      toast({ title: `Can't upload files`, description: e.message }),
+    onError: (e) => toast({ title: t(`upload.error`), description: e.message }),
   });
 
   const handleUploadClick = async () => {
     if (!(await canUpload())) {
       return toast({
-        title: `Você chegou no limite de uploads`,
+        title: t(`planLimitErrorMessage.documents`),
         description: (
           <Link href={calendlyLink} target="_blank">
-            <GradientBtn>Contate-nos para continuar usando</GradientBtn>
+            <GradientBtn>{t(`planLimitErrorMessage.description`)}</GradientBtn>
           </Link>
         ),
       });
@@ -56,14 +56,14 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
     asyncMap(files, (file) =>
       uploadFiles([file])
         .then(() => {
-          toast({ title: `File uploaded successfully: ${file.name}` });
+          toast({ title: `${t(`upload.success`)}: ${file.name}` });
           setFiles((oldFiles) => oldFiles?.filter((f) => f.name !== file.name));
         })
         .catch((err) => {
           logger.error(`Failed to upload file`, err);
           toast({
-            title: `Error uploading ${file.name}: ${err.message}`,
-            description: `Please try again later`,
+            title: `${t(`upload.error`)} ${file.name}: ${err.message}`,
+            description: t(`tryLater`),
           });
         })
     )
@@ -108,13 +108,9 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
       >
         <input {...getInputProps()} />
         {isDragActive ? (
-          <p className="text-foreground text-center">
-            Drop the files here ...{` `}
-          </p>
+          <p className="text-foreground text-center">{t(`upload.justDrop`)}</p>
         ) : (
-          <p className="text-foreground text-center">
-            {`Drag 'n' drop some files here, or click to select files`}
-          </p>
+          <p className="text-foreground text-center">{t(`upload.dragNDrop`)}</p>
         )}
       </div>
       {loadingFile ? (
