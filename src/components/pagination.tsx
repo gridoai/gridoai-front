@@ -16,6 +16,7 @@ import {
   CaretLeft,
   CaretRight,
 } from "@phosphor-icons/react";
+import { useI18n } from "../locales/client";
 
 export function Pagination({
   pageSize = 10,
@@ -30,6 +31,7 @@ export function Pagination({
   onPageChange: (current: number) => void;
   onPageSizeChange: (pageSize: number) => void;
 }) {
+  const t = useI18n();
   const hasNext = current < pageCount;
   const hasPrev = current > 1;
   return (
@@ -50,7 +52,10 @@ export function Pagination({
       </div>
       <div className="flex gap-2 items-center">
         <span className="whitespace-nowrap">
-          Page {current} of {pageCount}
+          {t(`documents.pagination`, {
+            current,
+            count: pageCount,
+          })}
         </span>
         <Select onValueChange={(s) => onPageSizeChange(Number(s))}>
           <SelectTrigger className="max-w-[70px]">
@@ -64,7 +69,7 @@ export function Pagination({
                   value={size.toString()}
                   onClick={() => onPageSizeChange(size)}
                 >
-                  Show {size}
+                  {t(`documents.paginationShowing`, { size })}
                 </SelectItem>
               ))}
             </SelectGroup>

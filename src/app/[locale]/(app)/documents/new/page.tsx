@@ -17,6 +17,7 @@ import {
 } from "../../../../../services/rateLimit";
 import { GradientBtn } from "../../../../../components/GradientBtn";
 import { calendlyLink } from "../../../../calendlyLink";
+import { useI18n } from "../../../../../locales/client";
 
 interface DocumentForm {
   name: string;
@@ -50,19 +51,25 @@ const DocumentCreate: React.FC = () => {
   useEffect(() => {
     errors.root?.message && toast({ title: errors.root?.message });
   }, [errors, toast]);
-
+  const t = useI18n();
   return (
     <Create
       isLoading={formLoading}
+      title={t(`createDocument.title`)}
       saveButtonProps={{
         ...saveButtonProps,
+        title: t(`createDocument.saveButton`),
+        children: t(`createDocument.saveButton`),
+
         onClick: async (p) => {
           if (!(await canUpload())) {
             return toast({
-              title: `Você chegou no limite de documentos`,
+              title: t(`planLimitErrorMessage.documents`),
               description: (
                 <Link href={calendlyLink} target="_blank">
-                  <GradientBtn>Contate-nos para continuar usando</GradientBtn>
+                  <GradientBtn>
+                    {t(`planLimitErrorMessage.description`)}
+                  </GradientBtn>
                 </Link>
               ),
             });
@@ -72,19 +79,21 @@ const DocumentCreate: React.FC = () => {
       }}
     >
       <FormControl mb="3" isInvalid={!!errors?.name}>
-        <FormLabel>Name</FormLabel>
+        <FormLabel>{t(`name`)}</FormLabel>
         <Input
           id="name"
           type="text"
-          {...register(`name`, { required: `Name is required` })}
+          {...register(`name`, { required: t(`createDocument.nameRequired`) })}
         />
         <FormErrorMessage>{`${errors.name?.message}`}</FormErrorMessage>
       </FormControl>
       <FormControl mb="3" isInvalid={!!errors?.content}>
-        <FormLabel>Content</FormLabel>
+        <FormLabel>{t(`content`)}</FormLabel>
         <Textarea
           id="content"
-          {...register(`content`, { required: `Content is required` })}
+          {...register(`content`, {
+            required: t(`createDocument.contentRequired`),
+          })}
         />
         <FormErrorMessage>{`${errors.content?.message}`}</FormErrorMessage>
       </FormControl>

@@ -1,9 +1,11 @@
 // locales/en.ts
 export default {
   landingPage: {
+    headerTitle: `Talk with your data, wherever it is`,
     contactUs: `Contact us`,
     tryForFree: `Try for free`,
     navTitle: `GridoAI`,
+    chatNow: `Chat now`,
     navSubtitle: `AI chatbot`,
     headerDescription: `GridoAI is a powerful chatbot that uses your data to provide precise and contextually relevant answers`,
     useCasesTitle: `One platform, endless possibilities`,
@@ -37,31 +39,73 @@ export default {
       footerText: `© ${new Date().getFullYear()} GridoAI. All rights reserved.`,
       bookMeeting: `Book meeting`,
     },
-    useCases: [
-      {
+    useCases: {
+      internalDataOracle: {
         title: `Internal Data Oracle`,
         description: `Analyze cross-departmental data for insightful answers, aiding decision-making and strategic planning.`,
       },
-      {
+      softwareDevelopment: {
         title: `Software Development`,
         description: `Get accurate answers about functions, algorithms, and coding practices using code repositories and documentation.`,
       },
-      {
+      legalDocumentReview: {
         title: `Legal Document Review`,
         description: `Save time on manual review by uploading legal documents and contracts to find specific clauses or terms.`,
       },
-      {
+      businessAnalysis: {
         title: `Business Analysis`,
         description: `Gain insights and explanations about business metrics or trends by uploading company reports and data.`,
       },
-      {
+      projectManagement: {
         title: `Project Management`,
         description: `Manage projects effectively by uploading planning documents, timelines, and team assignments for accurate answers about milestones, deadlines, or responsibilities.`,
       },
-      {
+      educationalResearch: {
         title: `Educational Research`,
         description: `Utilize academic materials like articles, books, and research papers to ask questions about specific topics, theories, or historical events.`,
       },
-    ],
+    },
+  },
+  createDocument: {
+    nameRequired: `Name is required`,
+    contentRequired: `Content is required`,
+    title: `Create document`,
+    saveButton: `Save`,
+  },
+  planLimitErrorMessage: {
+    questions: `You have reached the maximum number of questions`,
+
+    documents: `You have reached the maximum number of documents`,
+    description: `Contact us to continue using`,
+  },
+  name: `Name`,
+  content: `Content`,
+  source: `Source`,
+  documents: {
+    create: `Create`,
+    refresh: `Refresh`,
+    actions: `Actions`,
+    pagination: `Page {current} of {count}`,
+    paginationShowing: `Show {size}`,
+    errorFetching: `There was an error fetching the documents`,
+    title: `Documents`,
+    errorDeleting: `There was an error deleting the document`,
+    manualCreation: `Manual creation`,
+    googleDrive: `Google Drive`,
+    upload: `Upload`,
+  },
+  upload: {
+    dragNDrop: `Drag 'n' drop some files here, or click to select files`,
+    sizeLimit: `{maxSize}MB Max`,
+    error: `There was an error uploading the file`,
+    success: `File uploaded successfully`,
+    justDrop: `Drop the files here... `,
+  },
+  tryLater: `Please try again later`,
+  upgradeNow: `Upgrade now`,
+  chat: {
+    firstMessage: `Hi there! How can I help?`,
+    errorMsg: `Oops! There seems to be an error. Please try again`,
+    inputPlaceholder: `Type your question...`,
   },
 } as const;

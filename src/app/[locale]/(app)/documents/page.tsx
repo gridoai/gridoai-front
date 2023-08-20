@@ -30,22 +30,24 @@ import {
   setDocumentCount,
 } from "../../../../services/rateLimit";
 import { usePlanUsage } from "../../../../hooks/usePlanUsage";
+import { useI18n } from "../../../../locales/client";
 
 const renderDocumentSrc = (src: DocumentSrc) =>
   match(src)
-    .with({ Upload: P._ }, () => `Upload`)
-    .with({ CreateButton: P._ }, () => `Manual creation`)
-    .with({ GDrive: P._ }, () => `Google Drive`)
+    .with({ Upload: P._ }, () => `upload` as const)
+    .with({ CreateButton: P._ }, () => `manualCreation` as const)
+    .with({ GDrive: P._ }, () => `googleDrive` as const)
     .exhaustive();
 
 const RenderActions = (props: CellContext<Document, unknown>) => {
   const { toast } = useToast();
+  const t = useI18n();
   return (
     <div className="flex justify-end">
       <DeleteButton
         hideText
         onError={() => {
-          toast({ title: `There was an error deleting the document` });
+          toast({ title: t(`documents.errorDeleting`) });
         }}
         onSuccess={decrementUploadCount}
         recordItemId={props.row.original.uid}
@@ -55,28 +57,29 @@ const RenderActions = (props: CellContext<Document, unknown>) => {
 };
 
 const DocumentsList: React.FC = () => {
+  const t = useI18n();
   const columns = React.useMemo<ColumnDef<Document>[]>(
     () => [
       {
         id: `name`,
-        header: `Name`,
+        header: t(`name`),
         accessorKey: `name`,
       },
       {
         id: `source`,
-        header: `Source`,
+        header: t(`source`),
         accessorKey: `source`,
         cell: function render({ getValue }) {
           return (
             <pre className="whitespace-nowrap text-ellipsis">
-              {renderDocumentSrc(getValue() as DocumentSrc)}
+              {t(`documents.${renderDocumentSrc(getValue() as DocumentSrc)}`)}
             </pre>
           );
         },
       },
       {
         id: `content`,
-        header: `Content`,
+        header: t(`content`),
         accessorKey: `content`,
         cell: function render({ getValue }) {
           return (
@@ -89,11 +92,13 @@ const DocumentsList: React.FC = () => {
       {
         id: `actions`,
         accessorKey: `name`,
-        header: () => <div className="flex justify-end">Actions</div>,
+        header: () => (
+          <div className="flex justify-end">{t(`documents.actions`)}</div>
+        ),
         cell: RenderActions,
       },
     ],
-    []
+    [t]
   );
 
   const { getHeaderGroups, getRowModel, getState, refineCore } = useTable({
@@ -123,18 +128,25 @@ const DocumentsList: React.FC = () => {
   useEffect(() => {
     if (error) {
       toast({
-        title: `There was an error fetching the documents`,
+        title: t(`documents.errorFetching`),
         description: error.message,
       });
     }
-  }, [error, toast]);
+  }, [error, t, toast]);
 
   useOrgChanges(() => refetch());
   return (
     <div className={`flex flex-col bg-card p-2 gap-4 md:p-4 rounded-xl`}>
       <div className="p-2 m-1 flex-col gap-4 flex">
         <div className="text-3xl flex items-end gap-2 font-bold">
-          Upload <div className="text-sm font-medium">(30MB Max)</div>
+          Upload{` `}
+          <div className="text-sm font-medium">
+            (
+            {t(`upload.sizeLimit`, {
+              maxSize: 30,
+            })}
+            )
+          </div>
           {` `}
         </div>
         <FileUploader onSuccess={() => refetch()} />
@@ -143,7 +155,7 @@ const DocumentsList: React.FC = () => {
         title={
           <>
             <div className="font-bold items-center text-3xl flex gap-2">
-              Documents
+              {t(`documents.title`)}
               <Spinner
                 className={loading ? `inline-block animate-spin` : `hidden`}
               />
@@ -159,10 +171,10 @@ const DocumentsList: React.FC = () => {
               variant={`outline`}
               size={`lg`}
             >
-              Refresh
+              {t(`documents.refresh`)}
               <ArrowClockwise className={`ml-2 `} />
             </Button>
-            <CreateButton />
+            <CreateButton>{t(`documents.create`)}</CreateButton>
           </>
         }
       >
