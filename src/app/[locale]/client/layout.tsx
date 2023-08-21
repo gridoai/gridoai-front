@@ -9,7 +9,6 @@ export default function SubLayout({
   children: ReactElement;
   params: { locale: string };
 }) {
-  console.log(`A a aaa`, params);
   return (
     <I18nProviderClient locale={params.locale}>{children}</I18nProviderClient>
   );
