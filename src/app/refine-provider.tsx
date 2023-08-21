@@ -13,6 +13,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { useCurrentLocale } from "../locales/client";
 const queryClient = new QueryClient();
 
 const theme = extendTheme({
@@ -42,6 +43,7 @@ export default function RefineProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const locale = useCurrentLocale();
   return (
     // <QueryClientProvider client={queryClient}>
     <ChakraProvider
@@ -59,8 +61,8 @@ export default function RefineProvider({
         resources={[
           {
             name: `documents`,
-            list: `/documents`,
-            create: `/documents/new`,
+            list: `${locale}/documents`,
+            create: `${locale}/documents/new`,
           },
         ]}
       >
