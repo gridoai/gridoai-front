@@ -92,7 +92,7 @@ export default {
     errorDeleting: `Houve um erro ao excluir o documento`,
     manualCreation: `Criação manual`,
     googleDrive: `Google Drive`,
-    upload: `Carregar`,
+    upload: `Upload`,
   },
   upload: {
     dragNDrop: `Arraste e solte alguns arquivos aqui, ou clique para selecionar arquivos`,
