@@ -107,6 +107,7 @@ export default function Chat() {
         } as {
           error: string;
           message: never;
+          sources: never;
         })
     );
 
@@ -122,15 +123,16 @@ export default function Chat() {
       handleError();
       return;
     }
+
     setUserInput(``);
     setMessages((prevMessages) => [
       ...prevMessages,
       {
-        message: data,
+        message: data.message,
         type: `robot`,
         timestamp: new Date(),
 
-        sources: (data as unknown as PromptResponse).sources as DocResponse[],
+        sources: data.sources,
       },
     ]);
     setLoading(false);
@@ -176,19 +178,13 @@ export default function Chat() {
             sources={``}
             loading={false}
           />
-          {messages.map((message, index) => {
-            const [content, sources] =
-              message.message.split(`\n\n\n\nsources:`);
-            console.log({
-              content,
-              sources,
-            });
+          {messages.map(({ message, type, sources }, index) => {
             return (
               <Message
                 key={index}
-                content={content}
-                sources={sources}
-                type={message.type}
+                content={message}
+                sources={sources || []}
+                type={type}
                 loading={loading && index === messages.length - 1}
                 index={index}
               />
@@ -236,21 +232,21 @@ export const Message = ({
 }: {
   content: string;
   type: `userMessage` | `robot`;
-  sources: string;
+  sources: string[] | string;
   loading: boolean;
   index: number;
 }) => {
+  const parsedSources =
+    typeof sources === `string` ? sources.split(`,`) : sources;
   return (
     <div
-      className={
-        `items-center ` +
-        (type === `userMessage` && loading
-          ? // &&                    index === messages.length - 1
-            styles.usermessagewaiting
+      className={`items-center ${
+        type === `userMessage` && loading
+          ? styles.usermessagewaiting
           : type === `robot`
           ? styles.apimessage
-          : styles.usermessage)
-      }
+          : styles.usermessage
+      }`}
     >
       {/* Display the correct icon depending on the message type */}
       <div className="mr-2">
@@ -268,7 +264,7 @@ export const Message = ({
         </div>
         {sources && (
           <div className="flex gap-2">
-            {sources?.split(`,`).map((source) => (
+            {parsedSources?.map((source) => (
               <div
                 key={source}
                 className="flex self-start items-center text-xs border border-border border-solid gap-1 bg-card p-2 rounded-md"
