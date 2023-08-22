@@ -15,7 +15,7 @@ export default {
         description: `GridoAI utiliza seus dados para fornecer respostas precisas e reveladoras. Não mais suposições, apenas respostas respaldadas por dados`,
         example: {
           question1: `Quais foram os itens de ação de nossa última reunião de equipe?`,
-          answer1: `Os itens de ação de nossa última reunião de equipe foram: 1) Jane para finalizar a proposta de orçamento, 2) Mike para agendar uma reunião de acompanhamento com o cliente, e 3) Sarah para atualizar o cronograma do projeto.`,
+          answer1: `Os itens de ação de nossa última reunião de equipe foram: 1) Ana vai finalizar a proposta de orçamento, 2) João vai agendar uma reunião de acompanhamento com o cliente, e 3) Sarah vai atualizar o cronograma do projeto.`,
           answer1Source: `Ata_de_Reunião_de_Equipe.pptx`,
           question2: `Quais são as principais atualizações esperadas no cronograma do projeto que Sarah precisa fazer?`,
           answer2: `Sarah precisa atualizar o cronograma do projeto para refletir a nova data de lançamento do produto e o cronograma revisado da campanha de marketing`,
