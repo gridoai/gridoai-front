@@ -30,13 +30,7 @@ export default function Chat() {
   const [loading, setLoading] = useState(false);
   const t = useI18n();
 
-  const [messages, setMessages] = useState<MessageType[]>([
-    {
-      message: t(`chat.firstMessage`),
-      type: `robot`,
-      timestamp: new Date(0),
-    },
-  ]);
+  const [messages, setMessages] = useState<MessageType[]>([]);
   const toast = useToast();
 
   const messageListRef = useRef<HTMLDivElement>(null);
@@ -175,6 +169,13 @@ export default function Chat() {
         }}
       >
         <div ref={messageListRef} className={styles.messagelist}>
+          <Message
+            content={t(`chat.firstMessage`)}
+            type={`robot`}
+            index={0}
+            sources={``}
+            loading={false}
+          />
           {messages.map((message, index) => {
             const [content, sources] =
               message.message.split(`\n\n\n\nsources:`);
