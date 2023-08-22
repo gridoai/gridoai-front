@@ -54,6 +54,7 @@ const DocumentCreate: React.FC = () => {
   const t = useI18n();
   return (
     <Create
+      breadcrumb={null}
       isLoading={formLoading}
       title={t(`createDocument.title`)}
       saveButtonProps={{

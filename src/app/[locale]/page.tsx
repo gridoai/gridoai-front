@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "../../components/ui/button";
 import Image from "next/image";
-import { Brain, Funnel, User, Users } from "../../components/icon";
+import { Brain, Funnel, User } from "../../components/icon";
 import { Navbar } from "../Navbar";
 import AnimatedComponent from "../../components/animatedWrapper";
 import workspacesEn from "../../../public/workspaces.png";
