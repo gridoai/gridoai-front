@@ -115,14 +115,14 @@ const LandingPage = async ({
         className="border-b border-solid border-border px-8 sm:h-screen items-center justify-center flex flex-col gap-4 min-h-[750px] md:gap-8 py-20 text-center"
       >
         <h1
-          className="xl:text-8xl/tight sm:text-6xl text-5xl/tight font-medium from-primary to-white bg-clip-text text-transparent"
+          className="xl:text-8xl/tight max-w-5xl sm:text-6xl text-5xl/tight font-medium from-primary to-white bg-clip-text text-transparent"
           style={{
             backgroundImage: `radial-gradient(circle at 60%, rgb(255, 255, 255) 15%, rgba(255, 255, 255, 0.38))`,
           }}
         >
           {t(`landingPage.headerTitle`)}
         </h1>
-        <p className="text-xl mx:text-2xl  leading-relaxed mx-auto max-w-3xl">
+        <p className="text-xl md:text-2xl text-foreground opacity-90 leading-relaxed mx-auto max-w-3xl">
           {t(`landingPage.headerDescription`)}
         </p>
         <div className="flex gap-2 mt-2 items-center">

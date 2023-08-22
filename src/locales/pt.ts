@@ -1,9 +1,9 @@
 // locales/pt.ts
 export default {
   landingPage: {
-    headerTitle: `Converse com seus dados, onde quer que estejam`,
+    headerTitle: `Sua IA treinada com seus documentos`,
     contactUs: `Contate-nos`,
-    tryForFree: `Experimente gratuitamente`,
+    tryForFree: `Converse grátis!`,
     navTitle: `GridoAI`,
     chatNow: `Converse agora`,
     navSubtitle: `Chatbot AI`,

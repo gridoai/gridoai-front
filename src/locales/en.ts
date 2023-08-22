@@ -1,7 +1,7 @@
 // locales/en.ts
 export default {
   landingPage: {
-    headerTitle: `Talk with your data, wherever it is`,
+    headerTitle: `Chatbot AI trained on your documents`,
     contactUs: `Contact us`,
     tryForFree: `Try for free`,
     navTitle: `GridoAI`,
