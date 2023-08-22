@@ -124,7 +124,7 @@ export const promptApi = async (prompt: string, pastMessages: Message[]) => {
   }));
 
   const response = (
-    await api.post<string>(`/ask`, messages, {
+    await api.post<string>(`/ask`, { messages: messages, basedOnDocsOnly: false }, {
       headers: {
         "Content-Type": `application/json`,
       },
