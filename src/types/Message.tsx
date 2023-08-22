@@ -5,9 +5,9 @@ import { DocResponse } from "@/services/api";
 export interface Message {
   id?: number;
   message: string;
-  type: string;
+  type: `userMessage` | `robot`;
   timestamp: Date;
-  sources?: DocResponse[];
+  sources?: string[];
 }
 
 type MessageFrom =

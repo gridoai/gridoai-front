@@ -108,10 +108,14 @@ console.log(process.env.NEXT_PUBLIC_API_URL);
 export type PromptResponse = {
   message: string;
   error: never;
-  sources?: Source[];
+  sources?: string[];
 };
 
-export const promptApi = async (prompt: string, pastMessages: Message[]) => {
+export const promptApi = async (
+  prompt: string,
+  pastMessages: Message[],
+  basedOnDocsOnly = false
+) => {
   if (!(await canAsk())) {
     throw new Error(
       `You have reached the maximum number of requests. Please upgrade to a paid plan to continue.`
@@ -124,11 +128,15 @@ export const promptApi = async (prompt: string, pastMessages: Message[]) => {
   }));
 
   const response = (
-    await api.post<string>(`/ask`, { messages: messages, basedOnDocsOnly: false }, {
-      headers: {
-        "Content-Type": `application/json`,
-      },
-    })
+    await api.post<PromptResponse>(
+      `/ask`,
+      { messages: messages, basedOnDocsOnly },
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    )
   ).data;
   incrementRequestCount();
   return response;
