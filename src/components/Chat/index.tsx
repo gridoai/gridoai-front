@@ -263,7 +263,7 @@ export const Message = ({
           </ReactMarkdown>
         </div>
         {sources && (
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             {parsedSources?.map((source) => (
               <div
                 key={source}
