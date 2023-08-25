@@ -16,7 +16,7 @@ import {
   incrementDocumentCount,
 } from "../../../../../services/rateLimit";
 import { GradientBtn } from "../../../../../components/GradientBtn";
-import { calendlyLink } from "../../../../calendlyLink";
+import { calendlyLink, whatsappLink } from "../../../../links";
 import { useI18n } from "../../../../../locales/client";
 
 interface DocumentForm {
@@ -67,7 +67,7 @@ const DocumentCreate: React.FC = () => {
             return toast({
               title: t(`planLimitErrorMessage.documents`),
               description: (
-                <Link href={calendlyLink} target="_blank">
+                <Link href={whatsappLink} target="_blank">
                   <GradientBtn>
                     {t(`planLimitErrorMessage.description`)}
                   </GradientBtn>

@@ -169,7 +169,6 @@ const DocumentsList: React.FC = () => {
               className={loading ? `opacity-50` : ``}
               onClick={() => refetch()}
               variant={`outline`}
-              size={`lg`}
             >
               {t(`documents.refresh`)}
               <ArrowClockwise className={`ml-2 `} />

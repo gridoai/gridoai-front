@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getPublicData } from "../services/auth";
 import { GradientText } from "./GradientBtn";
-import { calendlyLink } from "../app/calendlyLink";
+import { calendlyLink, whatsappLink } from "../app/links";
 import { FreePlanCard } from "./freePlanCard";
 import { getI18n } from "../locales/server";
 
@@ -12,7 +12,7 @@ export const CurrentPlan = async () => {
   return (
     <div className="p-2 rounded-md flex items-center gap-2 justify-start bg-card">
       {label}
-      <Link href={calendlyLink} target="_blank">
+      <Link href={whatsappLink} target="_blank">
         <GradientText>{t(`upgradeNow`)}</GradientText>
       </Link>
     </div>

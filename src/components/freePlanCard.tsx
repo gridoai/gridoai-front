@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { calendlyLink } from "../app/calendlyLink";
+import { calendlyLink, whatsappLink } from "../app/links";
 import {
   getLastDayRequestCount,
   getDocumentCount,
@@ -42,7 +42,7 @@ export const FreePlanCard = () => {
         </HoverCardContent>
       </HoverCard>
       {t(`freePlanCard.title`)}
-      <Link href={calendlyLink} target="_blank">
+      <Link href={whatsappLink} target="_blank">
         <GradientText> {t(`upgradeNow`)}</GradientText>
       </Link>
     </>

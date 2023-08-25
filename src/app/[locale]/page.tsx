@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "../../components/ui/button";
 import Image from "next/image";
-import { Brain, Funnel, User } from "../../components/icon";
+import { Brain, Funnel, User, WhatsappLogo } from "../../components/icon";
 import { Navbar } from "../Navbar";
 import AnimatedComponent from "../../components/animatedWrapper";
 import workspacesEn from "../../../public/workspaces.png";
@@ -11,7 +11,7 @@ import orgMembersPt from "../../../public/orgMembersPt.png";
 import platforms from "../../../public/platforms.png";
 import { AuthProtectedBtn } from "../AuthProtectedBtn";
 import { Message } from "../../components/Chat/Message";
-import { calendlyLink } from "../calendlyLink";
+import { calendlyLink, whatsappLink } from "../links";
 const useCases = [
   `internalDataOracle`,
   `softwareDevelopment`,
@@ -126,8 +126,14 @@ const LandingPage = async ({
           {t(`landingPage.headerDescription`)}
         </p>
         <div className="flex gap-2 mt-2 items-center">
-          <Link target="_blank" href="https://calendly.com/gridoai/30min">
-            <Button className="bg-secondary ">
+          <Link target="_blank" href={whatsappLink}>
+            <Button className="bg-secondary flex gap-2">
+              <WhatsappLogo
+                className="text-foreground"
+                width={24}
+                fill="#fff"
+                height={24}
+              />
               {t(`landingPage.contactUs`)}
             </Button>
           </Link>

@@ -1,6 +1,6 @@
 "use client";
-import { DocResponse, PromptResponse, promptApi } from "@/services/api";
-import { canAsk, getLastDayRequestCount } from "@/services/rateLimit";
+import { promptApi } from "@/services/api";
+import { canAsk } from "@/services/rateLimit";
 import { Message as MessageType } from "@/types/Message";
 
 import { useUser } from "@clerk/nextjs";
@@ -22,8 +22,8 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { GradientBtn } from "../GradientBtn";
-import { calendlyLink } from "../../app/calendlyLink";
-import { useI18n, useScopedI18n } from "../../locales/client";
+import { whatsappLink } from "../../app/links";
+import { useI18n } from "../../locales/client";
 
 export default function Chat() {
   const [userInput, setUserInput] = useState(``);
@@ -72,7 +72,7 @@ export default function Chat() {
       return toast.toast({
         title: t(`planLimitErrorMessage.questions`),
         description: (
-          <Link href={calendlyLink} target="_blank">
+          <Link href={whatsappLink} target="_blank">
             <GradientBtn>{t(`planLimitErrorMessage.description`)}</GradientBtn>
           </Link>
         ),
@@ -195,7 +195,7 @@ export default function Chat() {
       <div className={styles.center}>
         <div className={styles.cloudform}>
           <form onSubmit={handleSubmit}>
-            <div className="p-4 flex gap-4 items-center flex-1 w-full border rounded-lg border-solid border-neutral-700 pr-2">
+            <div className="p-4 flex gap-4 items-center flex-1 w-full border rounded-lg border-solid border-neutral-700 pr-4">
               <AutoHeightTextarea
                 disabled={loading}
                 onKeyDown={handleEnter}
@@ -207,7 +207,7 @@ export default function Chat() {
                 placeholder={t(`chat.inputPlaceholder`)}
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
-                className={`${styles.textarea} max-h-80`}
+                className={`${styles.textarea} max-h-80 `}
               />
 
               <button type="submit" disabled={loading}>

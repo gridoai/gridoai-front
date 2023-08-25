@@ -9,7 +9,7 @@ import { asyncMap } from "../lib/utils";
 import { canUpload } from "../services/rateLimit";
 import Link from "next/link";
 import { GradientBtn } from "./GradientBtn";
-import { calendlyLink } from "../app/calendlyLink";
+import { whatsappLink } from "../app/links";
 import { useI18n } from "../locales/client";
 
 export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
@@ -42,7 +42,7 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
       return toast({
         title: t(`planLimitErrorMessage.documents`),
         description: (
-          <Link href={calendlyLink} target="_blank">
+          <Link href={whatsappLink} target="_blank">
             <GradientBtn>{t(`planLimitErrorMessage.description`)}</GradientBtn>
           </Link>
         ),
