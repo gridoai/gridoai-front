@@ -8,6 +8,7 @@ import { ClientProviders } from "../client-providers";
 import { ThemeProvider } from "@/providers/theme";
 import { ptBR } from "@clerk/localizations";
 import SubLayout from "./client/layout";
+import { AxiomWebVitals } from "next-axiom";
 
 // eslint-disable-next-line quotes
 const inter = Inter({ subsets: ["latin"] });
@@ -69,6 +70,7 @@ export default function RootLayout({
       <html lang="en" className="flex">
         <head />
         <body className={`${inter.className} flex`}>
+          <AxiomWebVitals />
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <ClientProviders>
               <SubLayout params={params}>

@@ -24,20 +24,19 @@ import rehypeRaw from "rehype-raw";
 import { GradientBtn } from "../GradientBtn";
 import { whatsappLink } from "../../app/links";
 import { useI18n } from "../../locales/client";
-import { logger } from "../../services/logger";
+import { useLogger } from "next-axiom";
 
 export default function Chat() {
   const [userInput, setUserInput] = useState(``);
   const [loading, setLoading] = useState(false);
   const t = useI18n();
-
+  const logger = useLogger();
   const [messages, setMessages] = useState<MessageType[]>([]);
   const toast = useToast();
 
   const messageListRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const user = useUser();
-  console.log(user);
   // Auto scroll chat to bottom
   useEffect(() => {
     const messageList = messageListRef.current;

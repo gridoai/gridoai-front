@@ -4,7 +4,7 @@ import axios, {
   AxiosInterceptorManager,
   InternalAxiosRequestConfig,
 } from "axios";
-import { logger } from "./logger";
+import { log } from "./logger";
 import { DataProvider } from "@refinedev/core";
 import baseDataProvider from "@refinedev/simple-rest";
 import {
@@ -104,7 +104,6 @@ export const restDataProvider = (
   },
 });
 
-console.log(process.env.NEXT_PUBLIC_API_URL);
 export type PromptResponse = {
   message: string;
   error: never;
@@ -201,6 +200,6 @@ export const searchDocs = async (query: string) =>
           JSON.parse(JSON.stringify(e)),
           e
         );
-        logger.error(`Failed to search docs:`, JSON.parse(JSON.stringify(e)));
+        log.error(`Failed to search docs:`, JSON.parse(JSON.stringify(e)));
       })
   )?.data;

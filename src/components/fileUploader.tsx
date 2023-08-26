@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { uploadFiles } from "@/services/api";
-import { logger } from "@/services/logger";
+import { useLogger } from "@/services/logger";
 import { Spinner, X } from "@phosphor-icons/react";
 import { useToast } from "./use-toast";
 import { Button } from "./ui/button";
@@ -14,12 +14,11 @@ import { useI18n } from "../locales/client";
 
 export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
   const [files, setFiles] = useState<Array<File> | undefined>();
-
+  const logger = useLogger();
   const [loadingFile, setLoadingFile] = useState(false);
   const { toast } = useToast();
   const t = useI18n();
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    console.log(acceptedFiles);
     setFiles((otherFiles) => [...acceptedFiles, ...(otherFiles || [])]);
   }, []);
 
