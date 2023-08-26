@@ -3,7 +3,7 @@ export default {
   landingPage: {
     headerTitle: `Sua IA treinada com seus documentos`,
     contactUs: `Contate-nos`,
-    tryForFree: `Converse grátis!`,
+    tryForFree: `Comece agora`,
     navTitle: `GridoAI`,
     chatNow: `Converse agora`,
     navSubtitle: `Chatbot AI`,
