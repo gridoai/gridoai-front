@@ -17,7 +17,7 @@ function urlMiddleware(request: Request) {
 }
 
 const i18nMiddleware = (req: NextRequest) =>
-  req.url.includes(`/remote/`) ? null : I18nMiddleware(req);
+  req.url.match(/\/remote\/|_axiom/) ? null : I18nMiddleware(req);
 
 export default authMiddleware({
   signInUrl: `/sign-in`,
