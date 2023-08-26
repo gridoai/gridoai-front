@@ -3,7 +3,7 @@ import { promptApi } from "@/services/api";
 import { canAsk } from "@/services/rateLimit";
 import { Message as MessageType } from "@/types/Message";
 
-import { useUser } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import {
   FileText,
   PaperPlaneRight,
@@ -24,6 +24,7 @@ import rehypeRaw from "rehype-raw";
 import { GradientBtn } from "../GradientBtn";
 import { whatsappLink } from "../../app/links";
 import { useI18n } from "../../locales/client";
+import { logger } from "../../services/logger";
 
 export default function Chat() {
   const [userInput, setUserInput] = useState(``);
@@ -123,7 +124,12 @@ export default function Chat() {
       handleError();
       return;
     }
-
+    logger.info(`question`, {
+      input: userInput,
+      output: data.message,
+      user: user.user?.id,
+      sources: data.sources,
+    });
     setUserInput(``);
     setMessages((prevMessages) => [
       ...prevMessages,
@@ -131,7 +137,6 @@ export default function Chat() {
         message: data.message,
         type: `robot`,
         timestamp: new Date(),
-
         sources: data.sources,
       },
     ]);
