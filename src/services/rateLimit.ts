@@ -57,7 +57,6 @@ export const canAsk = async () => {
   const limit =
     (await getQuestionLimit().catch(console.error)) || freePlan.questionLimit;
 
-  console.log(`canAsk`, getLastDayRequestCount(), `<`, limit);
   return getLastDayRequestCount() < limit;
 };
 
