@@ -140,6 +140,7 @@ export default function Chat() {
       },
     ]);
     setLoading(false);
+    await logger.sendLogs();
   };
 
   // Prevent blank submissions and allow for multiline input
