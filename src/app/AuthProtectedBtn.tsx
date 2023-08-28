@@ -1,4 +1,5 @@
-import { auth } from "@clerk/nextjs";
+"use client";
+import { auth, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "../components/ui/button";
 
@@ -9,8 +10,8 @@ export const AuthProtectedBtn = ({
   children: React.ReactNode;
   fallback?: string;
 }) => {
-  const user = auth();
-  return user.sessionId ? (
+  const user = useUser();
+  return user.isSignedIn ? (
     children
   ) : (
     <Link href="/sign-in">

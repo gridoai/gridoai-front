@@ -10,6 +10,8 @@ export default function SubLayout({
   params: { locale: string };
 }) {
   return (
-    <I18nProviderClient locale={params.locale}>{children}</I18nProviderClient>
+    <I18nProviderClient locale={params.locale || `pt`}>
+      {children}
+    </I18nProviderClient>
   );
 }

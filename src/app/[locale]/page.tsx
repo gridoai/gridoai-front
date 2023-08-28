@@ -262,5 +262,3 @@ const SectionFeatures = ({ items }: { items: Item[] }) => (
     </div>
   </div>
 );
-
-export const runtime = `nodejs`;

@@ -1,19 +1,16 @@
 import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
 import { SideMenu } from "../../../components/menu";
 import { Chat, Upload } from "../../../components/icon";
-import { currentUrl } from "../../../lib/url";
 import { FreePlanCard } from "../../../components/freePlanCard";
 import { NavbarLink } from "./chat/NavbarLink";
 
 export const NavbarLayout = ({ children }: { children: React.ReactNode }) => {
-  const { pathname } = currentUrl();
-
   return (
     <div className="flex flex-1 flex-col bg-background">
       <div
         className={` flex justify-between items-center px-3  border-b border-solid;`}
       >
-        <NavbarRoutes pathname={pathname} />
+        <NavbarRoutes />
         <div
           id="desktopMiddleSide"
           className="hidden md:flex gap-2 items-center"
@@ -38,7 +35,7 @@ export const NavbarLayout = ({ children }: { children: React.ReactNode }) => {
     </div>
   );
 };
-function NavbarRoutes({ pathname }: { pathname: string }) {
+function NavbarRoutes() {
   return (
     <div className="flex gap-4 min-h-[65px]">
       <div className="flex items-center min-w-[32px]">
@@ -53,10 +50,10 @@ function NavbarRoutes({ pathname }: { pathname: string }) {
         />
       </div>
 
-      <NavbarLink icon={<Chat />} path="/chat" currentPath={pathname}>
+      <NavbarLink icon={<Chat />} path="/chat">
         Chat
       </NavbarLink>
-      <NavbarLink icon={<Upload />} path="/documents" currentPath={pathname}>
+      <NavbarLink icon={<Upload />} path="/documents">
         Upload
       </NavbarLink>
     </div>
