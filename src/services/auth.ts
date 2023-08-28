@@ -7,19 +7,23 @@ declare global {
     };
   }
 }
+const getTokenFromCookie = (): string | null =>
+  Object.fromEntries(
+    document.cookie.split(`;`).map((x) => x.split(`=`)?.map((x) => x.trim()))
+  )?.__session;
+
 export const getToken = async () => {
   try {
     if (typeof window === `undefined`) {
       return auth().getToken();
     }
 
-    const fromCookie = (await window.cookieStore.getAll()).find(
-      (c) => c.name === `__session`
-    );
+    const fromCookie = getTokenFromCookie();
 
-    if (fromCookie?.value) {
-      return fromCookie?.value;
+    if (fromCookie) {
+      return fromCookie;
     }
+
     if (!window.Clerk.session) {
       await window.Clerk.load();
     }
