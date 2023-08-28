@@ -7,25 +7,30 @@ declare global {
     };
   }
 }
-
 export const getToken = async () => {
-  if (typeof window === `undefined`) {
-    return auth().getToken();
-  }
+  try {
+    if (typeof window === `undefined`) {
+      return auth().getToken();
+    }
 
-  const fromCookie = (await window.cookieStore.getAll()).find(
-    (c) => c.name === `__session`
-  );
+    const fromCookie = (await window.cookieStore.getAll()).find(
+      (c) => c.name === `__session`
+    );
 
-  if (fromCookie?.value) {
-    return fromCookie?.value;
+    if (fromCookie?.value) {
+      return fromCookie?.value;
+    }
+    if (!window.Clerk.session) {
+      await window.Clerk.load();
+    }
+    return await window.Clerk.session.getToken();
+  } catch {
+    if (!window.Clerk?.session) {
+      await window.Clerk?.load();
+    }
+    return await window.Clerk.session.getToken();
   }
-  if (!window.Clerk.session) {
-    await window.Clerk.load();
-  }
-  return await window.Clerk.session.getToken();
 };
-
 function parseJwt<T>(token: string): T {
   if (typeof window !== `undefined`) {
     const base64Url = token.split(`.`)[1];
