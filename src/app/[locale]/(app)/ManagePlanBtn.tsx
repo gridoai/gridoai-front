@@ -59,9 +59,8 @@ export const ManagePlanBtn = ({
       <DropdownMenu modal>
         <DropdownMenuTrigger>
           {plan === `free` ? (
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-4">
               {freePlanTitle}
-              {/* <CaretDown /> */}
               {upgradeBtn}
             </div>
           ) : (

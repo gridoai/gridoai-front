@@ -64,14 +64,18 @@ export type Plan = `free` | `starter` | `pro` | `enterprise` | `individual`;
 type SessionTokenData = {
   orgPlan?: Plan;
   userPlan?: Plan;
+  orgCustomerId?: string;
+  orgId?: string;
 };
 
 export const getPublicData = async () => {
   const token = await getToken();
   if (!token) return {};
   const data = parseJwt<SessionTokenData>(token);
-  console.log(`public data:`, data);
-  return {
-    plan: data.orgPlan || data.userPlan,
+  // console.log(`public data:`, data);
+  const res = {
+    plan: data.orgId ? data.orgPlan : data.userPlan,
   };
+
+  return res;
 };
