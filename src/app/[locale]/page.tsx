@@ -22,6 +22,10 @@ const useCases = [
 ] as const;
 import { ScopedTranslator, getI18n, getScopedI18n } from "../../locales/server";
 import { JSX } from "react";
+import PricingPage, {
+  AuthProtectedPricingPage,
+} from "../../components/pricing";
+import { getToken } from "../../services/auth";
 
 const iconSize = 42;
 export const landingPageContent = {
@@ -174,6 +178,15 @@ const LandingPage = async ({
             />
           </section>
         </main>
+        <h2 className="md:text-7xl mt-8 md:mt-16 text-4xl !leading-tight font-bold mb-4 text-center max-w-5xl mx-auto">
+          {t(`pricingTitle`)}
+        </h2>
+        <div className="xl:pb-16 md:pb-10 pb-8">
+          <section id="pricing">
+            <AuthProtectedPricingPage />
+          </section>
+        </div>
+
         <section className="px-8 py-20 bg-card border-y border-border">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-4xl  font-bold mb-4">
@@ -262,5 +275,3 @@ const SectionFeatures = ({ items }: { items: Item[] }) => (
     </div>
   </div>
 );
-
-export const runtime = `nodejs`;

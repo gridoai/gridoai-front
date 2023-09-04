@@ -9,6 +9,8 @@ import { ThemeProvider } from "@/providers/theme";
 import { ptBR } from "@clerk/localizations";
 import SubLayout from "./client/layout";
 import { AxiomWebVitals } from "next-axiom";
+import { getStaticParams } from "../../locales/server";
+import Script from "next/script";
 
 // eslint-disable-next-line quotes
 const inter = Inter({ subsets: ["latin"] });
@@ -68,7 +70,13 @@ export default function RootLayout({
       }}
     >
       <html lang="en" className="flex">
-        <head />
+        <head>
+          <Script
+            async
+            id="stripe-js"
+            src="https://js.stripe.com/v3/pricing-table.js"
+          />
+        </head>
         <body className={`${inter.className} flex`}>
           <AxiomWebVitals />
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>

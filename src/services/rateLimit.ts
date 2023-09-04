@@ -1,8 +1,40 @@
-import { getPublicData } from "./auth";
+import { Plan, getPublicData } from "./auth";
+type PlanLimits = {
+  questionLimit: number;
+  uploadLimit: number;
+  membersLimit?: number;
+};
 
-export const freePlan = {
-  questionLimit: 10,
-  uploadLimit: 5,
+export const plans: Record<Plan, PlanLimits> = {
+  free: {
+    questionLimit: 10,
+    uploadLimit: 5,
+  },
+  starter: {
+    questionLimit: 100,
+    uploadLimit: 50,
+    membersLimit: 3,
+  },
+  pro: {
+    questionLimit: 1000,
+    uploadLimit: 500,
+    membersLimit: 5,
+  },
+  enterprise: {
+    questionLimit: Infinity,
+    uploadLimit: Infinity,
+    membersLimit: Infinity,
+  },
+  individual: {
+    questionLimit: 1000,
+    uploadLimit: 500,
+    membersLimit: 1,
+  },
+};
+
+const getCurrentPlanLimits = async () => {
+  const currentPlan = (await getPublicData().catch(console.error))?.plan;
+  return plans[currentPlan || `free`];
 };
 
 export const isFreePlan = async (fetchPublicData = getPublicData) => {
@@ -12,10 +44,11 @@ export const isFreePlan = async (fetchPublicData = getPublicData) => {
 };
 
 export const getQuestionLimit = async () =>
-  (await isFreePlan()) ? freePlan.questionLimit : Infinity;
+  (await getCurrentPlanLimits()).questionLimit;
 
 export const getUploadLimit = async () =>
-  (await isFreePlan()) ? freePlan.uploadLimit : Infinity;
+  (await getCurrentPlanLimits()).uploadLimit;
+
 export const triggerLocalStorageRefresh = () =>
   window.dispatchEvent(new Event(`local-storage`));
 
@@ -54,8 +87,7 @@ export const getLastDayRequestCount = () => {
 };
 
 export const canAsk = async () => {
-  const limit =
-    (await getQuestionLimit().catch(console.error)) || freePlan.questionLimit;
+  const limit = await getQuestionLimit();
 
   return getLastDayRequestCount() < limit;
 };
@@ -75,4 +107,4 @@ export const getDocumentCount = () =>
     : Number(localStorage.getItem(DOC_COUNTER_KEY)) || 0;
 
 export const canUpload = async () =>
-  getDocumentCount() < ((await getUploadLimit()) || freePlan.uploadLimit);
+  getDocumentCount() < (await getUploadLimit());

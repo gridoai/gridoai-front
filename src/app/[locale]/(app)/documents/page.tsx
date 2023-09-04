@@ -19,7 +19,6 @@ import { useTable } from "@refinedev/react-table";
 import { CellContext, ColumnDef, flexRender } from "@tanstack/react-table";
 import React, { useEffect } from "react";
 import { P, match } from "ts-pattern";
-import { FileUploader } from "../../../../components/fileUploader";
 import { Pagination } from "../../../../components/pagination";
 import { Button } from "../../../../components/ui/button";
 import { useToast } from "../../../../components/use-toast";
@@ -31,6 +30,7 @@ import {
 } from "../../../../services/rateLimit";
 import { usePlanUsage } from "../../../../hooks/usePlanUsage";
 import { useI18n } from "../../../../locales/client";
+import { UploadCard } from "./UploadCard";
 
 const renderDocumentSrc = (src: DocumentSrc) =>
   match(src)
@@ -56,7 +56,7 @@ const RenderActions = (props: CellContext<Document, unknown>) => {
   );
 };
 
-const DocumentsList: React.FC = () => {
+const DocumentsList = ({ load = true }: { load?: boolean }) => {
   const t = useI18n();
   const columns = React.useMemo<ColumnDef<Document>[]>(
     () => [
@@ -112,6 +112,10 @@ const DocumentsList: React.FC = () => {
         cacheTime: 3600,
         staleTime: Infinity,
         onSuccess: (data) => setDocumentCount(data.total),
+        enabled: load,
+        initialData: {
+          data: [],
+        },
       },
       pagination: { mode: `server` },
     },
@@ -137,20 +141,7 @@ const DocumentsList: React.FC = () => {
   useOrgChanges(() => refetch());
   return (
     <div className={`flex flex-col bg-card p-2 gap-4 md:p-4 rounded-xl`}>
-      <div className="p-2 m-1 flex-col gap-4 flex">
-        <div className="text-3xl flex items-end gap-2 font-bold">
-          Upload{` `}
-          <div className="text-sm font-medium">
-            (
-            {t(`upload.sizeLimit`, {
-              maxSize: 30,
-            })}
-            )
-          </div>
-          {` `}
-        </div>
-        <FileUploader onSuccess={() => refetch()} />
-      </div>
+      <UploadCard onSuccess={refetch} />
       <List
         title={
           <>
