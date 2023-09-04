@@ -3,28 +3,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { createI18nMiddleware } from "next-international/middleware";
 const I18nMiddleware = createI18nMiddleware([`en`, `pt`] as const, `pt`);
 
-function urlMiddleware(request: Request) {
-  // Store current request url in a custom header, which you can read later
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set(`x-url`, request.url);
-
-  return NextResponse.next({
-    request: {
-      // Apply new request headers
-      headers: requestHeaders,
-    },
-  });
-}
-
 const i18nMiddleware = (req: NextRequest) =>
-  req.url.match(/\/remote\/|_axiom|robots/) ? null : I18nMiddleware(req);
+  req.url.match(/\/remote\/|_axiom|_next/) ? null : I18nMiddleware(req);
 
 export default authMiddleware({
   signInUrl: `/sign-in`,
-  publicRoutes: [`/`, `/sign-in`, `/sign-up`],
+  publicRoutes: [`/sign-in`, `/sign-up`, `/`],
   ignoredRoutes: [`/privacy`],
-  afterAuth: (_, r) => urlMiddleware(r),
-  beforeAuth: i18nMiddleware,
+  afterAuth: (_, req) => i18nMiddleware(req),
 });
 
 export const config = {

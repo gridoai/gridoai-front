@@ -45,30 +45,30 @@ export default function RefineProvider({
 }) {
   const locale = useCurrentLocale();
   return (
-    // <QueryClientProvider client={queryClient}>
-    <ChakraProvider
-      theme={theme}
-      colorModeManager={{
-        get: () => `dark`,
-        set: () => {},
-        type: `cookie`,
-      }}
-    >
-      <Refine
-        options={{ mutationMode: `optimistic` }}
-        dataProvider={restDataProvider(``)}
-        routerProvider={routerProvider}
-        resources={[
-          {
-            name: `documents`,
-            list: `${locale}/documents`,
-            create: `${locale}/documents/new`,
-          },
-        ]}
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider
+        theme={theme}
+        colorModeManager={{
+          get: () => `dark`,
+          set: () => {},
+          type: `cookie`,
+        }}
       >
-        {children}
-      </Refine>
-    </ChakraProvider>
-    // </QueryClientProvider>
+        <Refine
+          options={{ mutationMode: `optimistic` }}
+          dataProvider={restDataProvider(``)}
+          routerProvider={routerProvider}
+          resources={[
+            {
+              name: `documents`,
+              list: `${locale}/documents`,
+              create: `${locale}/documents/new`,
+            },
+          ]}
+        >
+          {children}
+        </Refine>
+      </ChakraProvider>
+    </QueryClientProvider>
   );
 }

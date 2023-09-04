@@ -5,6 +5,7 @@ import {
   getDocumentCount,
   getLastDayRequestCount,
 } from "../services/rateLimit";
+import { useOrganization, useOrganizationList } from "@clerk/nextjs";
 
 export const usePlanUsage = () => {
   const [questionCount] = useLocalStorage(
@@ -12,8 +13,10 @@ export const usePlanUsage = () => {
     getLastDayRequestCount()
   );
   const [documentCount] = useLocalStorage(DOC_COUNTER_KEY, getDocumentCount());
+  const { membershipList } = useOrganization();
   return {
     questionCount,
     documentCount,
+    memberCount: membershipList?.length || 1,
   };
 };

@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "../components/ui/button";
+import { cookies } from "next/headers";
 
 export const AuthProtectedBtn = ({
   children,
@@ -9,8 +10,9 @@ export const AuthProtectedBtn = ({
   children: React.ReactNode;
   fallback?: string;
 }) => {
-  const user = auth();
-  return user.sessionId ? (
+  const auth = cookies();
+
+  return auth?.get(`__session`)?.value ? (
     children
   ) : (
     <Link href="/sign-in">

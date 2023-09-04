@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import { auth } from "@clerk/nextjs";
 
 declare global {
@@ -7,18 +8,24 @@ declare global {
     };
   }
 }
+export const getTokenFromCookie = (): string | null =>
+  Object.fromEntries(
+    document.cookie.split(`;`).map((x) => x.split(`=`)?.map((x) => x.trim()))
+  )?.__session;
+
 export const getToken = async () => {
+  console.log(typeof window, "TYPEOF WINDOW");
   try {
-    if (typeof window === `undefined`) {
+    if (typeof window === "undefined") {
+      console.log(`no window`);
       return auth().getToken();
     }
 
-    const fromCookie = (await window.cookieStore.getAll()).find(
-      (c) => c.name === `__session`
-    );
+    const fromCookie = getTokenFromCookie();
 
-    if (fromCookie?.value) {
-      return fromCookie?.value;
+    console.log(parseJwt(fromCookie || ``));
+    if (fromCookie) {
+      return fromCookie;
     }
     if (!window.Clerk.session) {
       await window.Clerk.load();
@@ -31,7 +38,10 @@ export const getToken = async () => {
     return await window.Clerk.session.getToken();
   }
 };
-function parseJwt<T>(token: string): T {
+export function parseJwt<T>(token: string): T {
+  if (!token) {
+    return {} as T;
+  }
   if (typeof window !== `undefined`) {
     const base64Url = token.split(`.`)[1];
     const base64 = base64Url.replace(/-/g, `+`).replace(/_/g, `/`);
@@ -49,12 +59,19 @@ function parseJwt<T>(token: string): T {
   }
   return JSON.parse(Buffer.from(token.split(`.`)[1], `base64`).toString());
 }
-export type Plan = `free` | `pro` | `enterprise`;
-type PublicJWTData = {
-  meta: {
-    plan?: Plan;
-  };
+export type Plan = `free` | `starter` | `pro` | `enterprise` | `individual`;
+
+type SessionTokenData = {
+  orgPlan?: Plan;
+  userPlan?: Plan;
 };
 
-export const getPublicData = async () =>
-  parseJwt<PublicJWTData>((await getToken()) || ``).meta;
+export const getPublicData = async () => {
+  const token = await getToken();
+  if (!token) return {};
+  const data = parseJwt<SessionTokenData>(token);
+  console.log(`public data:`, data);
+  return {
+    plan: data.orgPlan || data.userPlan,
+  };
+};

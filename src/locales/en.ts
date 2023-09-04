@@ -103,14 +103,27 @@ export default {
   },
   tryLater: `Please try again later`,
   upgradeNow: `Upgrade now`,
+  upgradeTo: `Upgrade to {plan}`,
   chat: {
     firstMessage: `Hi there! How can I help?`,
     errorMsg: `Oops! There seems to be an error. Please try again`,
     inputPlaceholder: `Type your question...`,
   },
   freePlanCard: {
-    title: `Free plan`,
+    title: `{plan} plan`,
     questionsToday: `questions today`,
     processedDocuments: `processed documents`,
+    membersInvited: `members invited`,
   },
+  plans: {
+    free: `Free`,
+    starter: `Starter`,
+    pro: `Pro`,
+    individual: `Individual`,
+  },
+
+  managePlan: `Manage plan`,
+  billing: `Billing`,
+  manageSubscription: `Manage subscription`,
+  pricingTitle: `We offer a plan that helps anyone get started`,
 } as const;

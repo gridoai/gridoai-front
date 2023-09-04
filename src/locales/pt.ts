@@ -109,8 +109,19 @@ export default {
     inputPlaceholder: `Digite sua pergunta...`,
   },
   freePlanCard: {
-    title: `Plano Gratuito`,
+    title: `Plano {plan}`,
     questionsToday: `perguntas feitas hoje`,
     processedDocuments: `documentos processados`,
+    membersInvited: `membros convidados`,
   },
+  plans: {
+    free: `Gratuito`,
+    starter: `Starter`,
+    individual: `Individual`,
+    pro: `Pro`,
+  },
+  manageSubscription: `Gerenciar assinatura`,
+  managePlan: `Gerenciar plano`,
+  billing: `Faturamento`,
+  pricingTitle: `Oferecemos um plano que ajuda qualquer pessoa a começar`,
 } as const;

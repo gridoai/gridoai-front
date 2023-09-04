@@ -5,6 +5,7 @@ import { calendlyLink, whatsappLink } from "../app/links";
 import {
   getLastDayRequestCount,
   getDocumentCount,
+  plans,
 } from "../services/rateLimit";
 import { GradientText } from "./GradientBtn";
 import { Info } from "./icon";
@@ -13,38 +14,66 @@ import { usePlanUsage } from "../hooks/usePlanUsage";
 import { useQuery } from "@tanstack/react-query";
 import { getPublicData } from "../services/auth";
 import { useI18n } from "../locales/client";
+import { UpgradeButton } from "./upgradeButton";
+import { useOrgChanges } from "../hooks/useOrgChanges";
+import { useCurrentPlan } from "../hooks/useCurrentPlan";
 
-export const FreePlanCard = () => {
+export const CurrentPlanIndicator = () => {
   const planInfo = usePlanUsage();
-  const { data } = useQuery({
-    queryKey: [`plan`],
-    queryFn: getPublicData,
-  });
+  const plan = useCurrentPlan();
   const t = useI18n();
-  if (data?.plan === `pro`) {
+
+  if ([`enterprise`, `pro`].includes(plan || ``)) {
     return;
   }
+
+  const planLimits = plans[plan || `free`];
   return (
-    <>
+    <div className="flex items-center gap-1">
       <HoverCard openDelay={0}>
         <HoverCardTrigger>
           <Info width={20} height={20} />
         </HoverCardTrigger>
-        <HoverCardContent className="bg-background">
-          <div className="flex flex-col gap-2 items-start justify-start">
-            <div>
-              {planInfo.questionCount}/10 {t(`freePlanCard.questionsToday`)}
-            </div>
-            <div className="whitespace-nowrap">
-              {planInfo.documentCount}/5 {t(`freePlanCard.processedDocuments`)}
-            </div>
-          </div>
+        <HoverCardContent id="hover-card-content" className="bg-background">
+          {PlanLimits({ planInfo, planLimits, t })}
         </HoverCardContent>
       </HoverCard>
-      {t(`freePlanCard.title`)}
-      <Link href={whatsappLink} target="_blank">
-        <GradientText> {t(`upgradeNow`)}</GradientText>
-      </Link>
-    </>
+      {t(`freePlanCard.title`, {
+        plan: t(`plans.${plan || `free`}`),
+      })}
+      <UpgradeButton />
+    </div>
   );
 };
+function PlanLimits({
+  planInfo,
+  planLimits,
+}: {
+  planInfo: {
+    questionCount: number;
+    documentCount: number;
+    memberCount: number | undefined;
+  };
+  planLimits: {
+    questionLimit: number;
+    uploadLimit: number;
+    membersLimit?: number | undefined;
+  };
+}) {
+  const t = useI18n();
+
+  return (
+    <div className="flex flex-col gap-2 items-start justify-start">
+      <div>
+        {planInfo.questionCount}/{planLimits.questionLimit}
+        {` `}
+        {t(`freePlanCard.questionsToday`)}
+      </div>
+      <div className="whitespace-nowrap">
+        {planInfo.documentCount}/{planLimits.uploadLimit}
+        {` `}
+        {t(`freePlanCard.processedDocuments`)}
+      </div>
+    </div>
+  );
+}
