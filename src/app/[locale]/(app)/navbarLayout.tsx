@@ -11,8 +11,6 @@ import { ManageSubscriptionBtn } from "./ManageSubscriptionBtn";
 import { ManagePlanBtn } from "./ManagePlanBtn";
 import { cookies } from "next/headers";
 import { parseJwt } from "../../../services/auth";
-export const stripeBillingTest = `https://billing.stripe.com/p/login/test_fZe9EnaKN7NoeZyeUU`;
-const stripeBillingProd = `https://billing.stripe.com/p/login/aEU3eogWk4hq7Fm3cc`;
 export const NavbarLayout = async ({
   children,
 }: {
