@@ -1,7 +1,6 @@
 "use client";
 import { ArrowSquareOut, Spinner } from "../../../components/icon";
 import Link from "next/link";
-import { stripeBillingTest } from "./navbarLayout";
 import { getI18n } from "../../../locales/server";
 import { useI18n } from "../../../locales/client";
 import { makeBillingURL } from "../../../services/api";
