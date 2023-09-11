@@ -4,13 +4,6 @@ import { useAuth, useUser } from "@clerk/nextjs";
 import * as React from "react";
 import { getToken, getTokenFromCookie, parseJwt } from "../services/auth";
 import { useRouter } from "next/navigation";
-const devPricingTable = "prctbl_1NkpnYGzZugcM7iPg3rPFiaj";
-const prodPricingTable = "prctbl_1NjT0RGzZugcM7iPSZmnyuX0";
-const devKey =
-  "pk_test_51Nj6zvGzZugcM7iP5Jz365px8IYzAAzCZLpr38Efzv3q8LBZbLedtTfsAsRXTfTuUnTQZWM2W2KoCugg8bm2ipYu00m7O8DN8X";
-const prodKey =
-  "pk_live_51Nj6zvGzZugcM7iP4BH7s64lF4N4DLgeWguiYLRlw70M6Xmxu1axazDqlwCe3dd78KrvWxY812WPzRMBPjHIXzWG00r8g6gYuE";
-// If using TypeScript, add the following snippet to your file as well.
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -32,8 +25,8 @@ function PricingPage() {
           display: "flex",
           alignItems: "center",
         }}
-        pricing-table-id={devPricingTable}
-        publishable-key={devKey}
+        pricing-table-id={process.env.NEXT_PUBLIC_STRIPE_PRICING_TABLE_ID}
+        publishable-key={process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
         costumer-email={user.user?.emailAddresses[0].emailAddress}
         client-reference-id={user.user?.id}
       />
