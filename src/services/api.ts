@@ -77,6 +77,8 @@ async function fetchWithPagination(
     total: total || data.length,
   };
 }
+export const makeBillingURL = async () =>
+  (await api.post<string>(`/billing/session`)).data;
 
 export const restDataProvider = (
   apiUrl: string,
