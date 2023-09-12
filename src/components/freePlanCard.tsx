@@ -35,7 +35,7 @@ export const CurrentPlanIndicator = () => {
           <Info width={20} height={20} />
         </HoverCardTrigger>
         <HoverCardContent id="hover-card-content" className="bg-background">
-          {PlanLimits({ planInfo, planLimits, t })}
+          <PlanLimits planInfo={planInfo} planLimits={planLimits} />
         </HoverCardContent>
       </HoverCard>
       {t(`freePlanCard.title`, {

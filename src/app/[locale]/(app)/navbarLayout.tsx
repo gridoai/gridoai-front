@@ -43,7 +43,6 @@ export const NavbarLayout = async ({
                 <ManageSubscriptionBtn />
               </ManagePlanBtn>
             </div>
-            {/* <ManageSubscriptionBtn /> */}
           </SideMenu>
         </div>
       </div>
