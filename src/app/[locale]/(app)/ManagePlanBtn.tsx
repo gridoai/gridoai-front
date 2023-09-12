@@ -124,8 +124,8 @@ export const ManagePlanBtn = ({
       </DropdownMenu>
       <Dialog open={openPlanPage} onOpenChange={setOpenPlanPage}>
         <DialogTrigger />
-        <DialogContent className="min-w-[90vw] min-h-[60vh]">
-          <div className=" md:h-auto overflow-scroll flex flex-col">
+        <DialogContent className="min-w-[90vw]  min-h-[60vh]">
+          <div className=" md:h-auto overflow-scroll max-h-[90vh] flex flex-col">
             <PricingPage />
           </div>
         </DialogContent>
