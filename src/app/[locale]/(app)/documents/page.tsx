@@ -9,12 +9,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { ArrowClockwise, Spinner } from "@phosphor-icons/react";
-import {
-  CreateButton,
-  DeleteButton,
-  List,
-  RefreshButton,
-} from "@refinedev/chakra-ui";
+import { CreateButton, DeleteButton, List } from "@refinedev/chakra-ui";
 import { useTable } from "@refinedev/react-table";
 import { CellContext, ColumnDef, flexRender } from "@tanstack/react-table";
 import React, { useEffect } from "react";
@@ -28,7 +23,6 @@ import {
   decrementUploadCount,
   setDocumentCount,
 } from "../../../../services/rateLimit";
-import { usePlanUsage } from "../../../../hooks/usePlanUsage";
 import { useI18n } from "../../../../locales/client";
 import { UploadCard } from "./UploadCard";
 

@@ -1,21 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import { calendlyLink, whatsappLink } from "../app/links";
-import {
-  getLastDayRequestCount,
-  getDocumentCount,
-  plans,
-} from "../services/rateLimit";
-import { GradientText } from "./GradientBtn";
+import { plans } from "../services/rateLimit";
 import { Info } from "./icon";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { usePlanUsage } from "../hooks/usePlanUsage";
-import { useQuery } from "@tanstack/react-query";
-import { getPublicData } from "../services/auth";
 import { useI18n } from "../locales/client";
 import { UpgradeButton } from "./upgradeButton";
-import { useOrgChanges } from "../hooks/useOrgChanges";
 import { useCurrentPlan } from "../hooks/useCurrentPlan";
 
 export const CurrentPlanIndicator = () => {
