@@ -1,5 +1,4 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,24 +8,33 @@ import {
   DropdownMenuTrigger,
 } from "../../../components/ui/dropdown-menu";
 import { useI18n } from "../../../locales/client";
-import { getPublicData } from "../../../services/auth";
 import { useCurrentPlan } from "../../../hooks/useCurrentPlan";
 import { usePlanUsage } from "../../../hooks/usePlanUsage";
 import { plans } from "../../../services/rateLimit";
-import { ManageSubscriptionBtn } from "./ManageSubscriptionBtn";
-import { ArrowDown, CaretDown, CrownSimple } from "@phosphor-icons/react";
+import { CrownSimple } from "@phosphor-icons/react";
 import { GradientText } from "../../../components/GradientBtn";
-import { UpgradeButton } from "../../../components/upgradeButton";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "../../../components/ui/dialog";
 import PricingPage from "../../../components/pricing";
 import { useState } from "react";
-import { CurrentPlan } from "../../../components/currentPlan";
+
+const LimitIndicator = ({
+  limit,
+  current,
+}: {
+  limit: React.ReactNode;
+  current: React.ReactNode;
+}) => {
+  return (
+    <span className="flex items-center gap-1">
+      {current}
+      {limit !== Infinity && `/${limit}`}
+    </span>
+  );
+};
 
 export const ManagePlanBtn = ({
   children,
@@ -80,20 +88,29 @@ export const ManagePlanBtn = ({
               <DropdownMenuSeparator />
             </>
           )}
-          <DropdownMenuItem>
-            {planInfo.questionCount}/{planLimits.questionLimit}
+          <DropdownMenuItem className="gap-1">
+            <LimitIndicator
+              limit={planLimits.questionLimit}
+              current={planInfo.questionCount}
+            />
             {` `}
             {t(`freePlanCard.questionsToday`)}
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            {planInfo.documentCount}/{planLimits.uploadLimit}
+          <DropdownMenuItem className="gap-1">
+            <LimitIndicator
+              limit={planLimits.uploadLimit}
+              current={planInfo.documentCount}
+            />
             {` `}
             {t(`freePlanCard.processedDocuments`)}
           </DropdownMenuItem>
           {plan !== `free` && (
             <>
-              <DropdownMenuItem>
-                {planInfo.memberCount}/{planLimits.membersLimit}
+              <DropdownMenuItem className="gap-1">
+                <LimitIndicator
+                  limit={planLimits.membersLimit}
+                  current={planInfo.memberCount}
+                />
                 {` `}
                 {t(`freePlanCard.membersInvited`)}
               </DropdownMenuItem>

@@ -72,10 +72,7 @@ export const getPublicData = async () => {
   const token = await getToken();
   if (!token) return {};
   const data = parseJwt<SessionTokenData>(token);
-  // console.log(`public data:`, data);
-  const res = {
+  return {
     plan: data.orgId ? data.orgPlan : data.userPlan,
   };
-
-  return res;
 };

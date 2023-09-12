@@ -4,12 +4,7 @@ type PlanLimits = {
   uploadLimit: number;
   membersLimit?: number;
 };
-
-export const plans: Record<Plan, PlanLimits> = {
-  free: {
-    questionLimit: 10,
-    uploadLimit: 5,
-  },
+const paidPlans = {
   starter: {
     questionLimit: 100,
     uploadLimit: 50,
@@ -30,6 +25,39 @@ export const plans: Record<Plan, PlanLimits> = {
     uploadLimit: 500,
     membersLimit: 1,
   },
+};
+
+const paidPlansPromo = {
+  starter: {
+    questionLimit: Infinity,
+    uploadLimit: Infinity,
+    membersLimit: 3,
+  },
+  pro: {
+    questionLimit: Infinity,
+    uploadLimit: Infinity,
+    membersLimit: 5,
+  },
+  enterprise: {
+    questionLimit: Infinity,
+    uploadLimit: Infinity,
+    membersLimit: Infinity,
+  },
+  individual: {
+    questionLimit: Infinity,
+    uploadLimit: Infinity,
+    membersLimit: 1,
+  },
+};
+
+export const plans: Record<Plan, PlanLimits> = {
+  free: {
+    questionLimit: 10,
+    uploadLimit: 5,
+  },
+  ...(process.env.NEXT_PUBLIC_PROMO === `true` || true
+    ? paidPlansPromo
+    : paidPlans),
 };
 
 const getCurrentPlanLimits = async () => {
