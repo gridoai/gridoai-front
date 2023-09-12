@@ -1,16 +1,10 @@
 import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
 import { SideMenu } from "../../../components/menu";
 import { Chat, Upload } from "../../../components/icon";
-import { currentUrl } from "../../../lib/url";
-import { CurrentPlanIndicator } from "../../../components/freePlanCard";
 import { NavbarLink } from "./chat/NavbarLink";
-import Link from "next/link";
-import { UpgradeButton } from "../../../components/upgradeButton";
 import { getI18n } from "../../../locales/server";
 import { ManageSubscriptionBtn } from "./ManageSubscriptionBtn";
 import { ManagePlanBtn } from "./ManagePlanBtn";
-import { cookies } from "next/headers";
-import { parseJwt } from "../../../services/auth";
 export const NavbarLayout = async ({
   children,
 }: {
