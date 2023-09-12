@@ -97,7 +97,7 @@ export const decrementUploadCount = () => {
   setDocumentCount(count - 1);
 };
 
-export const getLastDayRequestCount = () => {
+export const getLastMonthRequestCount = () => {
   if (typeof localStorage === `undefined`) {
     return 10;
   }
@@ -106,7 +106,7 @@ export const getLastDayRequestCount = () => {
   );
   const now = new Date();
 
-  if (lastRequestDate.getDay() !== now.getDay()) {
+  if (lastRequestDate.getMonth() !== now.getMonth()) {
     localStorage.setItem(QUESTION_COUNTER_KEY, `0`);
   }
   const n = Number(localStorage.getItem(QUESTION_COUNTER_KEY)) || 0;
@@ -117,7 +117,7 @@ export const getLastDayRequestCount = () => {
 export const canAsk = async () => {
   const limit = await getQuestionLimit();
 
-  return getLastDayRequestCount() < limit;
+  return getLastMonthRequestCount() < limit;
 };
 
 export const DOC_COUNTER_KEY = `documentCount`;
