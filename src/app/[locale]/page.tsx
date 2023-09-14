@@ -22,9 +22,8 @@ const useCases = [
 ] as const;
 import { ScopedTranslator, getI18n, getScopedI18n } from "../../locales/server";
 import { JSX } from "react";
-import PricingPage, {
-  AuthProtectedPricingPage,
-} from "../../components/pricing";
+import { AuthProtectedPricingPage } from "../../components/pricing";
+import PricingPage from "@/components/PricingPage";
 import { getToken } from "../../services/auth";
 
 const iconSize = 42;
