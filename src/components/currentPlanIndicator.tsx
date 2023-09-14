@@ -57,7 +57,7 @@ function PlanLimits({
       <div>
         {planInfo.questionCount}/{planLimits.questionLimit}
         {` `}
-        {t(`freePlanCard.questionsToday`)}
+        {t(`freePlanCard.questions`)}
       </div>
       <div className="whitespace-nowrap">
         {planInfo.documentCount}/{planLimits.uploadLimit}

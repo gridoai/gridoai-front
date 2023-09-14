@@ -4,6 +4,7 @@ import { useAuth, useUser } from "@clerk/nextjs";
 import * as React from "react";
 import { getToken, getTokenFromCookie, parseJwt } from "../services/auth";
 import { useRouter } from "next/navigation";
+import { PricingPage } from "./PricingPage";
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -14,7 +15,7 @@ declare global {
     }
   }
 }
-function PricingPage() {
+export function PricingPageBase() {
   const user = useUser();
 
   return (
@@ -35,7 +36,6 @@ function PricingPage() {
   );
 }
 
-export default PricingPage;
 export const AuthProtectedPricingPage = () => {
   const router = useRouter();
   const { isSignedIn } = useUser();

@@ -111,7 +111,7 @@ export default {
   },
   freePlanCard: {
     title: `{plan} plan`,
-    questionsToday: `questions today`,
+    questions: `questions`,
     processedDocuments: `processed documents`,
     membersInvited: `members invited`,
   },

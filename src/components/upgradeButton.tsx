@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useI18n, useScopedI18n } from "../locales/client";
 import { GradientText } from "./GradientBtn";
-import PricingPage from "./pricing";
+import PricingPage from "./PricingPage";
 
 import { Button } from "./ui/button";
 import {

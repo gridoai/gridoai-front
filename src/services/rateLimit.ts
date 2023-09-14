@@ -6,12 +6,12 @@ type PlanLimits = {
 };
 const paidPlans = {
   starter: {
-    questionLimit: 100,
-    uploadLimit: 50,
+    questionLimit: 300,
+    uploadLimit: 250,
     membersLimit: 3,
   },
   pro: {
-    questionLimit: 1000,
+    questionLimit: 4000,
     uploadLimit: 500,
     membersLimit: 5,
   },
@@ -21,8 +21,8 @@ const paidPlans = {
     membersLimit: Infinity,
   },
   individual: {
-    questionLimit: 1000,
-    uploadLimit: 500,
+    questionLimit: 150,
+    uploadLimit: 50,
     membersLimit: 1,
   },
 };
@@ -52,7 +52,7 @@ const paidPlansPromo = {
 
 export const plans: Record<Plan, PlanLimits> = {
   free: {
-    questionLimit: 10,
+    questionLimit: 30,
     uploadLimit: 5,
   },
   ...(process.env.NEXT_PUBLIC_PROMO === `true` || true

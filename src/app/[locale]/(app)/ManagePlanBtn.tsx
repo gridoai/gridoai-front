@@ -18,7 +18,7 @@ import {
   DialogContent,
   DialogTrigger,
 } from "../../../components/ui/dialog";
-import PricingPage from "../../../components/pricing";
+import PricingPage from "@/components/PricingPage";
 import { useState } from "react";
 
 const LimitIndicator = ({
@@ -94,7 +94,7 @@ export const ManagePlanBtn = ({
               current={planInfo.questionCount}
             />
             {` `}
-            {t(`freePlanCard.questionsToday`)}
+            {t(`freePlanCard.questions`)}
           </DropdownMenuItem>
           <DropdownMenuItem className="gap-1">
             <LimitIndicator
