@@ -14,7 +14,7 @@ export const ClientProviders = ({
   const org = useOrganizationList();
 
   useEffect(() => {
-    if (queryParams.get(`postSale`) && org.setActive) {
+    if (queryParams?.get(`postSale`) && org.setActive) {
       const target = org.organizationList?.[0];
       org.setActive?.({
         organization: target?.organization.id,
