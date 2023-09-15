@@ -25,6 +25,7 @@ import { GradientBtn } from "../GradientBtn";
 import { whatsappLink } from "../../app/links";
 import { useI18n } from "../../locales/client";
 import { useLogger } from "next-axiom";
+import { useRouter } from "next/navigation";
 
 export default function Chat() {
   const [userInput, setUserInput] = useState(``);
@@ -37,6 +38,10 @@ export default function Chat() {
   const messageListRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const user = useUser();
+  const router = useRouter();
+  if (user.isSignedIn === false) {
+    router.push(`/sign-in`);
+  }
   // Auto scroll chat to bottom
   useEffect(() => {
     const messageList = messageListRef.current;
