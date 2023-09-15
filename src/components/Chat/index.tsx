@@ -117,6 +117,11 @@ export default function Chat() {
     );
 
     if (data.error) {
+      logger.error(`questionError`, {
+        input: userInput,
+        output: data.error,
+        user: user.user?.id,
+      });
       handleError();
       return;
     }
