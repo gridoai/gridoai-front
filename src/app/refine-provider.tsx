@@ -55,7 +55,7 @@ export default function RefineProvider({
         }}
       >
         <Refine
-          options={{ mutationMode: `optimistic` }}
+          options={{ mutationMode: `optimistic`, disableTelemetry: true }}
           dataProvider={restDataProvider(``)}
           routerProvider={routerProvider}
           resources={[
