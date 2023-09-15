@@ -11,6 +11,7 @@ import SubLayout from "./client/layout";
 import { AxiomWebVitals } from "next-axiom";
 import { getStaticParams } from "../../locales/server";
 import Script from "next/script";
+import { setStaticParamsLocale } from "next-international/server";
 
 // eslint-disable-next-line quotes
 const inter = Inter({ subsets: ["latin"] });
@@ -27,6 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
+  setStaticParamsLocale(params.locale);
+
   return (
     <ClerkProvider
       localization={params.locale === `pt` ? ptBR : undefined}
@@ -92,4 +95,7 @@ export default function RootLayout({
       </html>
     </ClerkProvider>
   );
+}
+export function generateStaticParams() {
+  return getStaticParams();
 }
