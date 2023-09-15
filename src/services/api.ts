@@ -115,7 +115,8 @@ export type PromptResponse = {
 export const promptApi = async (
   prompt: string,
   pastMessages: Message[],
-  basedOnDocsOnly = false
+  basedOnDocsOnly = false,
+  useActions = false
 ) => {
   if (!(await canAsk())) {
     throw new Error(
@@ -131,7 +132,7 @@ export const promptApi = async (
   const response = (
     await api.post<PromptResponse>(
       `/ask`,
-      { messages: messages, basedOnDocsOnly },
+      { messages: messages, basedOnDocsOnly, useActions },
       {
         headers: {
           "Content-Type": `application/json`,
