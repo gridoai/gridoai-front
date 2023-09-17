@@ -6,18 +6,21 @@ import { chainMiddlewares } from "./lib/chainMiddleware";
 const I18nMiddleware = createI18nMiddleware({
   locales: [`en`, `pt`],
   defaultLocale: `pt`,
+  resolveLocaleFromRequest(request) {
+    return request.nextUrl.pathname.startsWith(`/pt`) ? `pt` : `en`;
+  },
   urlMappingStrategy: `redirect`,
 });
 
 const i18nMiddleware = (req: NextRequest) =>
   req.url.match(/\/remote\/|_axiom|_next/) ? null : I18nMiddleware(req);
-
-export default authMiddleware({
+const auth = authMiddleware({
   signInUrl: `/(..)/sign-in`,
   publicRoutes: [`/(..)/sign-in`, `/(..)/sign-up`, `/(..)`],
   ignoredRoutes: [`/(..)/privacy`, `/(..)`],
-  beforeAuth: i18nMiddleware,
 });
+
+export default chainMiddlewares([[i18nMiddleware], [auth]]);
 
 export const config = {
   matcher: [`/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt).*)`],
