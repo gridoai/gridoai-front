@@ -39,9 +39,6 @@ export default function Chat() {
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const user = useUser();
   const router = useRouter();
-  if (user.isSignedIn === false) {
-    router.push(`/sign-in`);
-  }
   // Auto scroll chat to bottom
   useEffect(() => {
     const messageList = messageListRef.current;
@@ -54,7 +51,13 @@ export default function Chat() {
   // Focus on text field on load
   useEffect(() => {
     textAreaRef.current?.focus();
-  }, []);
+    const timeout = setTimeout(() => {
+      if (user.isLoaded && user.isSignedIn === false) {
+        router.push(`/sign-in`);
+      }
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [router, user.isLoaded, user.isSignedIn]);
 
   // Handle errors
   const handleError = () => {
