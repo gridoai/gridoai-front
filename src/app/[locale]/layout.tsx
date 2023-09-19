@@ -17,8 +17,8 @@ import { setStaticParamsLocale } from "next-international/server";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: `Grido AI`,
-  description: `Sua IA treinada com seus documentos`,
+  title: `Grido AI | Sua IA treinada com seus documentos`,
+  description: `GridoAI é um poderoso chatbot que utiliza seus dados para fornecer respostas precisas e contextualmente relevantes`,
 };
 
 export default function RootLayout({
@@ -80,28 +80,19 @@ export default function RootLayout({
             src="https://js.stripe.com/v3/pricing-table.js"
           />
         </head>
-        <meta
-          name="description"
-          content="Sua IA treinada com seus documentos"
-        />
+        <meta name="description" content={metadata.description} />
 
         <meta property="og:url" content="https://gridoai.com" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Grido AI" />
-        <meta
-          property="og:description"
-          content="Sua IA treinada com seus documentos"
-        />
+        <meta property="og:title" content={metadata.title} />
+        <meta property="og:description" content={metadata.description} />
         <meta property="og:image" content="/biglogo.png" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="gridoai.com" />
         <meta property="twitter:url" content="https://gridoai.com" />
-        <meta name="twitter:title" content="Grido AI" />
-        <meta
-          name="twitter:description"
-          content="Sua IA treinada com seus documentos"
-        />
+        <meta name="twitter:title" content={metadata.title} />
+        <meta name="twitter:description" content={metadata.description} />
         <meta name="twitter:image" content="/biglogo.png" />
 
         <body className={`${inter.className} flex`}>
