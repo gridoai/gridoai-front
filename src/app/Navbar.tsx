@@ -12,13 +12,18 @@ export async function Navbar() {
       <div className="text-2xl font-bold flex justify-between">
         {t(`navTitle`)}
       </div>
-      <AuthProtectedBtn>
-        <Link href="/chat">
-          <Button className="transparent" variant="outline">
-            {t(`chatNow`)}
-          </Button>
+      <div className="flex gap-8 items-center">
+        <Link
+          className="hover:border-b border-solid border-foreground duration-75 transition-all border-b-0"
+          href="https://blog.gridoai.com"
+          target="_blank"
+        >
+          Blog
         </Link>
-      </AuthProtectedBtn>
+        <AuthProtectedBtn>
+          <Link href="/chat">{t(`chatNow`)}</Link>
+        </AuthProtectedBtn>
+      </div>
     </nav>
   );
 }
