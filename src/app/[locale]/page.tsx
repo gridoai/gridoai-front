@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { Button } from "../../components/ui/button";
 import Image from "next/image";
-import { Brain, Funnel, User, WhatsappLogo } from "../../components/icon";
+import {
+  Brain,
+  CaretDown,
+  Funnel,
+  User,
+  WhatsappLogo,
+} from "../../components/icon";
 import { Navbar } from "../Navbar";
 import AnimatedComponent from "../../components/animatedWrapper";
 import workspacesEn from "../../../public/workspaces.png";
@@ -23,8 +29,6 @@ const useCases = [
 import { ScopedTranslator, getI18n, getScopedI18n } from "../../locales/server";
 import { JSX } from "react";
 import { AuthProtectedPricingPage } from "../../components/pricing";
-import PricingPage from "@/components/PricingPage";
-import { getToken } from "../../services/auth";
 
 const iconSize = 42;
 export const landingPageContent = {
@@ -115,7 +119,7 @@ const LandingPage = async ({
         style={{
           background: `radial-gradient(circle at center, var(--background-accent),  var(--background) 100%)`,
         }}
-        className="border-b border-solid border-border px-8 sm:h-screen items-center justify-center flex flex-col gap-4 min-h-[750px] md:gap-8 py-20 text-center"
+        className=" relative border-b border-solid border-border px-8 sm:h-screen items-center justify-center flex flex-col gap-4 min-h-[750px] md:gap-8 py-20 text-center"
       >
         <h1
           className="xl:text-8xl/tight max-w-5xl sm:text-6xl text-5xl/tight font-medium from-primary to-white bg-clip-text text-transparent"
@@ -148,10 +152,17 @@ const LandingPage = async ({
             </Link>
           </AuthProtectedBtn>
         </div>
+        <div className="flex w-full items-start absolute bottom-7 justify-center ">
+          <CaretDown
+            className="text-foreground animate-bounce"
+            width={32}
+            height={32}
+          />
+        </div>
       </section>
       <div>
         <main className="xl:max-w-7xl mx-auto   to-background">
-          <section className="px-8 py-20">
+          <section id="features" className="px-8 py-20">
             <div className="flex flex-col gap-16 md:gap-8">
               {landingPageContent
                 .features(featTranslator, locale)
