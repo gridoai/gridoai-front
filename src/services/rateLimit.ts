@@ -7,13 +7,13 @@ type PlanLimits = {
 const paidPlans = {
   starter: {
     questionLimit: 300,
-    uploadLimit: 250,
-    membersLimit: 3,
+    uploadLimit: 200,
+    membersLimit: 10,
   },
   pro: {
     questionLimit: 4000,
-    uploadLimit: 500,
-    membersLimit: 5,
+    uploadLimit: 3000,
+    membersLimit: 100,
   },
   enterprise: {
     questionLimit: Infinity,
@@ -22,7 +22,7 @@ const paidPlans = {
   },
   individual: {
     questionLimit: 150,
-    uploadLimit: 50,
+    uploadLimit: 100,
     membersLimit: 1,
   },
 };
