@@ -65,6 +65,8 @@ export default {
         description: `Utilize academic materials like articles, books, and research papers to ask questions about specific topics, theories, or historical events.`,
       },
     },
+    bePartner: `Be an affiliate`,
+    bePartnerMessage: `I would like to know more about the affiliate program`,
   },
   createDocument: {
     nameRequired: `Name is required`,
@@ -126,4 +128,5 @@ export default {
   billing: `Billing`,
   manageSubscription: `Manage subscription`,
   pricingTitle: `We offer a plan that helps anyone get started`,
+  settings: `Settings`,
 } as const;

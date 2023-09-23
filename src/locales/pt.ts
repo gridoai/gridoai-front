@@ -65,6 +65,8 @@ export default {
         description: `Utilize materiais acadêmicos como artigos, livros e artigos de pesquisa para fazer perguntas sobre tópicos específicos, teorias ou eventos históricos.`,
       },
     },
+    bePartner: `Seja um afiliado`,
+    bePartnerMessage: `Gostaria de saber mais sobre o programa de afiliados`,
   },
   createDocument: {
     nameRequired: `Nome é obrigatório`,
@@ -124,4 +126,5 @@ export default {
   managePlan: `Gerenciar plano`,
   billing: `Faturamento`,
   pricingTitle: `Oferecemos um plano que ajuda qualquer pessoa a começar`,
+  settings: `Ajustes`,
 } as const;
