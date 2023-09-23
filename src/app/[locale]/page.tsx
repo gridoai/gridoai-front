@@ -119,42 +119,45 @@ const LandingPage = async ({
         style={{
           background: `radial-gradient(circle at center, var(--background-accent),  var(--background) 100%)`,
         }}
-        className=" relative border-b border-solid border-border px-8 sm:h-screen items-center justify-center flex flex-col gap-4 min-h-[750px] md:gap-8 py-20 text-center"
+        className=" relative border-b border-solid border-border px-8 sm:h-screen items-center justify-center flex flex-col min-h-[750px]   py-20 text-center"
       >
-        <h1
-          className="xl:text-8xl/tight max-w-5xl sm:text-6xl text-5xl/tight font-medium from-primary to-white bg-clip-text text-transparent"
-          style={{
-            backgroundImage: `radial-gradient(circle at 60%, rgb(255, 255, 255) 15%, rgba(255, 255, 255, 0.38))`,
-          }}
-        >
-          {t(`landingPage.headerTitle`)}
-        </h1>
-        <p className="text-xl md:text-2xl text-foreground opacity-90 leading-relaxed mx-auto max-w-3xl">
-          {t(`landingPage.headerDescription`)}
-        </p>
-        <div className="flex gap-2 mt-2 items-center">
-          <Link target="_blank" href={whatsappLink}>
-            <Button className="bg-secondary flex gap-2">
-              <WhatsappLogo
-                className="text-foreground"
-                width={24}
-                fill="#fff"
-                height={24}
-              />
-              {t(`landingPage.contactUs`)}
-            </Button>
-          </Link>
-          <AuthProtectedBtn fallback={t(`landingPage.tryForFree`)}>
-            <Link href={`/chat`}>
-              <Button size={`lg`} variant="outline">
-                {t(`landingPage.tryForFree`)}
+        <div className="flex flex-1" />
+        <div className="flex flex-col justify-center gap-4 md:gap-8 flex-1">
+          <h1
+            className="xl:text-8xl/tight max-w-5xl sm:text-6xl text-5xl/tight font-medium from-primary to-white bg-clip-text text-transparent"
+            style={{
+              backgroundImage: `radial-gradient(circle at 60%, rgb(255, 255, 255) 15%, rgba(255, 255, 255, 0.38))`,
+            }}
+          >
+            {t(`landingPage.headerTitle`)}
+          </h1>
+          <p className="text-xl md:text-2xl text-foreground opacity-90 leading-relaxed mx-auto max-w-3xl">
+            {t(`landingPage.headerDescription`)}
+          </p>
+          <div className="flex gap-2 mt-2 items-center justify-center">
+            <Link target="_blank" href={whatsappLink}>
+              <Button className="bg-secondary flex gap-2">
+                <WhatsappLogo
+                  className="text-foreground"
+                  width={24}
+                  fill="#fff"
+                  height={24}
+                />
+                {t(`landingPage.contactUs`)}
               </Button>
             </Link>
-          </AuthProtectedBtn>
+            <AuthProtectedBtn fallback={t(`landingPage.tryForFree`)}>
+              <Link href={`/chat`}>
+                <Button size={`lg`} variant="outline">
+                  {t(`landingPage.tryForFree`)}
+                </Button>
+              </Link>
+            </AuthProtectedBtn>
+          </div>
         </div>
-        <div className="flex w-full items-start absolute bottom-7 justify-center ">
+        <div className="flex flex-1 w-full items-center static  justify-center ">
           <CaretDown
-            className="text-foreground animate-bounce"
+            className="text-foreground mt-16 flex animate-bounce"
             width={32}
             height={32}
           />
