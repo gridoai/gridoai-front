@@ -13,7 +13,7 @@ export const NavbarLayout = async ({
   const t = await getI18n();
 
   return (
-    <div className="flex flex-1 flex-col bg-background">
+    <div className="flex flex-1 min-h-screen flex-col bg-background">
       <div
         className={` flex justify-between items-center px-3  border-b border-solid;`}
       >
