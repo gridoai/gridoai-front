@@ -57,7 +57,7 @@ export const ManagePlanBtn = ({
         setOpenPlanPage(true);
       }}
       type="button"
-      className="font-semibold"
+      className="font-semibold ml-1"
     >
       <GradientText> {t(`upgradeNow`)}</GradientText>
     </button>
