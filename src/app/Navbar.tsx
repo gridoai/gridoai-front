@@ -15,7 +15,7 @@ export async function Navbar() {
       </div>
       <div className="flex gap-8 items-center">
         <Link
-          className="hover:border-b border-solid border-foreground duration-75 transition-all border-b-0"
+          className="hover:border-b sm:flex hidden border-solid border-foreground duration-75 transition-all border-b-0"
           href={`${whatsappLink}?text=${t(`bePartnerMessage`)}`}
           target="_blank"
         >
