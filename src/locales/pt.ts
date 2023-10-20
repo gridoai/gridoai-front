@@ -1,5 +1,9 @@
 // locales/pt.ts
 export default {
+  preview: {
+    title: `Grido AI | Sua IA treinada com seus documentos`,
+    description: `GridoAI é um poderoso chatbot que utiliza seus dados para fornecer respostas precisas e contextualmente relevantes`,
+  },
   landingPage: {
     headerTitle: `Sua IA treinada com seus documentos`,
     contactUs: `Contate-nos`,

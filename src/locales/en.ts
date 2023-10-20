@@ -1,5 +1,10 @@
 // locales/en.ts
 export default {
+  preview: {
+    title: `Grido AI | AI Chatbot trained on your documents`,
+    description: `GridoAI is a powerful chatbot that uses your data to provide precise and contextually relevant answers`,
+  },
+
   landingPage: {
     headerTitle: `AI Chatbot trained on your documents`,
     contactUs: `Contact us`,

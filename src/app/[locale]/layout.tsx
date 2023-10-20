@@ -9,20 +9,29 @@ import { ThemeProvider } from "@/providers/theme";
 import { ptBR } from "@clerk/localizations";
 import SubLayout from "./client/layout";
 import { AxiomWebVitals } from "next-axiom";
-import { getStaticParams } from "../../locales/server";
+import { getI18n, getScopedI18n, getStaticParams } from "../../locales/server";
 import Script from "next/script";
 import { setStaticParamsLocale } from "next-international/server";
+import { Metadata } from "next";
 
 // eslint-disable-next-line quotes
 const inter = Inter({ subsets: ["latin"] });
-export const metadata = {
-  title: `Grido AI`,
-};
+
 const previewMetadata = {
   title: `Grido AI | Sua IA treinada com seus documentos`,
   description: `GridoAI é um poderoso chatbot que utiliza seus dados para fornecer respostas precisas e contextualmente relevantes`,
 };
 
+export async function generateMetadata(): Promise<Metadata> {
+  // read route params then fetch data
+  const t = await getScopedI18n(`preview`);
+
+  // return an object
+  return {
+    title: t(`title`),
+    description: t(`description`),
+  };
+}
 export default function RootLayout({
   children,
   params,

@@ -107,9 +107,6 @@ const DocumentsList = ({ load = true }: { load?: boolean }) => {
         staleTime: Infinity,
         onSuccess: (data) => setDocumentCount(data.total),
         enabled: load,
-        initialData: {
-          data: [],
-        },
       },
       pagination: { mode: `server` },
     },
