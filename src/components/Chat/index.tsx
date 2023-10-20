@@ -5,6 +5,7 @@ import { Message as MessageType } from "@/types/Message";
 
 import { useAuth, useUser } from "@clerk/nextjs";
 import {
+  DotsThree,
   FileText,
   PaperPlaneRight,
   Polygon,
@@ -39,6 +40,11 @@ export default function Chat() {
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const user = useUser();
   const router = useRouter();
+
+  const [chatOptions, setChatOptions] = useState({
+    useActions: false,
+    basedOnDocsOnly: true,
+  });
   // Auto scroll chat to bottom
   useEffect(() => {
     const messageList = messageListRef.current;
@@ -105,10 +111,12 @@ export default function Chat() {
     const messagesWithoutFirst = messages.slice(1);
     // Send user question and history to API
 
-    const data = await promptApi(userInput, [
-      ...messagesWithoutFirst,
-      newMsg,
-    ]).catch(
+    const data = await promptApi(
+      userInput,
+      [...messagesWithoutFirst, newMsg],
+      chatOptions.basedOnDocsOnly,
+      chatOptions.useActions
+    ).catch(
       (e) =>
         ({
           error: e.message,
