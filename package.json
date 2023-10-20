@@ -28,6 +28,7 @@
     "@refinedev/react-hook-form": "^4.4.2",
     "@refinedev/react-table": "^5.4.0",
     "@refinedev/simple-rest": "^4.5.0",
+    "@sentry/nextjs": "^7.74.1",
     "@tanstack/react-query": "^4.32.6",
     "@tanstack/react-table": "^8.9.3",
     "@vercel/analytics": "^1.0.2",
