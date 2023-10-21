@@ -64,7 +64,7 @@ async function NavbarRoutes() {
       <NavbarLink icon={<Chat />} path="/chat">
         Chat
       </NavbarLink>
-      <NavbarLink icon={<Upload />} path="/documents">
+      <NavbarLink icon={<Upload />} path="/documents?pageSize=10&current=1">
         Upload
       </NavbarLink>
       <div className="hidden md:flex">
