@@ -1,3 +1,6 @@
 import Chat from "@/components/Chat";
 
-export default Chat;
+const ChatPage = () => {
+  return <Chat />;
+};
+export default ChatPage;
