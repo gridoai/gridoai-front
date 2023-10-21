@@ -11,13 +11,13 @@ export function NavbarLink({
   icon: React.ReactNode;
   children: React.ReactNode;
 }) {
-  const currentPath = usePathname();
-
+  const currentPath = usePathname()?.slice(4);
+  console.log({ currentPath, path });
   return (
     <Link href={path}>
       <div
         className={`flex transition-all flex-1 gap-2 items-center justify-center h-full ${
-          currentPath.endsWith(path)
+          path.includes(currentPath || ``)
             ? `text-secondary border-b border-solid border-secondary`
             : ``
         }`}
