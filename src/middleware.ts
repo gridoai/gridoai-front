@@ -13,7 +13,10 @@ const I18nMiddleware = createI18nMiddleware({
 });
 
 const i18nMiddleware = (req: NextRequest) =>
-  req.url.match(/\/remote\/|_axiom|_next/) ? null : I18nMiddleware(req);
+  req.url.match(/\/remote\/|_axiom|_next|monitoring|favicon.ico/)
+    ? null
+    : I18nMiddleware(req);
+
 const auth = authMiddleware({
   signInUrl: `/(..)/sign-in`,
   publicRoutes: [`/(..)/sign-in`, `/(..)/sign-up`, `/(..)`],
