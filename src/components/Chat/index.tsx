@@ -12,7 +12,7 @@ import {
   Spinner,
   User,
 } from "@phosphor-icons/react";
-import { useEffect, useRef, useState } from "react";
+import { ChangeEventHandler, useEffect, useRef, useState } from "react";
 import styles from "./index.module.css";
 import {
   AutoHeightTextarea,
@@ -27,6 +27,13 @@ import { whatsappLink } from "../../app/links";
 import { useI18n } from "../../locales/client";
 import { useLogger } from "next-axiom";
 import { useRouter } from "next/navigation";
+import { throttle } from "./throttle";
+
+const [warmUp] = throttle(
+  () =>
+    fetch(process.env.NEXT_PUBLIC_EMBEDDING_API_URL || ``).catch(console.error),
+  1000 * 60
+);
 
 export default function Chat() {
   const [userInput, setUserInput] = useState(``);
@@ -180,6 +187,10 @@ export default function Chat() {
   };
   const [inputHeight, setInputHeight] = useState<number>(0);
   const inputSpacing = 16;
+  const onChangeUserInput: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+    warmUp();
+    setUserInput(e.target.value);
+  };
   return (
     <main
       className={`${styles.main} flex bg-background max-w-7xl xl:w-[80rem] xl:mx-auto `}
@@ -232,7 +243,7 @@ export default function Chat() {
                 name="userInput"
                 placeholder={t(`chat.inputPlaceholder`)}
                 value={userInput}
-                onChange={(e) => setUserInput(e.target.value)}
+                onChange={onChangeUserInput}
                 className={`${styles.textarea} max-h-80 `}
               />
 
