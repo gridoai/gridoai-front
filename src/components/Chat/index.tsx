@@ -3,9 +3,8 @@ import { promptApi } from "@/services/api";
 import { canAsk } from "@/services/rateLimit";
 import { Message as MessageType } from "@/types/Message";
 
-import { useAuth, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import {
-  DotsThree,
   FileText,
   PaperPlaneRight,
   Polygon,
