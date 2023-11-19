@@ -8,7 +8,7 @@ import { useToast } from "./use-toast";
 
 export const DriveSelect = () => {
   const [openPicker, authResponse] = useDrivePicker();
-  const [loading, setLoading] = useState(false);
+
   const { toast } = useToast();
 
   useEffect(() => {
@@ -16,7 +16,6 @@ export const DriveSelect = () => {
   }, [authResponse]);
 
   const handleOpenPicker = () => {
-    setLoading(true);
     if (!process.env.NEXT_PUBLIC_CLIENT_ID || !process.env.NEXT_PUBLIC_API_KEY)
       return;
     openPicker({
@@ -35,7 +34,6 @@ export const DriveSelect = () => {
         console.log(`data`, data, authResponse);
         if (data.action !== `picked` || !authResponse) {
           console.log(`User clicked cancel/close button`, data.action);
-          setLoading(false);
           return;
         }
         try {
@@ -50,20 +48,13 @@ export const DriveSelect = () => {
         } catch (e) {
           console.error(`Failed to import from Google Drive`, e);
           toast({ title: `Failed to import from Google Drive` });
-        } finally {
-          setLoading(false);
         }
       },
     });
   };
 
   return (
-    <Button
-      loading={loading}
-      variant="outline"
-      type="button"
-      onClick={() => handleOpenPicker()}
-    >
+    <Button variant="outline" type="button" onClick={() => handleOpenPicker()}>
       Import from Drive
       <GoogleDriveLogo size={16} />
     </Button>
