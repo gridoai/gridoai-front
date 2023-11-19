@@ -25,6 +25,7 @@ import {
 } from "../../../../services/rateLimit";
 import { useI18n } from "../../../../locales/client";
 import { UploadCard } from "./UploadCard";
+import { DriveSelect } from "@/components/DriveSelect";
 
 const renderDocumentSrc = (src: DocumentSrc) =>
   match(src)
@@ -133,6 +134,10 @@ const DocumentsList = ({ load = true }: { load?: boolean }) => {
   return (
     <div className={`flex flex-col bg-card p-2 gap-4 md:p-4 rounded-xl`}>
       <UploadCard onSuccess={refetch} />
+      <div className="flex justify-start px-4">
+        <DriveSelect />
+      </div>
+
       <List
         title={
           <>
