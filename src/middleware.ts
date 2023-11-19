@@ -20,7 +20,7 @@ const i18nMiddleware = (req: NextRequest) =>
 const auth = authMiddleware({
   signInUrl: `/(..)/sign-in`,
   publicRoutes: [`/(..)/sign-in`, `/(..)/sign-up`, `/(..)`],
-  ignoredRoutes: [`/(..)/privacy`, `/(..)`],
+  ignoredRoutes: [`/(..)/privacy`, `/(..)`, `/(..)/monitoring`],
 });
 
 export default chainMiddlewares([[i18nMiddleware], [auth]]);
