@@ -17,6 +17,8 @@ export const DriveSelect = () => {
 
   const handleOpenPicker = () => {
     setLoading(true);
+    if (!process.env.NEXT_PUBLIC_CLIENT_ID || !process.env.NEXT_PUBLIC_API_KEY)
+      return;
     openPicker({
       clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
       developerKey: process.env.NEXT_PUBLIC_API_KEY,
