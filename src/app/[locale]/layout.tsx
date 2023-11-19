@@ -1,6 +1,6 @@
 import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "@/components/toaster";
-import { ClerkProvider } from "@clerk/nextjs/app-beta";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "../../styles/globals.css";
 import RefineProvider from "../refine-provider";

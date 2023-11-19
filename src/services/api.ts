@@ -28,6 +28,21 @@ const authInterceptor = async <T>(config: InternalAxiosRequestConfig<T>) => {
   return config;
 };
 
+export const authGoogleDrive = async (params: {
+  code: string;
+  redirectUri: string;
+}) => {
+  const { data } = await api.get<[string, string]>(`/gdrive/auth`, {
+    params,
+  });
+  return data;
+};
+
+export const importGoogleDrive = async (fileIds: string[]) => {
+  const { data } = await api.post<string[]>(`/gdrive/import`, fileIds);
+  return data;
+};
+
 const endpointInterceptor = async <T>(
   config: InternalAxiosRequestConfig<T>
 ) => {
@@ -86,7 +101,7 @@ export const restDataProvider = (
 ): RestDataProvider => ({
   ...baseDataProvider(apiUrl, httpClient as RefineApiClient),
   getList: async ({ resource, pagination }) => {
-    let url = `${apiUrl}/${resource}`;
+    const url = `${apiUrl}/${resource}`;
 
     if (pagination?.current && pagination?.pageSize) {
       return await fetchWithPagination(
