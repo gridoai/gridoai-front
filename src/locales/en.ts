@@ -134,4 +134,14 @@ export default {
   manageSubscription: `Manage subscription`,
   pricingTitle: `We offer a plan that helps anyone get started`,
   settings: `Settings`,
+  gdrive: {
+    connectToGoogleDrive: `Connect to Google Drive`,
+    importFromDrive: `Import from Drive`,
+    successfullyAuthenticated: `Successfully authenticated with Google Drive`,
+    failedToAuthenticate: `Failed to authenticate with Google Drive`,
+    importingFiles: `Importing files from Google Drive, please wait`,
+    successfullyImported: `Successfully imported from Google Drive`,
+    failedToImport: `Failed to import from Google Drive`,
+    userCancelled: `User clicked cancel/close button`,
+  },
 } as const;
