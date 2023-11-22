@@ -131,4 +131,14 @@ export default {
   billing: `Faturamento`,
   pricingTitle: `Oferecemos um plano que ajuda qualquer pessoa a começar`,
   settings: `Ajustes`,
+  gdrive: {
+    connectToGoogleDrive: `Conectar ao Google Drive`,
+    importFromDrive: `Importar do Drive`,
+    successfullyAuthenticated: `Autenticação com o Google Drive bem-sucedida`,
+    failedToAuthenticate: `Falha na autenticação com o Google Drive`,
+    importingFiles: `Importando arquivos do Google Drive, aguarde`,
+    successfullyImported: `Importação do Google Drive bem-sucedida`,
+    failedToImport: `Falha ao importar do Google Drive`,
+    userCancelled: `Usuário clicou no botão cancelar/fechar`,
+  },
 } as const;

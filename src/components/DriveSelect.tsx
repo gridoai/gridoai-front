@@ -1,45 +1,65 @@
 "use client";
 import { authGoogleDrive, importGoogleDrive } from "@/services/api";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useDrivePicker from "react-google-drive-picker";
 import { Button } from "./ui/button";
 import { GoogleDriveLogo } from "@phosphor-icons/react";
 import { useToast } from "./use-toast";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { getTokenFromCookie, parseJwt } from "@/services/auth";
+import { useScopedI18n } from "@/locales/client";
 
 export const DriveSelect = () => {
-  const [openPicker] = useDrivePicker();
+  const [openPicker, authState] = useDrivePicker();
   const params = useSearchParams();
   const codeParam = params?.get(`code`);
-
+  const t = useScopedI18n(`gdrive`);
   const { toast } = useToast();
   const router = useRouter();
 
-  useEffect(() => {
-    codeParam &&
-      (async () => {
-        try {
-          const [accessToken, refreshToken] = await authGoogleDrive({
-            code: codeParam,
-            redirectUri: `${window.location.origin}/documents`,
-          });
+  const initialized = useRef(false);
 
-          toast({ title: `Successfully authenticated with Google Drive` });
-          localStorage.setItem(`refreshToken`, refreshToken);
-          localStorage.setItem(`accessToken`, accessToken);
-          router.replace(`/documents`);
-        } catch (e) {
-          console.error(`Failed to authenticate with Google Drive`, e);
-          toast({ title: `Failed to authenticate with Google Drive` });
-        }
-      })();
-  }, [codeParam, router, toast]);
+  const token = localStorage.getItem(`accessToken`);
+  const isTokenValid =
+    new Date(Number(localStorage.getItem(`expirationDate`)) || 0).getTime() >
+    Date.now();
+  const needsAuth = codeParam && (!token || !isTokenValid);
+  const { data: didSetAuth } = useQuery([`didSetAuth`], () =>
+    importGoogleDrive([]).catch(console.log)
+  );
+  const clerkToken = parseJwt(getTokenFromCookie() || ``);
+
+  useEffect(() => {
+    if (!initialized.current) {
+      initialized.current = true;
+
+      needsAuth &&
+        (async () => {
+          if (didSetAuth) return;
+          try {
+            const [accessToken, refreshToken] = await authGoogleDrive({
+              code: codeParam,
+              redirectUri: `${window.location.origin}/documents`,
+            });
+
+            localStorage.setItem(`accessToken`, accessToken);
+            toast({ title: t(`successfullyAuthenticated`) });
+            localStorage.setItem(`refreshToken`, refreshToken);
+            localStorage.setItem(`expirationDate`, `${Date.now() + 3600000}`);
+            router.replace(`/documents`);
+          } catch (e) {
+            console.error(`Failed to authenticate with Google Drive`, e);
+            toast({ title: t(`failedToAuthenticate`) });
+          }
+        })();
+    }
+  }, []);
 
   const handleOpenPicker = () => {
     if (!process.env.NEXT_PUBLIC_CLIENT_ID || !process.env.NEXT_PUBLIC_API_KEY)
       return;
-    const token = localStorage.getItem(`accessToken`);
-    if (!token) {
+    if (!token || !isTokenValid) {
       const url = new URL(`https://accounts.google.com/o/oauth2/v2/auth`);
 
       const params = {
@@ -60,7 +80,7 @@ export const DriveSelect = () => {
       clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
       developerKey: process.env.NEXT_PUBLIC_API_KEY,
       showUploadView: false,
-      token,
+      token: authState?.access_token,
       showUploadFolders: false,
       supportDrives: true,
       setSelectFolderEnabled: true,
@@ -75,12 +95,12 @@ export const DriveSelect = () => {
 
         try {
           const ids = data.docs?.map((doc) => doc.id);
-          toast({ title: `Importing files from Google Drive, please wait` });
+          toast({ title: t(`importingFiles`) });
           await importGoogleDrive(ids);
-          toast({ title: `Successfully imported from Google Drive` });
+          toast({ title: t(`successfullyImported`) });
         } catch (e) {
           console.error(`Failed to import from Google Drive`, e);
-          toast({ title: `Failed to import from Google Drive` });
+          toast({ title: t(`failedToImport`) });
         }
       },
     });
@@ -88,7 +108,9 @@ export const DriveSelect = () => {
 
   return (
     <Button variant="outline" type="button" onClick={() => handleOpenPicker()}>
-      Import from Drive
+      {!token || !isTokenValid
+        ? t(`connectToGoogleDrive`)
+        : t(`importFromDrive`)}
       <GoogleDriveLogo size={16} />
     </Button>
   );
