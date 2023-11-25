@@ -29,7 +29,8 @@ export const DriveSelect = () => {
     importGoogleDrive([]).catch(console.log)
   );
   const clerkToken = parseJwt(getTokenFromCookie() || ``);
-
+  const failedToAuthMsg = t(`failedToAuthenticate`);
+  const successfullyAuthenticatedMsg = t(`successfullyAuthenticated`);
   useEffect(() => {
     if (!initialized.current) {
       initialized.current = true;
@@ -44,17 +45,17 @@ export const DriveSelect = () => {
             });
 
             localStorage.setItem(`accessToken`, accessToken);
-            toast({ title: t(`successfullyAuthenticated`) });
+            toast({ title: successfullyAuthenticatedMsg });
             localStorage.setItem(`refreshToken`, refreshToken);
-            localStorage.setItem(`expirationDate`, `${Date.now() + 3600000}`);
+            localStorage.setItem(`expirationDate`, `${Date.now() + 60000}`);
             router.replace(`/documents`);
           } catch (e) {
             console.error(`Failed to authenticate with Google Drive`, e);
-            toast({ title: t(`failedToAuthenticate`) });
+            toast({ title: failedToAuthMsg });
           }
         })();
     }
-  }, [t]);
+  }, [failedToAuthMsg, successfullyAuthenticatedMsg]);
 
   const handleOpenPicker = () => {
     if (!process.env.NEXT_PUBLIC_CLIENT_ID || !process.env.NEXT_PUBLIC_API_KEY)
