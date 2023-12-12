@@ -71,6 +71,9 @@ type RestDataProvider = Omit<
 
 type RefineApiClient = Parameters<typeof baseDataProvider>[1];
 
+export const refreshDriveToken = async (refreshToken: string) =>
+  (await api.post<[string, string]>(`/gdrive/refresh`, { refreshToken })).data;
+
 async function fetchWithPagination(
   current: number,
   pageSize: number,
