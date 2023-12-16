@@ -71,8 +71,20 @@ type RestDataProvider = Omit<
 
 type RefineApiClient = Parameters<typeof baseDataProvider>[1];
 
-export const refreshDriveToken = async (refreshToken: string) =>
-  (await api.post<[string, string]>(`/gdrive/refresh`, { refreshToken })).data;
+export const refreshDriveToken = async (
+  refreshToken: string
+): Promise<[string, string] | null> =>
+  (
+    await api
+      .post<[string, string]>(`/gdrive/refresh`, { refreshToken })
+      .catch((reason) => {
+        log.error(
+          `Failed to refresh drive token:`,
+          JSON.parse(JSON.stringify(reason))
+        );
+        return reason;
+      })
+  ).data;
 
 async function fetchWithPagination(
   current: number,
