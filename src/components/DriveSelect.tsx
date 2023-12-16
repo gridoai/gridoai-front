@@ -7,8 +7,14 @@ import { useGdrivePicker } from "@/hooks/oauth/useGdrivePicker";
 export const DriveSelect = () => {
   const t = useScopedI18n(`gdrive`);
 
-  const { tokenValidityLoading, isAlreadyAuthenticated, handleOpenPicker } =
-    useGdrivePicker();
+  const {
+    tokenValidityLoading,
+    isAlreadyAuthenticated,
+    handleOpenPicker,
+    canAccessGdrive,
+  } = useGdrivePicker();
+
+  if (!canAccessGdrive) return null;
 
   return (
     <Button
