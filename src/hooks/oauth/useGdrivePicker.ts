@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/use-toast";
 import { useScopedI18n } from "@/locales/client";
 import { importGoogleDrive } from "@/services/api";
+import { useCallback } from "react";
+import { useCurrentPlanCapabilities } from "../useCurrentPlan";
 
 export const useGdrivePicker = () => {
   const { fetchTokensByCode, tokenApiResponse } = useFetchTokens();
@@ -23,7 +25,7 @@ export const useGdrivePicker = () => {
   const isAlreadyAuthenticated =
     typeof user?.publicMetadata.googleDriveAccessToken === `string` && token;
 
-  const handleOpenPicker = () => {
+  const handleOpenPicker = useCallback(() => {
     if (
       !process.env.NEXT_PUBLIC_CLIENT_ID ||
       !process.env.NEXT_PUBLIC_API_KEY
@@ -80,11 +82,14 @@ export const useGdrivePicker = () => {
         }
       },
     });
-  };
+  }, [openPicker, router, t, toast, token]);
+  const planCapabilities = useCurrentPlanCapabilities();
+
   return {
     handleOpenPicker,
     token,
     tokenValidityLoading,
     isAlreadyAuthenticated,
+    canAccessGdrive: planCapabilities.gdrive,
   };
 };

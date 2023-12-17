@@ -5,28 +5,22 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useRefreshGdriveTokens = () => {
   const { user } = useUser();
+
+  const accessToken = user?.publicMetadata.googleDriveAccessToken;
+  const refreshToken = user?.publicMetadata.googleDriveRefreshToken;
+
   const { data: token, isLoading: tokenValidityLoading } = useQuery(
-    [
-      `googleDriveAccessTokenStillValid`,
-      user?.publicMetadata.googleDriveAccessToken,
-    ],
+    [`googleDriveAccessTokenStillValid`, accessToken],
     async () => {
-      if (typeof user?.publicMetadata.googleDriveAccessToken === `string`) {
-        const tokenValid = await isTokenValid(
-          user?.publicMetadata.googleDriveAccessToken
-        );
-        if (tokenValid) {
-          return user?.publicMetadata.googleDriveAccessToken;
-        }
-        if (typeof user?.publicMetadata.googleDriveRefreshToken === `string`)
-          return (
-            await refreshDriveToken(
-              user?.publicMetadata.googleDriveRefreshToken
-            )
-          )[0];
+      if (typeof accessToken === `string`) {
+        const tokenValid = await isTokenValid(accessToken);
+        if (tokenValid) return accessToken;
+
+        if (typeof refreshToken === `string`)
+          return (await refreshDriveToken(refreshToken))?.[0];
       }
     },
-    { enabled: !!user?.publicMetadata.googleDriveAccessToken }
+    { enabled: !!accessToken }
   );
   return {
     token,
