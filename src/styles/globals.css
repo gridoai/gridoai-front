@@ -6,14 +6,11 @@
 span[data-localization-key="paginationRowText__displaying"] {
   @apply text-foreground;
 }
-span {
-  @apply !text-foreground;
-}
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: "Inter", sans-serif;
 }
 
 html,
@@ -33,6 +30,7 @@ body {
   flex-direction: column;
   flex: 1;
   pointer-events: auto !important;
+  font-family: "Inter", sans-serif;
 }
 
 a {
@@ -53,7 +51,27 @@ a {
 .cl-card > [class^="cl-internal"] {
   opacity: 0.01;
 }
+ol > li {
+  list-style: decimal;
+}
+ul > li {
+  list-style: disc;
+}
 
+tr {
+  border-bottom: 1px solid var(--border);
+}
+td,
+th {
+  padding: 0.5rem;
+}
+thead {
+  background-color: var(--surface-2);
+}
+
+thead > tr {
+  border-bottom: none;
+}
 :root {
   --ck-colors-chakra-body-bg: var(--background);
   --ck-colors-chakra-border-color: var(--border);

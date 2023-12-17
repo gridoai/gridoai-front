@@ -27,6 +27,11 @@ import { useI18n } from "../../locales/client";
 import { useLogger } from "next-axiom";
 import { useRouter } from "next/navigation";
 import { throttle } from "./throttle";
+import { MemoizedReactMarkdown } from "../markdown";
+
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import { CodeBlock } from "../ui/codeblock";
 
 const [warmUp] = throttle(
   () =>
@@ -294,9 +299,49 @@ export const Message = ({
       </div>
       <div className="flex flex-col gap-2 flex-1">
         <div className={styles.markdownanswer}>
-          <ReactMarkdown rehypePlugins={[rehypeRaw]} linkTarget={`_blank`}>
+          <MemoizedReactMarkdown
+            className="prose break-words dark:prose-invert prose-p:leading-relaxed list-disc prose-pre:p-0"
+            remarkPlugins={[remarkGfm]}
+            components={{
+              p({ children }) {
+                return <p className="mb-2 last:mb-0">{children}</p>;
+              },
+              code({ node, inline, className, children, ...props }) {
+                if (children.length) {
+                  if (children[0] == `▍`) {
+                    return (
+                      <span className="mt-1 cursor-default animate-pulse">
+                        ▍
+                      </span>
+                    );
+                  }
+
+                  children[0] = (children[0] as string).replace(`\`▍\``, `▍`);
+                }
+
+                const match = /language-(\w+)/.exec(className || ``);
+
+                if (inline) {
+                  return (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  );
+                }
+
+                return (
+                  <CodeBlock
+                    key={Math.random()}
+                    language={(match && match[1]) || ``}
+                    value={String(children).replace(/\n$/, ``)}
+                    {...props}
+                  />
+                );
+              },
+            }}
+          >
             {content}
-          </ReactMarkdown>
+          </MemoizedReactMarkdown>
         </div>
         {sources && (
           <div className="flex gap-2 flex-wrap">
