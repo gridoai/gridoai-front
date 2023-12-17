@@ -12,9 +12,13 @@ export const useCurrentPlan = () => {
 };
 type PlanCapability = `gdrive`;
 
-const capabilities: Record<Plan, Record<PlanCapability, number | boolean>> = {
+type CapabilityLevel =
+  | number // How many
+  | boolean; // true: Infinite / false: Unavailable
+
+const capabilities: Record<Plan, Record<PlanCapability, CapabilityLevel>> = {
   free: {
-    gdrive: 0,
+    gdrive: false,
   },
   pro: {
     gdrive: true,
