@@ -8,7 +8,7 @@ import { useToast } from "@/components/use-toast";
 import { useScopedI18n } from "@/locales/client";
 import { importGoogleDrive } from "@/services/api";
 import { useCallback } from "react";
-import { useCurrentPlan, useCurrentPlanCapabilities } from "../useCurrentPlan";
+import { useCurrentPlanCapabilities } from "../useCurrentPlan";
 
 export const useGdrivePicker = () => {
   const { fetchTokensByCode, tokenApiResponse } = useFetchTokens();
