@@ -88,7 +88,9 @@ export const useGdrivePicker = () => {
   return {
     handleOpenPicker,
     token,
-    tokenValidityLoading,
+    tokenValidityLoading: !user?.publicMetadata.googleDriveAccessToken
+      ? false
+      : tokenValidityLoading,
     isAlreadyAuthenticated,
     canAccessGdrive: planCapabilities.gdrive,
   };
