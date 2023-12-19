@@ -76,7 +76,13 @@ export const refreshDriveToken = async (
 ): Promise<[string, string] | null> =>
   (
     await api
-      .post<[string, string]>(`/gdrive/refresh`, { refreshToken })
+      .post<[string, string]>(
+        `/gdrive/refresh`,
+        { refreshToken },
+        {
+          timeout: 5000,
+        }
+      )
       .catch((reason) => {
         log.error(
           `Failed to refresh drive token:`,
