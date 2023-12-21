@@ -6,9 +6,6 @@ import { chainMiddlewares } from "./lib/chainMiddleware";
 const I18nMiddleware = createI18nMiddleware({
   locales: [`en`, `pt`],
   defaultLocale: `pt`,
-  resolveLocaleFromRequest(request) {
-    return request.nextUrl.pathname.startsWith(`/pt`) ? `pt` : `en`;
-  },
   urlMappingStrategy: `redirect`,
 });
 
