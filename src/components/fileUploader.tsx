@@ -11,6 +11,7 @@ import Link from "next/link";
 import { GradientBtn } from "./GradientBtn";
 import { whatsappLink } from "../app/links";
 import { useI18n } from "../locales/client";
+import useUploadNotifications from "@/hooks/useUploadNotifications";
 
 export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
   const [files, setFiles] = useState<Array<File> | undefined>();
@@ -21,10 +22,11 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFiles((otherFiles) => [...acceptedFiles, ...(otherFiles || [])]);
   }, []);
+  const { status } = useUploadNotifications();
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    maxSize: 30e6, // 1 MB = 1e6 bytes
+    maxSize: 60e6, // 1 MB = 1e6 bytes
     accept: {
       "text/plain": [`.txt`, `.md`],
       "application/pdf": [`.pdf`],
@@ -55,7 +57,7 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
     asyncMap(files, (file) =>
       uploadFiles([file])
         .then(() => {
-          toast({ title: `${t(`upload.success`)}: ${file.name}` });
+          toast({ title: `${t(`upload.started`)}: ${file.name}` });
           setFiles((oldFiles) => oldFiles?.filter((f) => f.name !== file.name));
         })
         .catch((err) => {
@@ -112,6 +114,7 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
           <p className="text-foreground text-center">{t(`upload.dragNDrop`)}</p>
         )}
       </div>
+
       {loadingFile ? (
         <Spinner className="animate-spin text-foreground" size={28} />
       ) : (

@@ -104,9 +104,10 @@ export default {
   upload: {
     dragNDrop: `Drag 'n' drop some files here, or click to select files`,
     sizeLimit: `{maxSize}MB Max`,
-    error: `There was an error uploading the file`,
-    success: `File uploaded successfully`,
+    error: `There was an error uploading the files`,
+    success: `Files uploaded successfully`,
     justDrop: `Drop the files here... `,
+    started: `Upload in progress, please wait`,
   },
   tryLater: `Please try again later`,
   upgradeNow: `Upgrade now`,
