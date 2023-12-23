@@ -107,7 +107,7 @@ export default {
     error: `There was an error uploading the files`,
     success: `Files uploaded successfully`,
     justDrop: `Drop the files here... `,
-    started: `Upload in progress, please wait`,
+    started: `Upload started, you will be notified when it's done`,
   },
   tryLater: `Please try again later`,
   upgradeNow: `Upgrade now`,
