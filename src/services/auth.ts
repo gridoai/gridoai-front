@@ -61,11 +61,12 @@ export function parseJwt<T>(token: string): T {
 }
 export type Plan = `free` | `starter` | `pro` | `enterprise` | `individual`;
 
-type SessionTokenData = {
+export type SessionTokenData = {
   orgPlan?: Plan;
   userPlan?: Plan;
   orgCustomerId?: string;
   orgId?: string;
+  sub: string;
 };
 
 export const getPublicData = async () => {

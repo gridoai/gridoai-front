@@ -4,7 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "../../styles/globals.css";
 import RefineProvider from "../refine-provider";
-import { ClientProviders } from "../client-providers";
+
 import { ThemeProvider } from "@/providers/theme";
 import { ptBR } from "@clerk/localizations";
 import SubLayout from "./client/layout";
@@ -13,7 +13,10 @@ import { getI18n, getScopedI18n, getStaticParams } from "../../locales/server";
 import Script from "next/script";
 import { setStaticParamsLocale } from "next-international/server";
 import { Metadata } from "next";
-
+import dynamic from "next/dynamic";
+const ClientProviders = dynamic(() => import(`../client-providers`), {
+  ssr: false,
+});
 // eslint-disable-next-line quotes
 const inter = Inter({ subsets: ["latin"] });
 
