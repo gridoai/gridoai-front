@@ -106,7 +106,7 @@ export default {
     error: `Houve um erro ao carregar o arquivo`,
     success: `Arquivo carregado com sucesso`,
     justDrop: `Solte os arquivos aqui... `,
-    started: `Upload em andamento, aguarde`,
+    started: `Upload em andamento, você será notificado quando terminar`,
   },
   tryLater: `Por favor, tente novamente mais tarde`,
   upgradeNow: `Faça upgrade agora`,
