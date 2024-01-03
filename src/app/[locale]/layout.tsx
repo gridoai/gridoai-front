@@ -14,9 +14,12 @@ import Script from "next/script";
 import { setStaticParamsLocale } from "next-international/server";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
-const ClientProviders = dynamic(() => import(`../client-providers`), {
-  ssr: false,
-});
+import ClientProviders from "../client-providers";
+
+const NotificationsProvider = dynamic(
+  () => import(`@/providers/notifications`),
+  { ssr: false }
+);
 // eslint-disable-next-line quotes
 const inter = Inter({ subsets: ["latin"] });
 
@@ -90,6 +93,7 @@ export default function RootLayout({
         <head>
           <Script
             async
+            strategy="lazyOnload"
             id="stripe-js"
             src="https://js.stripe.com/v3/pricing-table.js"
           />
@@ -117,7 +121,9 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <ClientProviders>
               <SubLayout params={params}>
-                <RefineProvider>{children}</RefineProvider>
+                <RefineProvider>
+                  <NotificationsProvider>{children}</NotificationsProvider>
+                </RefineProvider>
               </SubLayout>
               <Toaster />
             </ClientProviders>
