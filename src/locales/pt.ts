@@ -98,6 +98,7 @@ export default {
     errorDeleting: `Houve um erro ao excluir o documento`,
     manualCreation: `Criação manual`,
     googleDrive: `Google Drive`,
+    whatsApp: `WhatsApp`,
     upload: `Upload`,
   },
   upload: {
