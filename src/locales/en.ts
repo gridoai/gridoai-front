@@ -99,6 +99,7 @@ export default {
     errorDeleting: `There was an error deleting the document`,
     manualCreation: `Manual creation`,
     googleDrive: `Google Drive`,
+    whatsApp: `WhatsApp`,
     upload: `Upload`,
   },
   upload: {
