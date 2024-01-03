@@ -42,6 +42,10 @@ export const importGoogleDrive = async (fileIds: string[]) => {
   const { data } = await api.post<string[]>(`/gdrive/import`, fileIds);
   return data;
 };
+export const currentEndpoint = () =>
+  localStorage.getItem(`baseURL`) ||
+  window.baseURL ||
+  process.env.NEXT_PUBLIC_API_URL;
 
 const endpointInterceptor = async <T>(
   config: InternalAxiosRequestConfig<T>
@@ -50,10 +54,7 @@ const endpointInterceptor = async <T>(
     return config;
   }
 
-  config.baseURL =
-    localStorage.getItem(`baseURL`) ||
-    window.baseURL ||
-    process.env.NEXT_PUBLIC_API_URL;
+  config.baseURL = currentEndpoint();
   return config;
 };
 
@@ -227,7 +228,6 @@ export const searchDocs = async (query: string) =>
       })
       .then((res) => {
         try {
-          // logger.info("Got docs: ", { docs: res.data, query });
         } catch (e) {
           console.log(e);
         }
