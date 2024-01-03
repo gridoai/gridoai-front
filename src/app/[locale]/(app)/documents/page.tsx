@@ -32,6 +32,7 @@ const renderDocumentSrc = (src: DocumentSrc) =>
     .with({ Upload: P._ }, () => `upload` as const)
     .with({ CreateButton: P._ }, () => `manualCreation` as const)
     .with({ GDrive: P._ }, () => `googleDrive` as const)
+    .with({ WhatsApp: P._ }, () => `whatsApp` as const)
     .exhaustive();
 
 const RenderActions = (props: CellContext<Document, unknown>) => {

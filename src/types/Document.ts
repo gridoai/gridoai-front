@@ -8,4 +8,5 @@ export interface Document {
 export type DocumentSrc =
   | { Upload: undefined }
   | { CreateButton: undefined }
-  | { GDrive: { fileId: string } };
+  | { GDrive: { fileId: string } }
+  | { WhatsApp: { mediaId: string } };
