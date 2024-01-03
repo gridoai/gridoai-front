@@ -9,7 +9,7 @@ import {
 import { useChannel } from "ably/react";
 import { useCallback, useEffect, useState } from "react";
 
-const useUploadNotifications = () => {
+const useUploadNotifications = ({ onSuccess }: { onSuccess: () => void }) => {
   const { toast } = useToast();
   const userId = parseJwt<SessionTokenData>(getTokenFromCookie()!)?.sub;
   const t = useScopedI18n(`upload`);
@@ -23,6 +23,7 @@ const useUploadNotifications = () => {
         toast({
           title: t(`success`),
         });
+        onSuccess();
         break;
       case `Failure`:
         toast({
