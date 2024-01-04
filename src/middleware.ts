@@ -10,7 +10,7 @@ const I18nMiddleware = createI18nMiddleware({
 });
 
 const i18nMiddleware = (req: NextRequest) =>
-  req.url.match(/\/remote\/|_axiom|_next|monitoring|favicon.ico/)
+  req.url.match(/\/remote\/|_axiom|_next|monitoring|favicon/)
     ? null
     : I18nMiddleware(req);
 
@@ -23,7 +23,5 @@ const auth = authMiddleware({
 export default chainMiddlewares([[i18nMiddleware], [auth]]);
 
 export const config = {
-  matcher: [
-    `/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt|monitoring).*)`,
-  ],
+  matcher: [`/((?!api|static|.*\\..*|_next|favicon|robots.txt|monitoring).*)`],
 };
