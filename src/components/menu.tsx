@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
-import { List } from "@phosphor-icons/react";
+import { List } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 

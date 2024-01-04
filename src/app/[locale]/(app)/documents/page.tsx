@@ -8,7 +8,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { ArrowClockwise, Spinner } from "@phosphor-icons/react";
+import { ArrowClockwise, Spinner } from "@phosphor-icons/react/dist/ssr";
 import { CreateButton, DeleteButton, List } from "@refinedev/chakra-ui";
 import { useTable } from "@refinedev/react-table";
 import { CellContext, ColumnDef, flexRender } from "@tanstack/react-table";

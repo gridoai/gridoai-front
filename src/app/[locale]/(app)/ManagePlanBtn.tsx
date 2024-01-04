@@ -11,7 +11,7 @@ import { useI18n } from "../../../locales/client";
 import { useCurrentPlan } from "../../../hooks/useCurrentPlan";
 import { usePlanUsage } from "../../../hooks/usePlanUsage";
 import { plans } from "../../../services/rateLimit";
-import { CrownSimple } from "@phosphor-icons/react";
+import { CrownSimple } from "@phosphor-icons/react/dist/ssr";
 import { GradientText } from "../../../components/GradientBtn";
 import {
   Dialog,

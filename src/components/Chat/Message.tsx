@@ -1,6 +1,6 @@
 "use client";
 import rehypeRaw from "rehype-raw";
-import { FileText, Polygon, User } from "@phosphor-icons/react";
+import { FileText, Polygon, User } from "@phosphor-icons/react/dist/ssr";
 import ReactMarkdown from "react-markdown";
 import styles from "./index.module.css";
 

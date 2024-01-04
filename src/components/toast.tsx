@@ -1,6 +1,6 @@
 import * as ToastPrimitives from "@radix-ui/react-toast";
 import { cva, type VariantProps } from "class-variance-authority";
-import { X } from "@phosphor-icons/react"
+import { X } from "@phosphor-icons/react/dist/ssr";
 import * as React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -27,10 +27,8 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          `bg-background rounded-lg border border-neutral-800 transition-all`,
-        destructive:
-          `group destructive border-destructive bg-destructive text-destructive-foreground`,
+        default: `bg-background rounded-lg border border-neutral-800 transition-all`,
+        destructive: `group destructive border-destructive bg-destructive text-destructive-foreground`,
       },
     },
     defaultVariants: {
@@ -42,7 +40,7 @@ const toastVariants = cva(
 const Toast = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> &
-  VariantProps<typeof toastVariants>
+    VariantProps<typeof toastVariants>
 >(({ className, variant, ...props }, ref) => {
   return (
     <ToastPrimitives.Root

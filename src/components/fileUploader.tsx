@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { uploadFiles } from "@/services/api";
 import { useLogger } from "@/services/logger";
-import { Spinner, X } from "@phosphor-icons/react";
+import { Spinner, X } from "@phosphor-icons/react/dist/ssr";
 import { useToast } from "./use-toast";
 import { Button } from "./ui/button";
 import { asyncMap } from "../lib/utils";

@@ -15,7 +15,7 @@ import {
   CaretDoubleRight,
   CaretLeft,
   CaretRight,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 import { useI18n } from "../locales/client";
 
 export function Pagination({
