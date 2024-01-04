@@ -5,6 +5,8 @@ import { useClerk } from "@clerk/nextjs";
 import * as Ably from "ably";
 import { AblyProvider } from "ably/react";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import React from "react";
+import { useEffectOnce } from "usehooks-ts";
 
 const authUrl =
   typeof window !== `undefined`
@@ -17,30 +19,20 @@ const client = new Ably.Realtime.Promise({
     Authorization: `Bearer ${getTokenFromCookie()}`,
   },
 });
-const NotificationsProviderBase = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const clerk = useClerk();
 
-  const originalReqToken = client.auth.requestToken.bind(client.auth);
-  client.auth.requestToken = async (params, authOptions) => {
-    return originalReqToken(params, {
-      ...authOptions,
-      authHeaders: {
-        Authorization: `Bearer ${await clerk.session?.getToken()}`,
-      },
-    });
-  };
-
+const NotificationsProvider = ({ children }: { children: React.ReactNode }) => {
+  useEffectOnce(() => {
+    const originalReqToken = client.auth.requestToken.bind(client.auth);
+    client.auth.requestToken = async (params, authOptions) => {
+      return originalReqToken(params, {
+        ...authOptions,
+        authHeaders: {
+          Authorization: `Bearer ${await window.Clerk?.session?.getToken()}`,
+        },
+      });
+    };
+  });
   return <AblyProvider client={client}>{children}</AblyProvider>;
 };
-const NotificationsProvider = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <ErrorBoundary errorComponent={() => children}>
-      <NotificationsProviderBase>{children}</NotificationsProviderBase>
-    </ErrorBoundary>
-  );
-};
-export default NotificationsProvider;
+
+export default React.memo(NotificationsProvider);
