@@ -75,7 +75,6 @@ export const useGdrivePicker = () => {
           const ids = data.docs?.map((doc) => doc.id);
           toast({ title: t(`importingFiles`) });
           await importGoogleDrive(ids);
-          toast({ title: t(`successfullyImported`) });
         } catch (e) {
           console.error(`Failed to import from Google Drive`, e);
           toast({ title: t(`failedToImport`) });
