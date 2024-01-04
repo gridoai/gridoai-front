@@ -35,4 +35,4 @@ const NotificationsProvider = ({ children }: { children: React.ReactNode }) => {
   return <AblyProvider client={client}>{children}</AblyProvider>;
 };
 
-export default React.memo(NotificationsProvider);
+export default NotificationsProvider;
