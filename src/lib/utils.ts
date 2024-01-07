@@ -17,3 +17,5 @@ export async function asyncMap<T, U>(
 
   return results;
 }
+export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
