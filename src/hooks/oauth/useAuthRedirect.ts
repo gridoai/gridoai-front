@@ -1,8 +1,8 @@
 import { useToast } from "@/components/use-toast";
 import { useScopedI18n } from "@/locales/client";
 import { useUser } from "@clerk/nextjs";
-import { useSearchParams } from "next/navigation";
-import router from "next/router";
+import { RedirectType, useSearchParams } from "next/navigation";
+import router from "next/navigation";
 import { useEffect, useRef } from "react";
 
 export const useOAuthRedirect = ({
@@ -34,7 +34,7 @@ export const useOAuthRedirect = ({
         try {
           await handleCode(codeParam);
           toast({ title: successfullyAuthenticatedMsg });
-          router.replace(`/documents`);
+          router.redirect(`/documents`, RedirectType.replace);
         } catch (e) {
           console.error(`Failed to authenticate with Google Drive`, e);
           toast({ title: failedToAuthMsg });

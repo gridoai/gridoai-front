@@ -1,7 +1,7 @@
 "use client";
 
 import { plans } from "../services/rateLimit";
-import { Info } from "./icon";
+import { Info } from "@phosphor-icons/react/dist/ssr";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { usePlanUsage } from "../hooks/usePlanUsage";
 import { useI18n } from "../locales/client";

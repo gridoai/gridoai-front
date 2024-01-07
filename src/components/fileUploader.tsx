@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { uploadFiles } from "@/services/api";
 import { useLogger } from "@/services/logger";
-import { Spinner, X } from "@phosphor-icons/react";
+import { Spinner, X } from "@phosphor-icons/react/dist/ssr";
 import { useToast } from "./use-toast";
 import { Button } from "./ui/button";
 import { asyncMap } from "../lib/utils";
@@ -22,7 +22,9 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFiles((otherFiles) => [...acceptedFiles, ...(otherFiles || [])]);
   }, []);
-  const { status } = useUploadNotifications();
+  const { status } = useUploadNotifications({
+    onSuccess,
+  });
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -67,14 +69,9 @@ export const FileUploader = ({ onSuccess }: { onSuccess: () => void }) => {
             description: t(`tryLater`),
           });
         })
-    )
-      .then((data) => {
-        logger.info(`files uploaded: `, files);
-        onSuccess();
-      })
-      .finally(() => {
-        setLoadingFile(false);
-      });
+    ).finally(() => {
+      setLoadingFile(false);
+    });
   };
 
   return (

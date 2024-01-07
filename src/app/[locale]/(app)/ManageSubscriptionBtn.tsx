@@ -1,5 +1,5 @@
 "use client";
-import { ArrowSquareOut, Spinner } from "../../../components/icon";
+import { ArrowSquareOut, Spinner } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { getI18n } from "../../../locales/server";
 import { useI18n } from "../../../locales/client";

@@ -7,7 +7,7 @@ import {
   Funnel,
   User,
   WhatsappLogo,
-} from "../../components/icon";
+} from "@phosphor-icons/react/dist/ssr";
 import { Navbar } from "../Navbar";
 import AnimatedComponent from "../../components/animatedWrapper";
 import workspacesEn from "../../../public/workspaces.png";

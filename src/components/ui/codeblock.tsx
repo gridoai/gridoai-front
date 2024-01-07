@@ -8,7 +8,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import * as themes from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 import { Button } from "@/components/ui/button";
-import { Check, Copy, Download } from "../icon";
+import { Check, Copy, Download } from "@phosphor-icons/react/dist/ssr";
 import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 
 interface Props {

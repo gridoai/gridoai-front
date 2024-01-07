@@ -10,7 +10,7 @@ import {
   Polygon,
   Spinner,
   User,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 import { ChangeEventHandler, useEffect, useRef, useState } from "react";
 import styles from "./index.module.css";
 import {

@@ -1,6 +1,6 @@
 import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
 import { SideMenu } from "../../../components/menu";
-import { Chat, Upload } from "../../../components/icon";
+import { Chat, Upload } from "@phosphor-icons/react/dist/ssr";
 import { NavbarLink } from "./chat/NavbarLink";
 import { getI18n } from "../../../locales/server";
 import { ManageSubscriptionBtn } from "./ManageSubscriptionBtn";

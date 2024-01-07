@@ -9,19 +9,14 @@ const I18nMiddleware = createI18nMiddleware({
   urlMappingStrategy: `redirect`,
 });
 
-const i18nMiddleware = (req: NextRequest) =>
-  req.url.match(/\/remote\/|_axiom|_next|monitoring|favicon.ico/)
-    ? null
-    : I18nMiddleware(req);
-
 const auth = authMiddleware({
   signInUrl: `/(..)/sign-in`,
   publicRoutes: [`/(..)/sign-in`, `/(..)/sign-up`, `/(..)`],
-  ignoredRoutes: [`/(..)/privacy`, `/(..)`, `/(..)/monitoring`],
+  ignoredRoutes: [`/(..)/privacy`, `/(..)`, `/(..)/monitoring`, `/monitoring`],
 });
 
-export default chainMiddlewares([[i18nMiddleware], [auth]]);
+export default chainMiddlewares([[I18nMiddleware], [auth]]);
 
 export const config = {
-  matcher: [`/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt).*)`],
+  matcher: [`/((?!api|static|.*\\..*|_next|robots.txt|monitoring).*)`],
 };

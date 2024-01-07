@@ -1,18 +1,20 @@
 const { withAxiom } = require(`next-axiom`);
+const { withSentryConfig } = require(`@sentry/nextjs`);
+const withBundleAnalyzer = require(`@next/bundle-analyzer`)({
+  enabled: process.env.ANALYZE === `true`,
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: { ignoreBuildErrors: true },
 };
 
-module.exports = withAxiom(nextConfig);
+const config = withBundleAnalyzer(withAxiom(nextConfig));
 
 // Injected content via Sentry wizard below
 
-const { withSentryConfig } = require(`@sentry/nextjs`);
-
 module.exports = withSentryConfig(
-  module.exports,
+  config,
   {
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options
