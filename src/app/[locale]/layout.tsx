@@ -15,6 +15,7 @@ import { setStaticParamsLocale } from "next-international/server";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import ClientProviders from "../client-providers";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const NotificationsProvider = dynamic(
   () => import(`@/providers/notifications`),
@@ -118,6 +119,7 @@ export default function RootLayout({
 
         <body className={`${inter.className} flex`}>
           <AxiomWebVitals />
+          <SpeedInsights />
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <ClientProviders>
               <SubLayout params={params}>
