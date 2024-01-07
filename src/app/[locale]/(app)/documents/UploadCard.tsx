@@ -11,7 +11,7 @@ export function UploadCard({ onSuccess }: { onSuccess?: () => void }) {
         Upload{` `}
         <div className="text-sm font-medium">
           {t(`upload.sizeLimit`, {
-            maxSize: 30,
+            maxSize: 60,
           })}
         </div>
       </div>
