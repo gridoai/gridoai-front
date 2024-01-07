@@ -176,3 +176,13 @@ thead > tr {
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+.cl-userButtonPopoverCard,
+.cl-modalContent,
+.cl-organizationSwitcherPopoverCard {
+  @apply backdrop-blur-lg bg-opacity-20;
+}
+
+.cl-userButtonPopoverActionButtonIcon,
+.cl-userButtonPopoverActionButtonText {
+  color: var(--muted-foreground) !important;
+}

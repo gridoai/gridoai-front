@@ -1,9 +1,3 @@
-import { SpeedInsights } from "@vercel/speed-insights/next";
+const Root = ({ children }: { children: React.ReactNode }) => children;
 
-const Root = async ({ children }: { children: React.ReactNode }) => (
-  <>
-    <SpeedInsights />
-    {children}
-  </>
-);
 export default Root;
