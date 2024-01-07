@@ -1,4 +1,5 @@
 /* eslint-disable quotes */
+import { sleep } from "@/lib/utils";
 import { auth } from "@clerk/nextjs";
 
 declare global {
@@ -13,23 +14,21 @@ export const getTokenFromCookie = (): string | null =>
     document.cookie.split(`;`).map((x) => x.split(`=`)?.map((x) => x.trim()))
   )?.__session;
 
-export const getToken = async () => {
+export const getToken = async (): Promise<string | null> => {
   console.log(typeof window, "TYPEOF WINDOW");
   try {
     if (typeof window === "undefined") {
       console.log(`no window`);
       return auth().getToken();
     }
-
-    const fromCookie = getTokenFromCookie();
-
-    console.log(parseJwt(fromCookie || ``));
-    if (fromCookie) {
-      return fromCookie;
+    if (!window.Clerk) {
+      await sleep(100);
+      return await getToken();
     }
     if (!window.Clerk.session) {
       await window.Clerk.load();
     }
+
     return await window.Clerk.session.getToken();
   } catch {
     if (!window.Clerk?.session) {
