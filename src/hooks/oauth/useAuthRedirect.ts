@@ -1,8 +1,8 @@
 import { useToast } from "@/components/use-toast";
 import { useScopedI18n } from "@/locales/client";
 import { useUser } from "@clerk/nextjs";
-import { RedirectType, useSearchParams } from "next/navigation";
-import router from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+
 import { useEffect, useRef } from "react";
 
 export const useOAuthRedirect = ({
@@ -11,6 +11,7 @@ export const useOAuthRedirect = ({
   handleCode: (code: string) => Promise<[string, string]>;
 }) => {
   const t = useScopedI18n(`gdrive`);
+  const router = useRouter();
   const { toast } = useToast();
 
   const params = useSearchParams();
@@ -34,7 +35,7 @@ export const useOAuthRedirect = ({
         try {
           await handleCode(codeParam);
           toast({ title: successfullyAuthenticatedMsg });
-          router.redirect(`/documents`, RedirectType.replace);
+          router.push(`/documents`);
         } catch (e) {
           console.error(`Failed to authenticate with Google Drive`, e);
           toast({ title: failedToAuthMsg });
@@ -46,6 +47,7 @@ export const useOAuthRedirect = ({
     failedToAuthMsg,
     handleCode,
     isInAuthFlow,
+    router,
     successfullyAuthenticatedMsg,
     toast,
   ]);

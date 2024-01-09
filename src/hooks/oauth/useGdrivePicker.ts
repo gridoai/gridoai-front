@@ -7,23 +7,33 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/use-toast";
 import { useScopedI18n } from "@/locales/client";
 import { importGoogleDrive } from "@/services/api";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useCurrentPlanCapabilities } from "../useCurrentPlan";
 
 export const useGdrivePicker = () => {
-  const { fetchTokensByCode, tokenApiResponse } = useFetchTokens();
-  useOAuthRedirect({ handleCode: fetchTokensByCode });
-  const { token: refreshedToken, tokenValidityLoading } =
-    useRefreshGdriveTokens();
+  const { user } = useUser();
   const [openPicker] = useDrivePicker();
   const t = useScopedI18n(`gdrive`);
   const { toast } = useToast();
-  const { user } = useUser();
   const router = useRouter();
-
+  const { fetchTokensByCode, tokenApiResponse } = useFetchTokens();
+  const { token: refreshedToken, tokenValidityLoading } =
+    useRefreshGdriveTokens();
   const token = tokenApiResponse?.[0] || refreshedToken;
-  const isAlreadyAuthenticated =
-    typeof user?.publicMetadata.googleDriveAccessToken === `string` && token;
+
+  const [isAlreadyAuthenticated, setIsAlreadyAuthenticated] = useState(
+    !!(typeof user?.publicMetadata.googleDriveAccessToken === `string` && token)
+  );
+
+  const handleUrlToken = async (code: string) => {
+    const tokens = await fetchTokensByCode(code);
+    setIsAlreadyAuthenticated(true);
+    return tokens;
+  };
+
+  useOAuthRedirect({
+    handleCode: handleUrlToken,
+  });
 
   const handleOpenPicker = useCallback(() => {
     if (
