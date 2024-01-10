@@ -29,12 +29,12 @@ export const getToken = async (): Promise<string | null> => {
       await window.Clerk.load();
     }
 
-    return await window.Clerk.session.getToken();
+    return await window.Clerk?.session?.getToken();
   } catch {
     if (!window.Clerk?.session) {
       await window.Clerk?.load();
     }
-    return await window.Clerk.session.getToken();
+    return await window.Clerk?.session?.getToken();
   }
 };
 export function parseJwt<T>(token: string): T {
