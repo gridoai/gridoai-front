@@ -61,7 +61,7 @@ const DocumentsList = ({ load = true }: { load?: boolean }) => {
         header: t(`name`),
         accessorKey: `name`,
         cell: function render({ getValue }) {
-          return <div className="xl:max-w-[300px]">{getValue() as string}</div>;
+          return <div className="max-w-[300px]">{getValue() as string}</div>;
         },
       },
       {
