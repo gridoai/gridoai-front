@@ -268,3 +268,6 @@ thead > tr {
 .cl-rootBox {
   @layer items-center flex;
 }
+.cl-* {
+  @layer text-foreground;
+}
