@@ -1,0 +1,100 @@
+:root {
+  --colorText: #fafafa;
+  --colorBackground: #141619;
+  --colorPrimary: #4299e8;
+  --colorInputText: #fafafa;
+}
+
+[class^="cl-"] {
+  @apply text-foreground;
+}
+
+.cl-tabButton {
+  @layer text-foreground;
+}
+
+.cl-tabPanel {
+  @layer text-foreground;
+}
+
+.cl-tabListContainer {
+  @layer text-foreground;
+}
+
+.cl-tagInputContainer {
+  @layer bg-transparent;
+  @layer border-border;
+  @layer text-foreground;
+}
+
+.cl-formFieldInput {
+  @layer text-foreground;
+  @layer bg-transparent;
+  @layer border-border;
+}
+
+.cl-selectButton {
+  @layer bg-transparent;
+  @layer border-border;
+  @layer text-foreground;
+}
+
+.cl-tagPillContainer {
+  @layer bg-input;
+}
+
+.cl-socialButtonsIconButton {
+  border-color: #30373d;
+  background-color: #141619;
+  border-radius: 0.5rem;
+  color: white;
+}
+
+.cl-userButtonPopoverCard {
+  @layer backdrop-blur-lg;
+  @layer bg-opacity-20;
+  @layer drop-shadow-lg;
+}
+
+.cl-userButtonPopoverActionButtonIcon {
+  @layer text-neutral-200;
+}
+
+.cl-userButtonPopoverActionButton {
+  @layer hover:bg-neutral-700;
+  @layer bg-opacity-0;
+}
+
+.cl-card {
+  background-color: rgba(100, 100, 100, 0.1) !important;
+}
+
+.cl-userButtonPopoverFooter {
+  @layer hidden;
+}
+
+.cl-modalContent {
+  @layer backdrop-blur-lg;
+  @layer bg-opacity-20;
+  @layer drop-shadow-lg;
+}
+
+.cl-organizationSwitcherPopoverCard {
+  @layer backdrop-blur-lg;
+  @layer bg-opacity-20;
+  /* @layer > *:text-foreground; */
+  @layer z-100;
+}
+
+.cl-organizationSwitcherPopoverActionButtonIcon {
+  @layer text-neutral-200;
+}
+
+.cl-organizationSwitcherPopoverFooter {
+  @layer hidden;
+}
+
+.cl-rootBox {
+  @layer items-center;
+  @layer flex;
+}

@@ -16,7 +16,7 @@ import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import ClientProviders from "../client-providers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-
+import "@/styles/clerk.css";
 const NotificationsProvider = dynamic(
   () => import(`@/providers/notifications`),
   { ssr: false }
