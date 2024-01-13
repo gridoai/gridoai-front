@@ -4,7 +4,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 span[data-localization-key="paginationRowText__displaying"] {
-  @apply text-foreground;
+  @layer text-foreground;
 }
 
 * {
@@ -172,17 +172,99 @@ thead > tr {
 
 @layer base {
   body {
-    @apply text-foreground;
+    @layer text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 .cl-userButtonPopoverCard,
 .cl-modalContent,
 .cl-organizationSwitcherPopoverCard {
-  @apply backdrop-blur-lg bg-opacity-20;
+  @layer backdrop-blur-lg bg-opacity-20;
 }
 
 .cl-userButtonPopoverActionButtonIcon,
 .cl-userButtonPopoverActionButtonText {
   color: var(--muted-foreground) !important;
+}
+
+:root {
+  --colorText: #fafafa;
+  --colorBackground: #141619;
+  --colorPrimary: #4299e8;
+  --colorInputText: #fafafa;
+}
+
+.cl-tabButton {
+  @layer text-foreground;
+}
+
+.cl-tabPanel {
+  @layer text-foreground, [& *]:text-foreground;
+}
+
+.cl-tabListContainer {
+  @layer text-foreground;
+}
+
+.cl-tagInputContainer {
+  @layer [&>input]:text-foreground [&>input]:bg-transparent bg-transparent border-border text-foreground;
+}
+
+.cl-formFieldInput {
+  @layer text-foreground bg-transparent border-border;
+}
+
+.cl-selectButton {
+  @layer bg-transparent border-border text-foreground;
+}
+
+.cl-tagPillContainer {
+  @layer bg-input;
+}
+
+.cl-socialButtonsIconButton {
+  border-color: #30373d;
+  background-color: #141619;
+  border-radius: 0.5rem;
+  color: white;
+}
+
+.cl-userButtonPopoverCard {
+  @layer backdrop-blur-lg bg-opacity-20 drop-shadow-lg;
+}
+
+.cl-userButtonPopoverActionButtonIcon {
+  @layer text-neutral-200;
+}
+
+.cl-userButtonPopoverActionButton {
+  @layer hover:bg-neutral-700 bg-opacity-0;
+}
+
+.cl-card {
+  background-color: rgba(100, 100, 100, 0.1) !important;
+}
+
+.cl-userButtonPopoverFooter {
+  @layer hidden;
+}
+
+.cl-modalContent {
+  @layer backdrop-blur-lg bg-opacity-20 drop-shadow-lg;
+}
+
+.cl-organizationSwitcherPopoverCard {
+  @layer backdrop-blur-lg bg-opacity-20 [&>*]:text-foreground z-100;
+}
+
+.cl-organizationSwitcherPopoverActionButtonIcon {
+  @layer text-neutral-200;
+}
+
+.cl-organizationSwitcherPopoverFooter {
+  @layer hidden;
+}
+
+.cl-rootBox {
+  @layer items-center flex;
 }
