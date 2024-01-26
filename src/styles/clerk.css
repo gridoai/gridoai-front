@@ -8,6 +8,9 @@
 [class^="cl-"] {
   @apply text-foreground;
 }
+.cl-formFieldInput {
+  background-color: var(--surface-1);
+}
 
 .cl-tabButton {
   @layer text-foreground;
