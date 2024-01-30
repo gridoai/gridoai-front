@@ -4,9 +4,9 @@ export default {
     hero: {
       title: `Gaia: Your AI Virtual Assistant on WhatsApp`,
       description: `Discover Gaia, a unique blend of personal assistant and virtual friend on WhatsApp. Engage in intelligent conversations, manage your life, and explore innovative solutions with just a message.`,
-      downloadButton: `Add to WhatsApp`,
-      githubRepoButton: `Learn More`,
-      imageAlt: `Gaia, the AI Assistant`,
+      callToAction: `Add to WhatsApp`,
+      secondaryCallToAction: `Learn More`,
+      demoImgAlt: `Gaia, the AI Assistant`,
     },
     features: {
       sectionTitle: `Explore Gaia's Capabilities`,
