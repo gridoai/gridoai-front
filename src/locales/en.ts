@@ -37,7 +37,7 @@ export default {
     cta: {
       title: `Enhance Your Daily Life with Gaia`,
       description: `Experience the convenience of a virtual friend and personal assistant in one. Add Gaia to your WhatsApp today.`,
-      buttonText: `Start with Gaia`,
+      buttonText: `Talk with Gaia`,
     },
     layout: {
       seoTitle: `Gaia - AI Virtual Assistant for WhatsApp`,
