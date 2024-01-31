@@ -1,5 +1,51 @@
 // locales/en.ts
 export default {
+  gaiaLandingPage: {
+    hero: {
+      title: `Gaia: Your AI Virtual Assistant on WhatsApp`,
+      description: `Discover Gaia, a unique blend of personal assistant and virtual friend on WhatsApp. Engage in intelligent conversations, manage your life, and explore innovative solutions with just a message.`,
+      callToAction: `Add to WhatsApp`,
+      secondaryCallToAction: `Learn More`,
+      demoImgAlt: `Gaia, the AI Assistant`,
+    },
+    features: {
+      sectionTitle: `Explore Gaia's Capabilities`,
+      sectionDescription: `Gaia, powered by GPT-3.5, offers a range of features to simplify and enrich your daily life through WhatsApp.`,
+      featureList: [
+        {
+          title: `Intelligent and Dynamic Conversations`,
+          description: `Engage with Gaia in natural, human-like conversations on a wide array of topics for both practical assistance and meaningful interaction.`,
+        },
+        {
+          title: `Multimedia Analysis`,
+          description: `Send audios and photos to Gaia for transcription, image descriptions, and insightful content analysis.`,
+        },
+        {
+          title: `Group Presence`,
+          description: `Integrate Gaia into your WhatsApp groups for active participation in discussions, games, and social activities.`,
+        },
+        {
+          title: `Advanced Content Analysis`,
+          description: `Forward documents, emails, or voice messages to Gaia for concise summaries, sentiment analysis, and suggested responses.`,
+        },
+        {
+          title: `Complementary Web Platform`,
+          description: `Access Gaia on a user-friendly web platform for enhanced management of your conversations and documents.`,
+        },
+      ],
+    },
+    cta: {
+      title: `Enhance Your Daily Life with Gaia`,
+      description: `Experience the convenience of a virtual friend and personal assistant in one. Add Gaia to your WhatsApp today.`,
+      buttonText: `Talk with Gaia`,
+    },
+    layout: {
+      seoTitle: `Gaia - AI Virtual Assistant for WhatsApp`,
+      seoDescription: `Gaia combines the functionality of a personal assistant with the companionship of a virtual friend, all accessible via WhatsApp.`,
+      footerText: `Connect with Gaia - Your AI Companion`,
+      navbarText: `Gaia on WhatsApp`,
+    },
+  },
   preview: {
     title: `Grido AI | AI Chatbot trained on your documents`,
     description: `GridoAI is a powerful chatbot that uses your data to provide precise and contextually relevant answers`,
