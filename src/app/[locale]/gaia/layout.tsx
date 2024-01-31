@@ -1,3 +1,6 @@
+import { getScopedI18n } from "@/locales/server";
+import { Metadata } from "next";
+
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="bg-white">
@@ -5,4 +8,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     </div>
   );
 };
+export async function generateMetadata(): Promise<Metadata> {
+  // read route params then fetch data
+  const t = await getScopedI18n(`gaiaLandingPage`);
+
+  // return an object
+  return {
+    title: t(`hero.title`),
+    description: t(`hero.description`),
+  };
+}
 export default Layout;
