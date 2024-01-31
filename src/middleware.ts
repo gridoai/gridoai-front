@@ -11,7 +11,7 @@ const I18nMiddleware = createI18nMiddleware({
 
 const auth = authMiddleware({
   signInUrl: `/(..)/sign-in`,
-  publicRoutes: [`/(..)/sign-in`, `/(..)/sign-up`, `/(..)`],
+  publicRoutes: [`/(..)/sign-in`, `/(..)/sign-up`, `/(..)`, `/(..)/gaia`],
   ignoredRoutes: [`/(..)/privacy`, `/(..)`, `/(..)/monitoring`, `/monitoring`],
 });
 
