@@ -18,7 +18,7 @@ export default {
         },
         {
           title: `Análise Multimídia`,
-          description: `Envie áudios e fotos para a Gaia para transcrição, descrições de imagens e análise de conteúdo perspicaz.`,
+          description: `Envie áudios para a Gaia para transcrição, descrições e análise de conteúdo `,
         },
         {
           title: `Presença em Grupo`,
