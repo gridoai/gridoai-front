@@ -18,5 +18,5 @@ const auth = authMiddleware({
 export default chainMiddlewares([[I18nMiddleware], [auth]]);
 
 export const config = {
-  matcher: [`/((?!api|static|.*\\..*|_next|robots.txt|monitoring).*)`],
+  matcher: [`/((?!api|static|.*\..*|_next|robots.txt|monitoring|remote).*)`],
 };
