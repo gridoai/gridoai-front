@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { Button } from "../components/ui/button";
 import { landingPageContent } from "./[locale]/page";
 import { AuthProtectedBtn } from "./AuthProtectedBtn";

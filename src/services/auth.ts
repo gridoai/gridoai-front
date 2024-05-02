@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 import { sleep } from "@/lib/utils";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 declare global {
   interface Window {

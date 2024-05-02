@@ -7,7 +7,7 @@ const NotFound = () => {
   const route = useRouter();
   const path = usePathname();
   useEffect(() => {
-    if (!(path.startsWith(`/en`) || path.startsWith(`/pt`))) {
+    if (!(path?.startsWith(`/en`) || path?.startsWith(`/pt`))) {
       console.log(`redirecting to /en`);
       route.replace(`/en`);
     }
